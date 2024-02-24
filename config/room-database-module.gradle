@@ -1,0 +1,7 @@
+apply plugin: "com.google.devtools.ksp"
+
+dependencies {
+    implementation Room.roomRuntime
+    implementation Room.roomKtx
+    ksp Room.roomCompiler
+}

@@ -1,0 +1,16 @@
+apply from: "$project.rootDir/config/kotlin-base-android-library.gradle"
+apply from: "$project.rootDir/config/productFlavors.gradle"
+
+android {
+    with flavorConfig
+    buildFeatures {
+        buildConfig true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+}

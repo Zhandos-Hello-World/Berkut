@@ -1,0 +1,33 @@
+android {
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Compose.compilerVersion
+    }
+    defaultConfig {
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+
+dependencies {
+    implementation Compose.compiler
+    implementation Compose.foundation
+    implementation Compose.animation
+    implementation Compose.ui
+    implementation Compose.uiToolingPreview
+    debugImplementation Compose.uiTooling
+    implementation Compose.material
+    implementation Compose.runtime
+    implementation Compose.viewModelCompose
+    implementation Compose.activityCompose
+    implementation Coil.coilCompose
+}

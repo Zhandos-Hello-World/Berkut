@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common -->
+    <string name="common_close">Закрыть</string>
+    <string name="repeat">Повторить</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="main">Главная</string>
+    <string name="profile">Профиль</string>
+    <string name="open_settings">В настройки</string>
+
+    <!-- Errors -->
+    <string name="error_unexpected">Разработчики уже исправляют проблему. Пожалуйста, попробуйте позже.</string>
+    <string name="error_no_internet_connection">Отсутствует подключение к интернету или оно нестабильно.</string>
+    <string name="error_invalid_response">Ошибка сервера. Пожалуйста, попробуйте позже.</string>
+    <string name="error_no_server_response">Не удалось подключиться к серверу. Пожалуйста, попробуйте позже.</string>
+    <string name="error_ssl_handshake">Не удалось установить подключение из-за параметров сетевой безопасности. Проверьте дату и время устройства.</string>
+    <string name="error_title">Что-то пошло не так</string>
+    <string name="search">Поиск</string>
+    <string name="russian">Русский</string>
+    <string name="kazakh">Қазақша</string>
+    <string name="language_selection">Выбор языка</string>
+    <string name="job_position">Должность</string>
+    <string name="error_from_developers">Разработчики уже исправляют проблему. Попробуйте позже.</string>
+    <string name="error_from_load">Не удалось загрузить страницу.Попробуйте позже.</string>
+    <string name="error_from_server">Ошибка сервера. Попробуйте позже.</string>
+    <string name="not_access_camera_title">Отсутствует доступ к камере</string>
+    <string name="not_access_camera_description">Перейди в настройки приложения и разреши доступ к камере.</string>
+</resources>

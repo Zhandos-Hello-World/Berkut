@@ -7,4 +7,7 @@ object AndroidX {
 
     private const val documentFileVersion = "1.0.1"
     const val documentFile = "androidx.documentfile:documentfile:$documentFileVersion"
+
+    private const val annotationVersion = "1.7.1"
+    const val annotation = "androidx.annotation:annotation-jvm:$annotationVersion"
 }

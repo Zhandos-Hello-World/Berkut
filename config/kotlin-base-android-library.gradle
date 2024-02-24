@@ -1,0 +1,19 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+
+android {
+    compileSdkVersion ProjectConfig.compileSdk
+
+    defaultConfig {
+        minSdkVersion ProjectConfig.minSdk
+        targetSdkVersion ProjectConfig.targetSdk
+
+        versionCode ProjectConfig.versionCode
+        versionName ProjectConfig.versionName
+    }
+}
+
+dependencies {
+    implementation Util.jodaTime
+}

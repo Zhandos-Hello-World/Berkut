@@ -1,0 +1,33 @@
+ext.flavorConfig = {
+
+    flavorDimensions "default"
+    productFlavors {
+        qa {
+            isDefault true
+            dimension "default"
+            ext.myApplicationIdSuffix = ".qa"
+            versionNameSuffix '-QA'
+            buildConfigField "String", "PINTA_BASE_URL", '"https://pinta.13lab.tech/"'
+            manifestPlaceholders = [
+                    resourceSuffix      : "_qa",
+            ]
+        }
+        production {
+            dimension "default"
+            buildConfigField "String", "PINTA_BASE_URL", '"https://pinta.13lab.tech/"'
+            manifestPlaceholders = [
+                    resourceSuffix      : "",
+            ]
+        }
+    }
+
+    productFlavors.all { flavor ->
+        if (flavor.hasProperty('myApplicationIdSuffix') && isApplicationProject()) {
+            flavor.applicationIdSuffix = flavor.myApplicationIdSuffix
+        }
+    }
+}
+
+def isApplicationProject() {
+    return project.android.class.simpleName.startsWith('BaseAppModuleExtension')
+}

@@ -1,40 +1,70 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id(Build.androidApplication)
+    id(Build.kotlinAndroid)
+    id(Build.kotlinKspPlugin)
+}
+
+apply {
+    from("$rootDir/config/java17-android-library.gradle")
+    from("$rootDir/config/compose-module.gradle")
+    from("$rootDir/config/view-binding.gradle")
 }
 
 android {
-    namespace = "kz.cicada.berkut"
-    compileSdk = 34
+    namespace = ProjectConfig.appId
+    compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
-        applicationId = "kz.cicada.berkut"
-        minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = ProjectConfig.appId
+        minSdk = ProjectConfig.minSdk
+        targetSdk = ProjectConfig.targetSdk
+        versionCode = ProjectConfig.versionCode
+        versionName = ProjectConfig.versionName
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
-        release {
+        debug {
+            isDefault = true
+            isDebuggable = true
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            isShrinkResources = false
+        }
+        release {
+            isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = false
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+
+    packaging {
+        resources {
+            excludes += "META-INF/*"
+        }
     }
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
+    // Core modules
+    implementation(project(Modules.core))
+
+
+    // Dependencies
+    implementation(AndroidX.coreKtx)
+    implementation(AndroidX.appCompat)
+
+    implementation(Google.material)
+
+    implementation(Navigation.cicreone)
+
+    implementation(Koin.koinCore)
+    implementation(Koin.koinAndroid)
+
+    implementation(Network.retrofit)
+    implementation(Network.moshiConverter)
+    implementation(Network.okHttp)
+    implementation(Network.okHttpLoggingInterceptor)
 }
