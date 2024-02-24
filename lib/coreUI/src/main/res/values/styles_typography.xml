@@ -1,0 +1,129 @@
+<resources>
+    <!--
+            android:fontFamily="sans-serif"           // roboto regular
+            android:fontFamily="sans-serif-light"     // roboto light
+            android:fontFamily="sans-serif-condensed" // roboto condensed
+            android:fontFamily="sans-serif-thin"      // roboto thin (android 4.2)
+            android:fontFamily="sans-serif-medium"    // roboto medium (android 5.0)
+    -->
+
+    <!--  Roboto Regular fonts -->
+    <style name="TypoRegular.10">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TypoRegular">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TypoRegular.12">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TypoRegular.14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TypoRegular.15">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TypoRegular.16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TypoRegular.20">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TypoRegular.28">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="TypoRegular.36">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <!--  Roboto Medium fonts -->
+    <style name="TypoMedium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TypoMedium.12">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TypoMedium.14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TypoMedium.16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TypoMedium.20">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TypoMedium.22">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="TypoMedium.28">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="TypoMedium.36">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="TypoMedium.40">
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <!--  Roboto Medium fonts -->
+    <style name="TypoLight">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="TypoLight.36">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <!--  Application fonts -->
+
+    <style name="Caption_12_Regular" parent="TypoRegular.12" />
+
+    <style name="Caption_12_Medium" parent="TypoMedium.12" />
+
+    <style name="Button_14_Medium" parent="TypoMedium.14" />
+
+    <style name="Button_16_Medium" parent="TypoMedium.16" />
+
+    <style name="Subhead_14_Regular" parent="TypoRegular.14" />
+
+    <style name="Subhead_15_Regular" parent="TypoRegular.15" />
+
+    <style name="Subhead_14_Medium" parent="TypoMedium.14" />
+
+    <style name="Body_16_Regular" parent="TypoRegular.16" />
+
+    <style name="Body_16_Medium" parent="TypoMedium.16" />
+
+    <style name="H_16_Medium" parent="TypoMedium.16" />
+
+    <style name="H_20_Regular" parent="TypoRegular.20" />
+
+    <style name="H_20_Medium" parent="TypoMedium.20" />
+
+    <style name="H_22_Medium" parent="TypoMedium.22" />
+
+    <style name="H_28_Regular" parent="TypoRegular.28" />
+
+    <style name="H_28_Medium" parent="TypoMedium.28" />
+
+    <style name="H_36_Regular" parent="TypoRegular.36" />
+
+    <style name="H_36_Medium" parent="TypoMedium.36" />
+
+</resources>

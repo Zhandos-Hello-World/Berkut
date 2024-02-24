@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="orangeMain">#EF5630</color>
+    <color name="orangeDark">#D43E19</color>
+    <color name="orangeLight">#F7AB98</color>
+    <color name="orangeMain10">#1AEF5630</color>
+    <color name="orange">#EF8F00</color>
+    <color name="orangeStatus">#FAAE17</color>
+    <color name="blanchedAlmond">#FCE9CC</color>
+    <color name="green">#239A54</color>
+    <color name="greenLight">#74BA72</color>
+    <color name="blue">#1586BB</color>
+    <color name="blue20">#331586BB</color>
+    <color name="blueLight">#1CBCFA</color>
+    <color name="red">#FF0000</color>
+    <color name="red10">#1AFF0000</color>
+    <color name="redLight">#FFEFEF</color>
+    <color name="red2">#EF4635</color>
+    <color name="blackHole">#000000</color>
+    <color name="blackHole20">#33000000</color>
+    <color name="black">#1A1C1F</color>
+    <color name="black60">#99252525</color>
+    <color name="black80">#CC1A1C1F</color>
+    <color name="blackLight">#474B52</color>
+    <color name="greyDark">#666C72</color>
+    <color name="grey">#B7BEC5</color>
+    <color name="grey2">#E7E7F1</color>
+    <color name="grey3">#F2F2F7</color>
+    <color name="grey4">#F9F9FB</color>
+    <color name="grey6">#FFF5DC</color>
+    <color name="white">#FFFFFF</color>
+    <color name="almostWhite">#FAF9F9</color>
+    <color name="orangeMain4">#0AEF5630</color>
+    <color name="transparent">#00000000</color>
+    <color name="yellow">#ECA945</color>
+    <color name="blueSecondary">#54A3C8</color>
+    <color name="blueDarkBlack">#020B1D</color>
+    <color name="dark_hover_of_dropdown">#E9ECF1</color>
+    <color name="deposit_convenient_background_first">#FDFCFB</color>
+    <color name="deposit_convenient_background_second">#E2D1C3</color>
+    <color name="deposit_savings_background_first">#E2EBF1</color>
+    <color name="deposit_savings_background_seconds">#D0DAE0</color>
+
+    <!--  References  -->
+    <color name="colorPrimary">@color/orangeMain</color>
+    <color name="colorPrimaryDark">@color/orangeDark</color>
+    <color name="colorAccent">@color/orangeMain</color>
+
+    <color name="text_high_contrast">@color/black</color>
+    <color name="text_low_contrast">@color/greyDark</color>
+    <color name="text_error">@color/red</color>
+    <color name="text_link">@color/blue</color>
+    <color name="text_blue_link">@color/blue20</color>
+    <color name="text_balance">@color/green</color>
+
+    <color name="input_common_fill_default">@color/grey3</color>
+    <color name="input_common_fill_pressed">@color/grey2</color>
+    <color name="input_common_fill_error">@color/redLight</color>
+    <color name="input_common_fill_disabled">@color/grey4</color>
+
+    <color name="input_common_label_default">@color/greyDark</color>
+
+    <color name="input_common_border_active">@color/orangeMain</color>
+    <color name="input_common_border_error">@color/red</color>
+
+    <color name="input_common_text_default">@color/black</color>
+    <color name="input_common_text_add_default">@color/greyDark</color>
+    <color name="input_common_text_error">@color/red</color>
+
+    <color name="input_common_mask_default">@color/grey</color>
+
+    <color name="button_primary_fill_default">@color/orangeMain</color>
+    <color name="button_primary_fill_pressed">@color/orangeDark</color>
+    <color name="button_primary_fill_disabled">@color/orangeLight</color>
+    <color name="button_primary_text_default">@color/white</color>
+
+    <color name="button_additional_text_default">@color/orangeMain</color>
+
+    <color name="icon_controls_fill_default">@color/orangeMain</color>
+    <color name="icon_controls_fill_off">@color/grey</color>
+    <color name="icon_controls_fill_on">@color/green</color>
+    <color name="icon_controls_fill_on50">@color/greenLight</color>
+    <color name="icon_controls_fill_error">@color/red</color>
+    <color name="icon_controls_bg_default">@color/grey3</color>
+
+    <color name="bg_pressed_fill_default">@color/grey4</color>
+    <color name="line_main">@color/grey2</color>
+    <color name="line_divider">@color/greyDark</color>
+
+    <color name="calendar_selected_day_bg">@color/orangeMain10</color>
+    <color name="calendar_selected_range_bg">@color/orangeMain10</color>
+    <color name="dateTimeRangePickerStateToday">@color/orangeMain</color>
+
+    <color name="placeholder_bg_color">#50B7BEC5</color>
+    <color name="brown_100">#C2C2C0</color>
+    <color name="grey900">#222222</color>
+
+    <color name="tooltip_bg_color">#2F77FF</color>
+    <color name="grey300">#E4E4E4</color>
+    <color name="bgScanner">#CC000000</color>
+    <color name="posYellow">#FEFAEE</color>
+    <color name="grey1">#333333</color>
+    <color name="greyLight">#828282</color>
+    <color name="grey5">#4F4F4F</color>
+    <color name="greyDark2">#474B52</color>
+
+    <!--  Undefined colors in Figma -->
+    <color name="undefRed1">#FCDDD6</color>
+    <color name="undefRed2">#FFF0DFD5</color>
+    <color name="undefRed3">#E21836</color>
+    <color name="undefRed4">#EA001B</color>
+    <color name="undefRed5">#CE1126</color>
+    <color name="undefRed6">#E00034</color>
+    <color name="undefRed7">#C8313E</color>
+    <color name="undefRed8">#C72127</color>
+    <color name="undefRed9">#DE2910</color>
+    <color name="undefRed10">#D7141A</color>
+    <color name="undefRed11">#C60C30</color>
+    <color name="undefRed12">#CF142B</color>
+    <color name="undefRed13">#BC002D</color>
+    <color name="undefRed14">#E8112D</color>
+    <color name="undefRed15">#D52B1E</color>
+    <color name="undefRed16">#ED2939</color>
+    <color name="undefRed17">#ED1C24</color>
+    <color name="undefRed18">#D1202A</color>
+    <color name="undefRed19">#B22234</color>
+    <color name="undefRed20">#C8102E</color>
+
+    <color name="undefYellow1">#D7C480</color>
+    <color name="undefYellow2">#F6CA59</color>
+    <color name="undefYellow3">#FFFFA857</color>
+    <color name="undefYellow4">#FEC50C</color>
+    <color name="undefYellow5">#F79E1C</color>
+    <color name="undefYellow6">#FFDE00</color>
+    <color name="undefYellow7">#F8EC26</color>
+    <color name="undefYellow8">#FFEF00</color>
+    <color name="undefYellow9">#FECB00</color>
+    <color name="undefYellow10">#FFFF00</color>
+    <color name="undefYellow11">#EFD320</color>
+
+    <color name="undefWhite1">#DBDFE2</color>
+    <color name="undefWhite2">#F8EEF4</color>
+    <color name="undefWhite3">#ECEEF1</color>
+    <color name="undefWhite4">#E6E6E6</color>
+    <color name="undefWhite5">#DFE0E1</color>
+    <color name="undefWhite6">#F5F5F5</color>
+    <color name="undefWhite7">#EDF6FE</color>
+    <color name="undefWhite8">#FFF2F2F2</color>
+    <color name="undefWhite9">#FBFBFC</color>
+    <color name="undefWhite10">#E5E5E5</color>
+    <color name="undefWhite11">#F6F7F8</color>
+    <color name="undefWhite12">#E7ECF1</color>
+    <color name="undefWhite13">#FCFCFC</color>
+    <color name="undefWhite14">#FFFDFD</color>
+    <color name="undefWhite15">#F0F0F0</color>
+    <color name="undefWhite16">#E7EAF0</color>
+    <color name="undefWhite17">#D8D8D8</color>
+
+    <color name="undefBlue1">#48A8F1</color>
+    <color name="undefBlue2">#0086BF</color>
+    <color name="undefBlue3">#00AFCA</color>
+    <color name="undefBlue4">#3478F6</color>
+    <color name="undefBlue5">#4291D1</color>
+    <color name="undefBlue6">#004A98</color>
+    <color name="undefBlue7">#FF2548A2</color>
+    <color name="undefBlue8">#FF242963</color>
+    <color name="undefBlue9">#00447C</color>
+    <color name="undefBlue10">#204177</color>
+    <color name="undefBlue11">#00008B</color>
+    <color name="undefBlue12">#0098C3</color>
+    <color name="undefBlue13">#11457E</color>
+    <color name="undefBlue14">#314199</color>
+    <color name="undefBlue15">#00247D</color>
+    <color name="undefBlue16">#0039A6</color>
+    <color name="undefBlue17">#005293</color>
+    <color name="undefBlue18">#241D4F</color>
+    <color name="undefBlue19">#0099B5</color>
+    <color name="undefBlue20">#D0DAE0</color>
+    <color name="undefBlue21">#E2EBF1</color>
+    <color name="undefBlue22">#2A6BCB</color>
+    <color name="undefBlue23">#012169</color>
+
+    <color name="undefGrey1">#ACB4BB</color>
+    <color name="undefGrey2">#F1F3F5</color>
+    <color name="undefGrey3">#FDF8E6</color>
+    <color name="undefGrey4">#88FFFFFF</color>
+    <color name="undefGrey5">#C4C4C4</color>
+    <color name="undefGrey6">#D6DADF</color>
+    <color name="undefGrey7">#FEFEFE</color>
+    <color name="undefGrey8">#8C8D8F</color>
+    <color name="undefGrey9">#E3D9CF</color>
+    <color name="undefGrey10">#FBF9F7</color>
+    <color name="undefGrey11">#DBDEE4</color>
+    <color name="undefGrey12">#F0F2F4</color>
+
+    <color name="undefGreen1">#007B84</color>
+    <color name="undefGreen2">#009E49</color>
+    <color name="undefGreen3">#00AE65</color>
+    <color name="undefGreen4">#4AA657</color>
+    <color name="undefGreen5">#006C35</color>
+    <color name="undefGreen6">#1EB53A</color>
+    <color name="undefGreen8">#8BFF62</color>
+
+    <color name="undefBlack1">#08703527</color>
+    <color name="undefBlack2">#FF000000</color>
+    <color name="undefBlack3">#2E3136</color>
+    <color name="undefBlack4">#21242C</color>
+
+    <color name="undefOrange1">#FFEF5630</color>
+    <color name="undefOrange2">#F05323</color>
+    <color name="undefOrange3">#F15525</color>
+
+    <color name="undefBrown1">#FF7D472F</color>
+    <color name="undefBrown2">#0DFF0000</color>
+
+    <color name="undefPink1">#BB5091</color>
+
+    <color name="undefPurple1">#3C3B6E</color>
+    <color name="grey_200">#F1F1F1</color>
+    <color name="ghostWhite">#F6F6F8</color>
+    <color name="light_blue_a700">#0085FF</color>
+    <color name="blue_grey_300_alpha_20">#3372A0BA</color>
+</resources>

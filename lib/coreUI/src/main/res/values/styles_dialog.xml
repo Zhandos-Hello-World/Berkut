@@ -1,0 +1,62 @@
+<resources>
+
+    <style name="BottomSheetStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorPrimary">@color/button_additional_text_default</item>
+        <item name="colorSecondary">@color/text_link</item>
+        <item name="android:textColor">@color/text_high_contrast</item>
+        <item name="android:textAppearance">@style/H_20_Medium</item>
+        <item name="android:textColorPrimary">@color/text_low_contrast</item>
+        <item name="buttonBarButtonStyle">@style/MaterialDialogTextButton</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MaterialDialogTextButton.Positive</item>
+    </style>
+
+    <style name="AlertDialogTheme.AllCaps" parent="AlertDialogTheme">
+        <item name="buttonBarButtonStyle">@style/MaterialDialogTextButton.AllCaps</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MaterialDialogTextButton.Positive.AllCaps
+        </item>
+    </style>
+
+    <style name="MaterialDialogTextButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textAppearance">@style/Subhead_14_Regular</item>
+    </style>
+
+    <style name="MaterialDialogTextButton.AllCaps" parent="MaterialDialogTextButton">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="MaterialDialogTextButton.Positive">
+        <item name="android:textAppearance">@style/Subhead_14_Medium</item>
+    </style>
+
+    <style name="MaterialDialogTextButton.Positive.AllCaps" parent="MaterialDialogTextButton.Positive">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="CustomMaterialAlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="materialAlertDialogTitleTextStyle">@style/CustomDialogTitleTextStyle</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/CustomDialogBodyTextStyle</item>
+    </style>
+
+    <style name="CustomDialogTitleTextStyle" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:maxLines">5</item>
+        <item name="android:singleLine">false</item>
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="CustomDialogBodyTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/text_high_contrast</item>
+    </style>
+
+    <style name="ProgressDialogBlocking" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+</resources>

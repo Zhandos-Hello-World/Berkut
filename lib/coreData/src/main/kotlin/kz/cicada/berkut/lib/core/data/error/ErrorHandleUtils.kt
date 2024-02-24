@@ -2,7 +2,7 @@ package kz.cicada.berkut.lib.core.data.error
 
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import kz.cicada.berkut.core.error.handling.DeserializationException
+import kz.cicada.berkut.lib.core.error.handling.DeserializationException
 import retrofit2.HttpException
 import java.nio.charset.Charset
 

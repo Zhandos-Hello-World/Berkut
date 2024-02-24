@@ -1,14 +1,14 @@
 package kz.cicada.berkut.lib.core.data.error
 
 import kotlinx.serialization.SerializationException
-import kz.cicada.berkut.core.error.handling.ApplicationException
-import kz.cicada.berkut.core.error.handling.DeserializationException
-import kz.cicada.berkut.core.error.handling.NoInternetException
-import kz.cicada.berkut.core.error.handling.NoServerResponseException
-import kz.cicada.berkut.core.error.handling.ServerException
-import kz.cicada.berkut.core.error.handling.SslHandshakeException
-import kz.cicada.berkut.core.error.handling.UnauthorizedException
-import kz.cicada.berkut.core.error.handling.UnknownException
+import kz.cicada.berkut.lib.core.error.handling.ApplicationException
+import kz.cicada.berkut.lib.core.error.handling.DeserializationException
+import kz.cicada.berkut.lib.core.error.handling.NoInternetException
+import kz.cicada.berkut.lib.core.error.handling.NoServerResponseException
+import kz.cicada.berkut.lib.core.error.handling.ServerException
+import kz.cicada.berkut.lib.core.error.handling.SslHandshakeException
+import kz.cicada.berkut.lib.core.error.handling.UnauthorizedException
+import kz.cicada.berkut.lib.core.error.handling.UnknownException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
