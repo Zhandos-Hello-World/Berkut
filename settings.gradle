@@ -14,5 +14,12 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Berkut"
-include(":app")
- 
+include ":app"
+include ":library:core-data"
+include ':library:core-domain'
+include ':library:core-presentation'
+include ':library:core-presentation-compose'
+include ':feature:auth'
+include ':feature:main'
+include ':feature:settings'
+include ':feature:chooser-simple'
