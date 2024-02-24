@@ -10,4 +10,11 @@ object AndroidX {
 
     private const val annotationVersion = "1.7.1"
     const val annotation = "androidx.annotation:annotation-jvm:$annotationVersion"
+
+    val all = listOf(
+        coreKtx,
+        appCompat,
+        documentFile,
+        annotation,
+    )
 }

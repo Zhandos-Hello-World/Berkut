@@ -7,14 +7,14 @@ ext.flavorConfig = {
             dimension "default"
             ext.myApplicationIdSuffix = ".qa"
             versionNameSuffix '-QA'
-            buildConfigField "String", "PINTA_BASE_URL", '"https://pinta.13lab.tech/"'
+            buildConfigField "String", "BERKUT_BASE_URL", '"https://berkut-mobile-app-production.up.railway.app/"'
             manifestPlaceholders = [
                     resourceSuffix      : "_qa",
             ]
         }
         production {
             dimension "default"
-            buildConfigField "String", "PINTA_BASE_URL", '"https://pinta.13lab.tech/"'
+            buildConfigField "String", "BERKUT_BASE_URL", '"https://berkut-mobile-app-production.up.railway.app/"'
             manifestPlaceholders = [
                     resourceSuffix      : "",
             ]

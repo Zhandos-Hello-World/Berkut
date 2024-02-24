@@ -4,14 +4,11 @@ plugins {
 
 apply {
     from("$rootDir/config/java17-android-library.gradle")
+    from("$rootDir/config/compose-module.gradle")
 }
 
 android {
     namespace = "${ProjectConfig.appId}.lib.core"
-
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
@@ -20,7 +17,6 @@ dependencies {
 
     implementation(Coroutines.coroutines)
 
-    implementation(Util.jodaTime)
     implementation(Util.timber)
 
     implementation(AndroidX.appCompat)
@@ -30,6 +26,4 @@ dependencies {
 
     implementation(Koin.koinAndroid)
     implementation(Koin.koinCore)
-
-    implementation(Compose.material)
 }

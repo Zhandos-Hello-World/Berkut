@@ -5,6 +5,7 @@ plugins {
     id(Build.kotlinAndroid) version Build.kotlinVersion apply false
     id(Build.kotlinJvm) version Build.kotlinVersion apply false
     id(Build.kotlinKspPlugin) version Build.kspVersion apply false
+    id(Build.kotlinSerialization) version Build.kotlinVersion apply false
 }
 
 tasks.register("clean", Delete::class) {

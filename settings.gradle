@@ -17,3 +17,4 @@ rootProject.name = "Berkut"
 include ":app"
 include ":lib"
 include ":lib:core"
+include ':lib:coreData'
