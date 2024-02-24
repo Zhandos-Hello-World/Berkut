@@ -1,7 +1,11 @@
 package am.strongte.hub.auth.presentation.login
 
 import am.strongte.hub.auth.domain.repository.AuthRepository
+import am.strongte.hub.auth.navigation.AuthScreens
+import am.strongte.hub.auth.presentation.common.AuthFlow
 import am.strongte.hub.auth.presentation.common.isValidEmail
+import am.strongte.hub.auth.presentation.input.email.InputEmailLauncher
+import am.strongte.hub.auth.presentation.registration.email.RegistrationInputEmailBehavior
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,10 +18,12 @@ import kz.cicada.berkut.lib.core.error.handling.UnauthorizedException
 import kz.cicada.berkut.lib.core.localization.string.VmRes
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.compose.extension.tryToUpdate
+import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 
 class LoginViewModel(
     private val repository: AuthRepository,
     private val errorHandler: ErrorHandler,
+    private val routerFacade: RouterFacade,
 ) : BaseViewModel(), LoginController {
 
     private val _uiState = MutableStateFlow(
@@ -99,15 +105,13 @@ class LoginViewModel(
     }
 
     override fun onRegisterButtonClick() {
-        sendEvent(
-//            OpenScreenEvent(
-//                InputEmailScreen(
-//                    launcher = InputEmailLauncher(
-//                        flow = AuthFlow.Registration,
-//                        behavior = RegistrationInputEmailBehavior,
-//                    ),
-//                ),
-//            ),
+        routerFacade.navigateTo(
+            AuthScreens.Email(
+                InputEmailLauncher(
+                    flow = AuthFlow.Registration,
+                    behavior = RegistrationInputEmailBehavior,
+                )
+            )
         )
     }
 

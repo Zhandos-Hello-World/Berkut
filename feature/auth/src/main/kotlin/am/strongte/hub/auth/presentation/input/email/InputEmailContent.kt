@@ -103,35 +103,6 @@ internal fun InputEmailContent(
             validSymbols = PHONE_VALID_SYMBOLS,
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            text = stringResource(R.string.personal_data),
-            style = MaterialTheme.typography.subtitle1.copy(
-                fontWeight = FontWeight.Bold,
-            ),
-            color = MaterialTheme.additionalColors.elementsLowContrast,
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        CommonInputField(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            text = uiState.userName,
-            onValueChange = {
-                controller.onInputFieldChange(
-                    value = it,
-                    field = ProfileField.NAME,
-                )
-            },
-            labelText = stringResource(R.string.name),
-            isClearIconVisible = true,
-            imeAction = ImeAction.Next,
-            keyboardActions = KeyboardActions(
-                onNext = { focusManager.moveFocus(FocusDirection.Down) },
-            ),
-        )
         Spacer(
             modifier = Modifier
                 .weight(1.0f)

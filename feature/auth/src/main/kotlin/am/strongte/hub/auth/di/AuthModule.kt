@@ -47,6 +47,7 @@ val authModule = module {
         LoginViewModel(
             repository = get(),
             errorHandler = get(),
+            routerFacade = get(),
         )
     }
     viewModel { (launcher: InputCodeLauncher) ->
@@ -54,6 +55,7 @@ val authModule = module {
             launcher = launcher,
             errorHandler = get(),
             repository = get(),
+            routerFacade = get(),
         )
     }
 
@@ -61,6 +63,7 @@ val authModule = module {
         InputEmailViewModel(
             launcher = launcher,
             errorHandler = get(),
+            routerFacade = get(),
         )
     }
 
@@ -68,6 +71,7 @@ val authModule = module {
         InputPasswordViewModel(
             launcher = launcher,
             errorHandler = get(),
+            routerFacade = get(),
         )
     }
 

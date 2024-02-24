@@ -64,6 +64,9 @@ val Blue800 = Color(0xFF0A417B)
 val Blue900 = Color(0xFF06284B)
 val Blue950 = Color(0xFF041C34)
 
+val Violet500 = Color(0xFF4651E3)
+val Violet700 = Color(0xFF3c47b3)
+
 data class AdditionalColors(
     val coreWhite: Color,
     val coreBlack: Color,
@@ -103,7 +106,7 @@ val additionalLightColors = AdditionalColors(
     backgroundLight = LightGray100,
     backgroundDark = LightGray200,
     backgroundOverlay = Gray950.copy(alpha = 0.4f),
-    backgroundAccent = Blue500,
+    backgroundAccent = Violet500,
     backgroundAccentLight1 = Blue100,
     backgroundAccentLight2 = Blue150,
     backgroundSuccess = Green600,
@@ -114,13 +117,13 @@ val additionalLightColors = AdditionalColors(
     elementsLight = Gray100,
     elementsLowContrast = Gray500,
     elementsHighContrast = Gray900,
-    elementsAccent = Blue500,
+    elementsAccent = Violet500,
     elementsAccentLight3 = Blue200,
     elementsSuccess = Green600,
     elementsSuccessLight3 = Green300,
     elementsError = Red600,
     elementsErrorLight3 = Red300,
-    shadesAccentDark2 = Blue700,
+    shadesAccentDark2 = Violet700,
     shadesAccentDark3 = Blue800,
     shadesSuccessDark2 = Green700,
     shadesSuccessDark3 = Green800,

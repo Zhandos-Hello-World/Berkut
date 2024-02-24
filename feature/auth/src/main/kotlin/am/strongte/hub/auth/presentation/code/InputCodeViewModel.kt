@@ -1,9 +1,14 @@
 package am.strongte.hub.auth.presentation.code
 
 import am.strongte.hub.auth.domain.repository.ValidationRepository
+import am.strongte.hub.auth.navigation.AuthScreens
 import am.strongte.hub.auth.presentation.code.InputCodeConstants.DEFAULT_SECONDS_LEFT
 import am.strongte.hub.auth.presentation.code.InputCodeConstants.MAX_CODE_NUMBERS
 import am.strongte.hub.auth.presentation.code.InputCodeConstants.ONLY_NUMBERS_REGEX
+import am.strongte.hub.auth.presentation.common.AuthFlow
+import am.strongte.hub.auth.presentation.input.password.InputPasswordLauncher
+import am.strongte.hub.auth.presentation.registration.email.RegistrationInputPasswordBehavior
+import am.strongte.hub.auth.presentation.reset.password.ResetPasswordInputPasswordBehavior
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,11 +22,13 @@ import kz.cicada.berkut.lib.core.error.handling.ServerException
 import kz.cicada.berkut.lib.core.localization.string.VmRes
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.compose.extension.tryToUpdate
+import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 
 internal class InputCodeViewModel(
     private val launcher: InputCodeLauncher,
     private val errorHandler: ErrorHandler,
     private val repository: ValidationRepository,
+    private val routerFacade: RouterFacade,
 ) : BaseViewModel(), InputCodeController {
 
     private val _uiState: MutableStateFlow<InputCodeUiState> = MutableStateFlow(
@@ -71,29 +78,28 @@ internal class InputCodeViewModel(
             },
             request = {
                 onError(errorText = null)
-                repository.validateCode(
-                    email = launcher.email,
-                    otpCode = uiState.value.otpValue,
-                )
+//                repository.validateCode(
+//                    email = launcher.email,
+//                    otpCode = uiState.value.otpValue,
+//                )
             },
             onSuccess = {
-                sendEvent(
-//                    OpenScreenEvent(
-//                        InputPasswordScreen(
-//                            launcher = InputPasswordLauncher(
-//                                flow = launcher.flow,
-//                                behavior = when (launcher.flow) {
-//                                    AuthFlow.ResetPassword -> {
-//                                        ResetPasswordInputPasswordBehavior()
-//                                    }
-//                                    AuthFlow.Registration -> {
-//                                        RegistrationInputPasswordBehavior()
-//
-//                                    }
-//                                },
-//                            ),
-//                        ),
-//                    ),
+                routerFacade.navigateTo(
+                    AuthScreens.Password(
+                        launcher = InputPasswordLauncher(
+                            flow = launcher.flow,
+                            behavior = when (launcher.flow) {
+                                AuthFlow.ResetPassword -> {
+                                    ResetPasswordInputPasswordBehavior()
+                                }
+
+                                AuthFlow.Registration -> {
+                                    RegistrationInputPasswordBehavior()
+
+                                }
+                            },
+                        ),
+                    )
                 )
             },
             onError = ::handleOtpError,
@@ -101,7 +107,7 @@ internal class InputCodeViewModel(
     }
 
     override fun onNavigateBack() {
-//        sendEvent(NavigateBackEvent)
+        routerFacade.exit()
     }
 
     private fun handleOtpError(error: Throwable) {

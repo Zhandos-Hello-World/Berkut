@@ -13,11 +13,14 @@ import kz.cicada.berkut.lib.core.localization.string.VmRes
 import kz.cicada.berkut.lib.core.localization.string.toVmResStr
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.compose.extension.tryToUpdate
+import kz.cicada.berkut.lib.core.ui.event.OpenScreenEvent
+import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 
 
 internal class InputEmailViewModel(
     private val launcher: InputEmailLauncher,
     private val errorHandler: ErrorHandler,
+    private val routerFacade: RouterFacade,
 ) : BaseViewModel(), InputEmailController {
 
     private val _uiState: MutableStateFlow<InputEmailUiState> = MutableStateFlow(
@@ -46,7 +49,10 @@ internal class InputEmailViewModel(
                 launcher.behavior.onPrimaryButtonClick(uiState.value.phoneNumber)
             },
             onSuccess = { events ->
-//                sendEvents(events = events)
+                events.forEach { event ->
+                    val screen = (event as? OpenScreenEvent)?.screen
+                    screen?.let(routerFacade::navigateTo)
+                }
             },
             onError = { ex ->
                 when (ex) {
@@ -68,7 +74,7 @@ internal class InputEmailViewModel(
     }
 
     override fun onNavigateBack() {
-//        sendEvent(NavigateBackEvent)
+        routerFacade.exit()
     }
 
     override fun onInputFieldChange(value: String, field: ProfileField) {

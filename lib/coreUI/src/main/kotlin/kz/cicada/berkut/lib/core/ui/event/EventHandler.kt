@@ -3,6 +3,7 @@ package kz.cicada.berkut.lib.core.ui.event
 import android.os.Parcelable
 import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
+import kz.cicada.berkut.lib.core.ui.navigation.cicerone.screen.BerkutScreen
 
 interface EventHandler {
     fun onActionEvent(event: ActionEvent)
@@ -31,6 +32,8 @@ object OpenAuthFlowEvent : ActionEvent()
 
 object CallBackPressedEvent : ActionEvent()
 object CloseAppEvent : ActionEvent()
+
+class OpenScreenEvent(val screen: BerkutScreen): ActionEvent()
 
 /**
  * Intended for showing simple common error dialogs with fixed title, common to whole application

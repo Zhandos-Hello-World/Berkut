@@ -1,7 +1,12 @@
 package am.strongte.hub.auth.presentation.input.password
 
 
+import am.strongte.hub.auth.navigation.AuthScreens
+import am.strongte.hub.auth.presentation.common.AuthFlow
 import am.strongte.hub.auth.presentation.common.ProfileField
+import am.strongte.hub.auth.presentation.input.email.InputEmailLauncher
+import am.strongte.hub.auth.presentation.registration.email.RegistrationInputEmailBehavior
+import am.strongte.hub.auth.presentation.reset.password.ResetPasswordInputEmailBehavior
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kz.cicada.berkut.feature.auth.R
@@ -10,10 +15,13 @@ import kz.cicada.berkut.lib.core.error.handling.ErrorHandler
 import kz.cicada.berkut.lib.core.localization.string.VmRes
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.compose.extension.tryToUpdate
+import kz.cicada.berkut.lib.core.ui.event.OpenScreenEvent
+import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 
 internal class InputPasswordViewModel(
     private val launcher: InputPasswordLauncher,
     private val errorHandler: ErrorHandler,
+    private val routerFacade: RouterFacade,
 ) : BaseViewModel(), InputPasswordController {
 
     private val _uiState: MutableStateFlow<InputPasswordUiState> = MutableStateFlow(
@@ -79,7 +87,7 @@ internal class InputPasswordViewModel(
                 // TODO Добавить вызов Behavior
             },
             onSuccess = {
-                sendEvent(
+//                sendEvent(
 //                    OpenScreenEvent(
 //                        ResultScreen(
 //                            launcher = ResultLauncher(
@@ -104,23 +112,21 @@ internal class InputPasswordViewModel(
     }
 
     override fun onNavigateBack() {
-        sendEvent(
-//            NavigateBackUntilScreenEvent(
-//                InputEmailScreen(
-//                    launcher = InputEmailLauncher(
-//                        flow = launcher.flow,
-//                        behavior = when (launcher.flow) {
-//                            AuthFlow.Registration -> {
-//                                RegistrationInputEmailBehavior
-//                            }
-//
-//                            AuthFlow.ResetPassword -> {
-//                                ResetPasswordInputEmailBehavior
-//                            }
-//                        },
-//                    ),
-//                ),
-//            ),
+        routerFacade.backTo(
+            AuthScreens.Email(
+                launcher = InputEmailLauncher(
+                    flow = launcher.flow,
+                    behavior = when (launcher.flow) {
+                        AuthFlow.Registration -> {
+                            RegistrationInputEmailBehavior
+                        }
+
+                        AuthFlow.ResetPassword -> {
+                            ResetPasswordInputEmailBehavior
+                        }
+                    },
+                ),
+            )
         )
     }
 

@@ -6,7 +6,7 @@ import kz.cicada.berkut.lib.core.ui.compose.base.ComposeFragment
 import kz.cicada.berkut.lib.core.ui.compose.extension.collectAsStateWithLifecycle
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginFragment : ComposeFragment() {
+internal class LoginFragment : ComposeFragment() {
     override val viewModel: LoginViewModel by viewModel()
 
     @Composable
