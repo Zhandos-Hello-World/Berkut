@@ -22,6 +22,7 @@
     <string name="account_inactive_tax_payer_description">ЖК әрекет етпейтін салық\nтөлеушілер тізімінде\n\nШектеулерді алып тастау үшін\n салық комитетіне шағыныңыз</string>
     <string name="account_search_by_code">Коды немесе атауы бойынша іздеу</string>
     <string name="account_status">Шот мәртебесі</string>
+    <string name="account_limit">Лимит на счете</string>
     <string name="accounts_ekolock_have_limitations">Шотыңызға шектеу салынған</string>
     <string name="account_with_number">Шот: %s</string>
     <string name="accounting_banner_error">Серверден деректерді алу мүмкін болмады</string>

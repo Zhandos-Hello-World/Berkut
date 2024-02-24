@@ -22,6 +22,7 @@
     <string name="account_inactive_tax_payer_description">IE is in the list \n of inactive taxpayers\n\nContact the State Revenue \nCommittee to lift the restrictions</string>
     <string name="account_search_by_code">Search by code or title</string>
     <string name="account_status">Account status</string>
+    <string name="account_limit">Лимит на счете</string>
     <string name="accounts_ekolock_have_limitations">Your account has been restricted</string>
     <string name="account_with_number">Account: %s</string>
     <string name="accounting_banner_error">Failed to receive data from server</string>

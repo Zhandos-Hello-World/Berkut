@@ -1,14 +1,16 @@
 package kz.cicada.berkut.lib.core.ui.event
 
+import android.os.Parcelable
 import androidx.annotation.StringRes
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
 
 interface EventHandler {
     fun onActionEvent(event: ActionEvent)
     fun onBackPressed(): (() -> Unit)?
 }
 
-sealed class SystemEvent : Serializable
+@Parcelize
+sealed class SystemEvent : Parcelable
 
 /**
  * NavigationEvent can be used to:

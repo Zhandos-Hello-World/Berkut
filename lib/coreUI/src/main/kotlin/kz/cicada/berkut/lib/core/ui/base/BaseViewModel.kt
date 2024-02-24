@@ -4,37 +4,44 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kz.cicada.berkut.lib.core.localization.string.VmRes
 import kz.cicada.berkut.core.presentation.R
+import kz.cicada.berkut.lib.core.error.handling.ErrorHandler
 import kz.cicada.berkut.lib.core.ui.event.BlockingLoaderEvent
 import kz.cicada.berkut.lib.core.ui.event.CloseAppEvent
 import kz.cicada.berkut.lib.core.ui.event.CommonErrorEvent
 import kz.cicada.berkut.lib.core.ui.event.Event
 import kz.cicada.berkut.lib.core.ui.event.ShowAlertDialogEvent
 import kz.cicada.berkut.lib.core.ui.event.SystemEvent
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
+import kotlin.coroutines.cancellation.CancellationException
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel(), KoinComponent {
 
+    private val errorHandler: ErrorHandler by inject()
     val actionEvents = MutableLiveData<Event<SystemEvent>>()
     val isLoading = MutableLiveData(false)
 
     open fun onNavigationResult(result: Any) {}
 
-    fun fireEvent(vararg actionEvent: SystemEvent) {
+    fun sendEvent(vararg actionEvent: SystemEvent) {
         actionEvent.forEach {
             actionEvents.value = Event(it)
         }
     }
 
     fun fireCommonError(@StringRes message: Int) {
-        fireEvent(CommonErrorEvent(message))
+        sendEvent(CommonErrorEvent(message))
     }
 
     fun confirmCloseApplication() {
-        fireEvent(
+        sendEvent(
             ShowAlertDialogEvent(
                 title = VmRes.StrRes(R.string.do_really_want_to_exit_from_app),
                 positiveButton = VmRes.StrRes(R.string.do_exit_from_app),
@@ -45,7 +52,7 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun closeApplication() {
-        fireEvent(CloseAppEvent)
+        sendEvent(CloseAppEvent)
     }
 
     fun <T> networkBlockingRequest(
@@ -125,11 +132,39 @@ abstract class BaseViewModel : ViewModel() {
     }
 
 
+    fun <T> dataRequest(
+        dispatcher: CoroutineDispatcher = Dispatchers.Default,
+        loading: ((Boolean) -> Unit)? = null,
+        request: suspend () -> T,
+        onSuccess: ((T) -> Unit)? = null,
+        shouldUseBasicErrorHandler: Boolean = true,
+        onError: ((Throwable) -> Unit)? = null,
+        finally: (() -> Unit)? = null,
+    ) = viewModelScope.launch(dispatcher) {
+        try {
+            loading?.invoke(true)
+            val response = request()
+            loading?.invoke(false)
+            onSuccess?.invoke(response)
+        } catch (e: CancellationException) {
+            loading?.invoke(false)
+        } catch (e: Throwable) {
+            loading?.invoke(false)
+            onError?.invoke(e)
+            if (shouldUseBasicErrorHandler) {
+                errorHandler.handleError(e)
+            }
+        } finally {
+            finally?.invoke()
+        }
+    }
+
+
     fun showBlockingLoader() {
-        fireEvent(BlockingLoaderEvent(true))
+        sendEvent(BlockingLoaderEvent(true))
     }
 
     fun hideBlockingLoader() {
-        fireEvent(BlockingLoaderEvent(false))
+        sendEvent(BlockingLoaderEvent(false))
     }
 }

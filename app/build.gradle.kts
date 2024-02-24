@@ -50,8 +50,11 @@ android {
 dependencies {
     // Core modules
     implementation(project(Modules.core))
+    implementation(project(Modules.coreData))
+    implementation(project(Modules.coreUI))
+    implementation(project(Modules.coreUICompose))
 
-
+    implementation(project(Modules.auth))
     // Dependencies
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)

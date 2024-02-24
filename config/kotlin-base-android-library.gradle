@@ -17,4 +17,7 @@ android {
 
 dependencies {
     implementation Util.jodaTime
+
+    implementation Kotlin.serialization
+    implementation Kotlin.jsonSerial
 }

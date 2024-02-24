@@ -15,8 +15,14 @@ dependencyResolutionManagement {
 
 rootProject.name = "Berkut"
 include ":app"
+
+//CORE modules
 include ":lib"
 include ":lib:core"
 include ":lib:coreData"
 include ":lib:coreUI"
 include ":lib:coreUICompose"
+
+//FEATURE modules
+include ":feature"
+include ":feature:auth"
