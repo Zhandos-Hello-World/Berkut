@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="account_successfully_created">Аккаунт успешно создан</string>
+    <string name="login_and_tell_about_yourself">Осталось войти\nи рассказать немного о себе :)</string>
+    <string name="password_changed">Пароль изменен</string>
+    <string name="do_not_forget_password_please">Не забывай свой пароль, плиз :)</string>
+    <string name="authorize">Авторизоваться</string>
+</resources>

@@ -12,6 +12,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import kz.cicada.berkut.core.presentation.R
+import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.event.ActionEvent
 import kz.cicada.berkut.lib.core.ui.event.BlockingLoaderEvent
 import kz.cicada.berkut.lib.core.ui.event.EventCloseKeyboard
@@ -28,7 +29,7 @@ import kz.cicada.berkut.lib.core.ui.event.GetFragmentActivityEvent
 import kz.cicada.berkut.lib.core.ui.extensions.hideKeyboard
 
 interface FragmentDelegate : EventHandler {
-    fun registerFragment(fragment: Fragment, baseViewModel: kz.cicada.berkut.lib.core.ui.base.BaseViewModel?)
+    fun registerFragment(fragment: Fragment, baseViewModel: BaseViewModel?)
     fun showBlockingLoader()
     fun hideBlockingLoader()
     fun showSnackbar(@StringRes stringId: Int)
@@ -53,7 +54,7 @@ class DefaultFragmentDelegate : FragmentDelegate, DefaultLifecycleObserver {
     private var blockingDialog: Dialog? = null
     private val activity get() = fragment.activity
 
-    override fun registerFragment(fragment: Fragment, baseViewModel: kz.cicada.berkut.lib.core.ui.base.BaseViewModel?) {
+    override fun registerFragment(fragment: Fragment, baseViewModel: BaseViewModel?) {
         this.fragment = fragment
         fragment.viewLifecycleOwner.lifecycle.addObserver(this)
         helper.observeViewModel(

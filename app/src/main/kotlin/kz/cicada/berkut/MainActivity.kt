@@ -17,46 +17,46 @@ import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), MainActivityNavigation {
 
-	private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
-	private val viewModel: MainActivityViewModel by inject()
+    private val viewModel: MainActivityViewModel by inject()
 
-	private val navigator = BerkutNavigator(activity = this, containerId = R.id.fcv_main_activity)
-	private val navigatorHolder: NavigatorHolder by inject()
-	private val routerFacade: RouterFacade by inject()
+    private val navigator = BerkutNavigator(activity = this, containerId = R.id.fcv_main_activity)
+    private val navigatorHolder: NavigatorHolder by inject()
+    private val routerFacade: RouterFacade by inject()
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		binding = ActivityMainBinding.inflate(layoutInflater)
-		setContentView(binding.root)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-		observeViewModelEvents()
-	}
+        observeViewModelEvents()
+    }
 
-	override fun onResumeFragments() {
-		super.onResumeFragments()
-		navigatorHolder.setNavigator(navigator)
-	}
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigator)
+    }
 
-	override fun openMainFlow() {
-		//TODO
-	}
+    override fun openMainFlow() {
+        //TODO
+    }
 
-	override fun openAuthFlow(logOut: Boolean) {
-		routerFacade.newRootScreen(AuthScreens.Login())
-	}
+    override fun openAuthFlow(logOut: Boolean) {
+        routerFacade.newRootScreen(AuthScreens.Login())
+    }
 
-	private fun observeViewModelEvents() {
-		viewModel.actionEvents.observe(
-			this,
-			EventObserver {
-				when (it) {
-					is OpenMainActivityEvent -> openMainFlow()
-					is OpenAuthFlowEvent     -> openAuthFlow()
-					is OpenExternalLinkEvent -> it.link.openInBrowser(this)
-					else                     -> Unit
-				}
-			},
-		)
-	}
+    private fun observeViewModelEvents() {
+        viewModel.actionEvents.observe(
+            this,
+            EventObserver {
+                when (it) {
+                    is OpenMainActivityEvent -> openMainFlow()
+                    is OpenAuthFlowEvent ->     openAuthFlow()
+                    is OpenExternalLinkEvent -> it.link.openInBrowser(this)
+                    else -> Unit
+                }
+            },
+        )
+    }
 }

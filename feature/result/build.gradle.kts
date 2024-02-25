@@ -7,7 +7,7 @@ apply {
     from("$rootDir/config/compose-module.gradle")
 }
 android {
-    namespace = "${ProjectConfig.appId}.feature.auth"
+    namespace = "${ProjectConfig.appId}.feature.result"
 }
 
 dependencies {
@@ -15,8 +15,6 @@ dependencies {
     implementation(project(Modules.coreData))
     implementation(project(Modules.coreUI))
     implementation(project(Modules.coreUICompose))
-
-    implementation(project(Modules.result))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)

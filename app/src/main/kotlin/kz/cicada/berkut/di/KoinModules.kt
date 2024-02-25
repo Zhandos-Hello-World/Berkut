@@ -3,6 +3,7 @@ package kz.cicada.berkut.di
 import am.strongte.hub.auth.di.authModule
 import android.app.Application
 import kz.cicada.berkut.BuildConfig
+import kz.cicada.berkut.feature.result.di.resultModule
 import kz.cicada.berkut.lib.core.data.di.coreDataModule
 import kz.cicada.berkut.lib.core.di.coreModule
 import kz.cicada.berkut.lib.core.ui.compose.di.coreUiModule
@@ -18,6 +19,7 @@ internal object KoinModules {
 	)
 	private val featureModules = listOf(
 		authModule,
+		resultModule,
 	)
 	private val libraryModules = listOf(
 		coreModule,

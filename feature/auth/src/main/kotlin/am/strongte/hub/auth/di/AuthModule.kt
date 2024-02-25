@@ -13,6 +13,7 @@ import am.strongte.hub.auth.presentation.input.email.InputEmailViewModel
 import am.strongte.hub.auth.presentation.input.password.InputPasswordLauncher
 import am.strongte.hub.auth.presentation.input.password.InputPasswordViewModel
 import am.strongte.hub.auth.presentation.login.LoginViewModel
+import am.strongte.hub.auth.presentation.name.InputNameViewModel
 import kotlinx.coroutines.Dispatchers
 import kz.cicada.berkut.lib.core.data.network.NetworkApiFactory
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -71,6 +72,12 @@ val authModule = module {
         InputPasswordViewModel(
             launcher = launcher,
             errorHandler = get(),
+            routerFacade = get(),
+        )
+    }
+    viewModel {
+        InputNameViewModel(
+            launcher = get(),
             routerFacade = get(),
         )
     }

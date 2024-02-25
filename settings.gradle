@@ -26,3 +26,4 @@ include ":lib:coreUICompose"
 //FEATURE modules
 include ":feature"
 include ":feature:auth"
+include ':feature:result'

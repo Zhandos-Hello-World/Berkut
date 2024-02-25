@@ -1,6 +1,5 @@
 package am.strongte.hub.auth.presentation.input.password
 
-import am.strongte.hub.auth.presentation.common.ProfileField
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -29,7 +28,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.cicada.berkut.feature.auth.R
-import kz.cicada.berkut.lib.core.empty
 import kz.cicada.berkut.lib.core.localization.string.VmRes
 import kz.cicada.berkut.lib.core.localization.string.resolve
 import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
@@ -122,31 +120,6 @@ internal fun InputPasswordContent(
                     modifier = Modifier.fillMaxWidth(),
                     warningItems = uiState.warnings.map { it.resolve() },
                 )
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(R.string.personal_data),
-                style = MaterialTheme.typography.subtitle1.copy(
-                    fontWeight = FontWeight.Bold,
-                ),
-                color = MaterialTheme.additionalColors.elementsLowContrast,
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            CommonInputField(
-                modifier = Modifier.fillMaxWidth(),
-                text = uiState.userName,
-                onValueChange = {
-                    controller.onInputFieldChange(
-                        value = it,
-                        field = ProfileField.NAME,
-                    )
-                },
-                labelText = stringResource(R.string.name),
-                isClearIconVisible = true,
-                imeAction = ImeAction.Next,
-                keyboardActions = KeyboardActions(
-                    onNext = { focusManager.moveFocus(FocusDirection.Down) },
-                ),
-            )
 
             Spacer(
                 modifier = Modifier
@@ -178,7 +151,6 @@ private fun InputEmailContentPreview() {
         override fun onPasswordVisibilityChange(changedFieldIndex: Int) = Unit
         override fun onPrimaryButtonClick() = Unit
         override fun onNavigateBack() = Unit
-        override fun onInputFieldChange(value: String, field: ProfileField) = Unit
     }
 
     AppTheme {
@@ -197,7 +169,6 @@ private fun InputEmailContentPreview() {
                         imeAction = ImeAction.Done,
                     ),
                 ),
-                userName = String.empty,
                 warnings = listOf(
                     VmRes.StrRes(R.string.at_least_8_characters),
                     VmRes.StrRes(R.string.at_least_one_uppercase_and_one_lowercase_latin_letter),

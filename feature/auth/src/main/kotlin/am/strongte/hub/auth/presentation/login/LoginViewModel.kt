@@ -5,6 +5,7 @@ import am.strongte.hub.auth.navigation.AuthScreens
 import am.strongte.hub.auth.presentation.common.AuthFlow
 import am.strongte.hub.auth.presentation.common.isValidEmail
 import am.strongte.hub.auth.presentation.input.email.InputEmailLauncher
+import am.strongte.hub.auth.presentation.name.InputNameLauncher
 import am.strongte.hub.auth.presentation.registration.email.RegistrationInputEmailBehavior
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -106,8 +107,8 @@ class LoginViewModel(
 
     override fun onRegisterButtonClick() {
         routerFacade.navigateTo(
-            AuthScreens.Email(
-                InputEmailLauncher(
+            AuthScreens.InputName(
+                InputNameLauncher(
                     flow = AuthFlow.Registration,
                     behavior = RegistrationInputEmailBehavior,
                 )

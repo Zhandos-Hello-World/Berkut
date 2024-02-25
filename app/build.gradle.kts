@@ -54,7 +54,10 @@ dependencies {
     implementation(project(Modules.coreUI))
     implementation(project(Modules.coreUICompose))
 
+    //Feature modules
     implementation(project(Modules.auth))
+    implementation(project(Modules.result))
+
     // Dependencies
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
@@ -66,8 +69,5 @@ dependencies {
     implementation(Koin.koinCore)
     implementation(Koin.koinAndroid)
 
-    implementation(Network.retrofit)
-    implementation(Network.moshiConverter)
-    implementation(Network.okHttp)
-    implementation(Network.okHttpLoggingInterceptor)
+    Network.all.forEach(::implementation)
 }

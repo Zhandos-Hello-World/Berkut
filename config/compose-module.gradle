@@ -30,4 +30,5 @@ dependencies {
     implementation Compose.viewModelCompose
     implementation Compose.activityCompose
     implementation Coil.coilCompose
+    implementation Compose.lottie
 }

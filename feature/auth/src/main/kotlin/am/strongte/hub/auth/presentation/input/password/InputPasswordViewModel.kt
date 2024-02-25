@@ -3,19 +3,20 @@ package am.strongte.hub.auth.presentation.input.password
 
 import am.strongte.hub.auth.navigation.AuthScreens
 import am.strongte.hub.auth.presentation.common.AuthFlow
-import am.strongte.hub.auth.presentation.common.ProfileField
 import am.strongte.hub.auth.presentation.input.email.InputEmailLauncher
 import am.strongte.hub.auth.presentation.registration.email.RegistrationInputEmailBehavior
+import am.strongte.hub.auth.presentation.registration.result.RegistrationResultBehavior
 import am.strongte.hub.auth.presentation.reset.password.ResetPasswordInputEmailBehavior
+import am.strongte.hub.auth.presentation.reset.password.ResetPasswordResultBehavior
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kz.cicada.berkut.feature.auth.R
-import kz.cicada.berkut.lib.core.empty
+import kz.cicada.berkut.feature.result.presentation.feature.ResultLauncher
+import kz.cicada.berkut.feature.result.presentation.navigation.ResultScreens
 import kz.cicada.berkut.lib.core.error.handling.ErrorHandler
 import kz.cicada.berkut.lib.core.localization.string.VmRes
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.compose.extension.tryToUpdate
-import kz.cicada.berkut.lib.core.ui.event.OpenScreenEvent
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 
 internal class InputPasswordViewModel(
@@ -28,7 +29,6 @@ internal class InputPasswordViewModel(
         InputPasswordUiState(
             primaryButtonText = launcher.behavior.getPrimaryButtonText(),
             inputItems = launcher.behavior.getInputItems(),
-            userName = String.empty,
             warnings = listOf(
                 VmRes.StrRes(R.string.at_least_8_characters),
                 VmRes.StrRes(R.string.at_least_one_uppercase_and_one_lowercase_latin_letter),
@@ -87,22 +87,19 @@ internal class InputPasswordViewModel(
                 // TODO Добавить вызов Behavior
             },
             onSuccess = {
-//                sendEvent(
-//                    OpenScreenEvent(
-//                        ResultScreen(
-//                            launcher = ResultLauncher(
-//                                behavior = when (launcher.flow) {
-//                                    AuthFlow.Registration -> {
-//                                        RegistrationResultBehavior()
-//                                    }
-//
-//                                    AuthFlow.ResetPassword -> {
-//                                        ResetPasswordResultBehavior()
-//                                    }
-//                                },
-//                            ),
-//                        ),
-//                    ),
+                routerFacade.navigateTo(
+                    ResultScreens.Result(
+                        launcher = ResultLauncher(
+                                behavior = when (launcher.flow) {
+                                    AuthFlow.Registration -> {
+                                        RegistrationResultBehavior()
+                                    }
+                                    AuthFlow.ResetPassword -> {
+                                        ResetPasswordResultBehavior()
+                                    }
+                                },
+                        )
+                    )
                 )
             },
             onError = {
@@ -128,12 +125,6 @@ internal class InputPasswordViewModel(
                 ),
             )
         )
-    }
-
-    override fun onInputFieldChange(value: String, field: ProfileField) {
-        _uiState.tryToUpdate {
-            it.copy(userName = value)
-        }
     }
 
     private fun updateLoadingState(isLoading: Boolean) {

@@ -70,4 +70,5 @@
     <string name="contacts">Контакты</string>
     <string name="phone_number">Номер телефона</string>
     <string name="telegram_account_link">Ссылка на аккаунт в Telegram</string>
+    <string name="calm_down_it_is_normal">Не переживай! Это нужен для идентификаций</string>
 </resources>

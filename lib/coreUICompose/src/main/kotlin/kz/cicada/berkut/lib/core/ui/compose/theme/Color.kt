@@ -64,6 +64,7 @@ val Blue800 = Color(0xFF0A417B)
 val Blue900 = Color(0xFF06284B)
 val Blue950 = Color(0xFF041C34)
 
+val Violet100 = Color(0xFFf4edff)
 val Violet500 = Color(0xFF4651E3)
 val Violet700 = Color(0xFF3c47b3)
 
@@ -107,7 +108,7 @@ val additionalLightColors = AdditionalColors(
     backgroundDark = LightGray200,
     backgroundOverlay = Gray950.copy(alpha = 0.4f),
     backgroundAccent = Violet500,
-    backgroundAccentLight1 = Blue100,
+    backgroundAccentLight1 = Violet100,
     backgroundAccentLight2 = Blue150,
     backgroundSuccess = Green600,
     backgroundSuccessLight1 = Green50,

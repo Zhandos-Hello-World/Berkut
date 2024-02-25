@@ -7,12 +7,21 @@ import am.strongte.hub.auth.presentation.input.email.InputEmailLauncher
 import am.strongte.hub.auth.presentation.input.password.InputPasswordFragment
 import am.strongte.hub.auth.presentation.input.password.InputPasswordLauncher
 import am.strongte.hub.auth.presentation.login.LoginFragment
+import am.strongte.hub.auth.presentation.name.InputNameFragment
+import am.strongte.hub.auth.presentation.name.InputNameLauncher
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.screen.BerkutFragmentScreen
 
 object AuthScreens {
 
+
     fun Login(): BerkutFragmentScreen = BerkutFragmentScreen {
         LoginFragment()
+    }
+
+    internal fun InputName(launcher: InputNameLauncher): BerkutFragmentScreen = BerkutFragmentScreen {
+        InputNameFragment(
+            launcher = launcher
+        )
     }
 
     internal fun InputCode(launcher: InputCodeLauncher): BerkutFragmentScreen = BerkutFragmentScreen {
