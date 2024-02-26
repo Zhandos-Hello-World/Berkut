@@ -57,6 +57,8 @@ dependencies {
     //Feature modules
     implementation(project(Modules.auth))
     implementation(project(Modules.result))
+    implementation(project(Modules.chooser))
+    implementation(project(Modules.language))
 
     // Dependencies
     implementation(AndroidX.coreKtx)

@@ -8,4 +8,7 @@ object Modules {
     //Feature
     const val auth = ":feature:auth"
     const val result = ":feature:result"
+    const val chooser = ":feature:chooser"
+    const val language = ":feature:language"
+    const val location = ":feature:location"
 }

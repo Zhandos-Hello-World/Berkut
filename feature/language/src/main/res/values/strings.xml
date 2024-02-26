@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="berkut">Berkut</string>
+    <string name="choose_language_ru">Выбери язык приложения</string>
+    <string name="choose_language_kz">Қосымшаның тілін таңдаңыз</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="information">Обеспечиваем безопасность ваших малышей на каждом этапе пути. Оставайтесь на связи, будьте в курсе, будьте спокойны</string>
+    <string name="choice_role">Выбери роль</string>
+    <string name="parent">Родитель</string>
+    <string name="child">Ребенок</string>
+</resources>

@@ -1,6 +1,5 @@
 package kz.cicada.berkut
 
-import am.strongte.hub.auth.navigation.AuthScreens
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.terrakok.cicerone.NavigatorHolder
@@ -13,6 +12,7 @@ import kz.cicada.berkut.lib.core.ui.extensions.openInBrowser
 import kz.cicada.berkut.lib.core.ui.navigation.MainActivityNavigation
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.BerkutNavigator
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
+import kz.cicada.berkut.feature.language.navigation.LanguageScreens
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), MainActivityNavigation {
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
     }
 
     override fun openAuthFlow(logOut: Boolean) {
-        routerFacade.newRootScreen(AuthScreens.Login())
+        routerFacade.newRootScreen(LanguageScreens.Onboarding())
     }
 
     private fun observeViewModelEvents() {
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
             EventObserver {
                 when (it) {
                     is OpenMainActivityEvent -> openMainFlow()
-                    is OpenAuthFlowEvent ->     openAuthFlow()
+                    is OpenAuthFlowEvent -> openAuthFlow()
                     is OpenExternalLinkEvent -> it.link.openInBrowser(this)
                     else -> Unit
                 }
