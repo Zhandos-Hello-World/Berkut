@@ -3,6 +3,7 @@ package kz.cicada.berkut.lib.core.data.network
 import kz.cicada.berkut.lib.core.data.error.ErrorHandlingCallAdapterFactory
 import kz.cicada.berkut.lib.core.data.error.ErrorHandlingConverterFactory
 import android.content.Context
+import android.util.Log
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
@@ -97,6 +98,7 @@ class NetworkApiFactory(private val url: String, private val context: Context) {
 
     private fun createLoggingInterceptor(): Interceptor {
         return HttpLoggingInterceptor { message ->
+            Log.d("OkHttp", message)
             Timber.tag("OkHttp").d(message)
         }.apply {
             level = HttpLoggingInterceptor.Level.BODY

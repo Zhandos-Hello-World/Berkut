@@ -6,6 +6,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 internal interface AuthApi {
-    @POST("/api/v1/auth")
+    @POST("/otc/sign-in")
     suspend fun loginUser(@Body loginRequest: LoginRequest): LoginResponse
 }

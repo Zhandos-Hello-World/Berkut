@@ -141,7 +141,6 @@ private fun InputEmailContentPreview() {
                 description = VmRes.Str("Используй свой тел номер, чтобы зарегистрироваться в системе."),
                 primaryButtonText = VmRes.Str("Продолжить"),
                 phoneNumber = "45675676433",
-                userName = "Username",
             ),
             controller = FakeInputEmailController(),
         )

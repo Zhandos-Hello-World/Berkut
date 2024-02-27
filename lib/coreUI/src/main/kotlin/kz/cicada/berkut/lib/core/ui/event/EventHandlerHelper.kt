@@ -76,6 +76,9 @@ class EventHandlerHelper : KoinComponent {
                         is OpenAuthFlowEvent      -> {
                             openAuthFlow(fragment)
                         }
+                        is OpenScreenEvent ->  {
+                            routerFacade.navigateTo(event.screen)
+                        }
                         is CallBackPressedEvent   -> {
                             fragment.activity?.onBackPressed()
                         }

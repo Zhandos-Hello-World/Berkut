@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal data class LoginRequest(
-    @SerialName("email") val email: String,
-    @SerialName("password") val password: String,
+    @SerialName("username") val username: String,
+    @SerialName("code") val code: String,
+    @SerialName("role") val role: String,
+    @SerialName("phone_number") val phoneNumber: String,
 )

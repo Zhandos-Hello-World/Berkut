@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kz.cicada.berkut.feature.auth.R
-import kz.cicada.berkut.feature.auth.domain.repository.ValidationRepository
+import kz.cicada.berkut.feature.auth.domain.repository.AuthRepository
 import kz.cicada.berkut.feature.auth.presentation.code.InputCodeConstants.DEFAULT_SECONDS_LEFT
 import kz.cicada.berkut.feature.auth.presentation.code.InputCodeConstants.MAX_CODE_NUMBERS
 import kz.cicada.berkut.feature.auth.presentation.code.InputCodeConstants.ONLY_NUMBERS_REGEX
@@ -27,7 +27,7 @@ import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 internal class InputCodeViewModel(
     private val launcher: InputCodeLauncher,
     private val errorHandler: ErrorHandler,
-    private val repository: ValidationRepository,
+    private val authRepo: AuthRepository,
     private val routerFacade: RouterFacade,
 ) : BaseViewModel(), InputCodeController {
 
@@ -78,10 +78,11 @@ internal class InputCodeViewModel(
             },
             request = {
                 onError(errorText = null)
-//                repository.validateCode(
-//                    email = launcher.email,
-//                    otpCode = uiState.value.otpValue,
-//                )
+                authRepo.loginUser(
+                    params = launcher.params.copy(
+                        code = uiState.value.otpValue
+                    )
+                )
             },
             onSuccess = {
                 routerFacade.navigateTo(

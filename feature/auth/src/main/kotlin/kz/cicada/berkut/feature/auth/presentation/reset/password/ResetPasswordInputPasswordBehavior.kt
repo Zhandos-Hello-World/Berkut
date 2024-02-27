@@ -13,7 +13,7 @@ import kz.cicada.berkut.lib.core.ui.event.SystemEvent
 internal class ResetPasswordInputPasswordBehavior : InputPasswordBehavior {
 
     override suspend fun onPrimaryButtonClick(value: String): List<SystemEvent> {
-        return emptyList()
+        return listOf()
     }
 
     override fun getInputItems(): List<PasswordFieldData> {

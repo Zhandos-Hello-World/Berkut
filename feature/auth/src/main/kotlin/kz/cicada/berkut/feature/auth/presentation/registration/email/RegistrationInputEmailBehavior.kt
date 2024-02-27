@@ -3,6 +3,8 @@ package kz.cicada.berkut.feature.auth.presentation.registration.email
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kz.cicada.berkut.feature.auth.R
+import kz.cicada.berkut.feature.auth.domain.model.LoginParams
+import kz.cicada.berkut.feature.auth.domain.model.UserType
 import kz.cicada.berkut.feature.auth.domain.repository.ValidationRepository
 import kz.cicada.berkut.feature.auth.navigation.AuthScreens
 import kz.cicada.berkut.feature.auth.presentation.code.InputCodeLauncher
@@ -31,12 +33,15 @@ internal object RegistrationInputEmailBehavior : InputEmailBehavior {
         return VmRes.StrRes(R.string.continue_text)
     }
 
-    override suspend fun onPrimaryButtonClick(value: String): List<SystemEvent> {
-//        repository.validateEmail(value)
+    override suspend fun onPrimaryButtonClick(params: LoginParams): List<SystemEvent> {
+        repository.validatePhone(params.phoneNumber)
         return listOf(
             OpenScreenEvent(
                 AuthScreens.InputCode(
-                    InputCodeLauncher(email = value, flow = AuthFlow.Registration),
+                    InputCodeLauncher(
+                        flow = AuthFlow.Registration,
+                        params = params,
+                    ),
                 ),
             )
         )

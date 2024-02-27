@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kz.cicada.berkut.feature.auth.domain.model.UserType
 import kz.cicada.berkut.lib.core.localization.string.VmRes
 import kz.cicada.berkut.lib.core.localization.string.resolve
 import kz.cicada.berkut.lib.core.ui.compose.R
@@ -102,9 +103,11 @@ fun ChooseRoleContentContentPreview() {
                     RoleDvo(
                         title = VmRes.StrRes(kz.cicada.berkut.feature.language.R.string.child),
                         icon = R.drawable.ic_lucky_avatar,
+                        type = UserType.CHILD,
                     ), RoleDvo(
                         title = VmRes.StrRes(kz.cicada.berkut.feature.language.R.string.parent),
                         icon = R.drawable.ic_lucky_motivating_yoda,
+                        type = UserType.CHILD,
                     )
                 ),
                 selected = null,

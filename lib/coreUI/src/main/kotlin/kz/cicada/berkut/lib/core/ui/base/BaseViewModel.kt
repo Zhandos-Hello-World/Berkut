@@ -32,7 +32,7 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
 
     fun sendEvent(vararg actionEvent: SystemEvent) {
         actionEvent.forEach {
-            actionEvents.value = Event(it)
+            actionEvents.postValue(Event(it))
         }
     }
 

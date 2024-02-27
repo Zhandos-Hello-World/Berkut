@@ -1,11 +1,14 @@
 package kz.cicada.berkut.feature.chooser.presentation.feature.simple.ui
 
+import kotlinx.coroutines.Dispatchers
 import kz.cicada.berkut.feature.chooser.presentation.feature.simple.SimpleChooserLauncher
 import kz.cicada.berkut.feature.chooser.presentation.model.ChooserDvo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.base.ViewState
+import kz.cicada.berkut.lib.core.ui.event.ActionResultEvent
 import kz.cicada.berkut.lib.core.ui.event.OpenScreenEvent
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 
@@ -29,10 +32,7 @@ class SimpleChooserViewModel(
                 launcher.behavior.onSelectableTextClick(item)
             },
             onSuccess = { events ->
-                events.forEach { event ->
-                    val screen = (event as? OpenScreenEvent)?.screen
-                    screen?.let(routerFacade::navigateTo)
-                }
+                sendEvent(*events.toTypedArray())
             },
         )
     }
@@ -43,16 +43,13 @@ class SimpleChooserViewModel(
                 launcher.behavior.onSecondaryButtonClick(item)
             },
             onSuccess = { events ->
-                events.forEach { event ->
-                    val screen = (event as? OpenScreenEvent)?.screen
-                    screen?.let(routerFacade::navigateTo)
-                }
+                sendEvent(*events.toTypedArray())
             },
         )
     }
 
     override fun onCloseButtonClick() {
-        routerFacade.exit()
+        routerFacade.finishChain()
     }
 
     override fun onRepeatButtonClick() {

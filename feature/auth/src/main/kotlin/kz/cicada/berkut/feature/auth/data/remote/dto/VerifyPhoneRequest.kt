@@ -1,20 +1,12 @@
 package kz.cicada.berkut.feature.auth.data.remote.dto
 
-class VerifyPhoneRequest(
-    code: String,
-    phoneNumber: String,
-    username: String,
-) : HashMap<String, String?>() {
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-    init {
-        put(CODE, code)
-        put(PHONE_NUMBER, phoneNumber)
-        put(USERNAME, username)
-    }
-
-    companion object {
-        private const val CODE = "code"
-        private const val PHONE_NUMBER = "phone_number"
-        private const val USERNAME = "username"
-    }
-}
+@Serializable
+data class VerifyPhoneRequest(
+    val code: String,
+    @SerialName("phone_number") val phoneNumber: String,
+    val username: String,
+    val role: String = "PARENT"
+)

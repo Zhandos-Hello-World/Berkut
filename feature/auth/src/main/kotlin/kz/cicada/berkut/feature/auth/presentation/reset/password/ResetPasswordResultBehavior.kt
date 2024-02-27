@@ -20,10 +20,10 @@ internal class ResetPasswordResultBehavior : ResultBehavior {
         VmRes.StrRes(R.string.authorize)
 
     override suspend fun onPrimaryButtonClick(): List<SystemEvent> = listOf(
-        OpenScreenEvent(AuthScreens.Login()),
+//        OpenScreenEvent(AuthScreens.Login()),
     )
 
     override suspend fun onNavigateBack(): List<SystemEvent> = listOf(
-        OpenScreenEvent(AuthScreens.Login()),
+//        OpenScreenEvent(AuthScreens.Login()),
     )
 }

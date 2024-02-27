@@ -10,6 +10,7 @@ import kz.cicada.berkut.lib.core.di.coreModule
 import kz.cicada.berkut.lib.core.ui.compose.di.coreUiModule
 import kz.cicada.berkut.lib.core.ui.di.corePresentationModule
 import kz.cicada.berkut.feature.language.di.languageModule
+import kz.cicada.berkut.feature.maps.di.mapsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -24,6 +25,7 @@ internal object KoinModules {
 		resultModule,
 		chooserModule,
 		languageModule,
+		mapsModule,
 	)
 	private val libraryModules = listOf(
 		coreModule,

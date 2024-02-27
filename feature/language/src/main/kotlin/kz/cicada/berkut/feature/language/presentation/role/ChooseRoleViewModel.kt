@@ -1,6 +1,7 @@
 package kz.cicada.berkut.feature.language.presentation.role
 
 import kotlinx.coroutines.flow.MutableStateFlow
+import kz.cicada.berkut.feature.auth.domain.model.UserType
 import kz.cicada.berkut.feature.auth.navigation.AuthScreens
 import kz.cicada.berkut.feature.language.R
 import kz.cicada.berkut.lib.core.localization.string.VmRes
@@ -19,9 +20,11 @@ class ChooseRoleViewModel(
                 RoleDvo(
                     title = VmRes.StrRes(R.string.child),
                     icon = composeR.drawable.ic_lucky_avatar,
+                    type = UserType.CHILD,
                 ), RoleDvo(
                     title = VmRes.StrRes(R.string.parent),
                     icon = composeR.drawable.ic_lucky_motivating_yoda,
+                    type = UserType.PARENT,
                 )
             ),
             selected = null,
@@ -29,9 +32,8 @@ class ChooseRoleViewModel(
     )
 
     override fun onConfirmClick() {
-        routerFacade.navigateTo(
-            AuthScreens.Login()
-        )
+        val selected = uiState.value.selected ?: return
+        routerFacade.navigateTo(AuthScreens.Login(selected.type))
     }
 
     override fun onNavigateBack() {

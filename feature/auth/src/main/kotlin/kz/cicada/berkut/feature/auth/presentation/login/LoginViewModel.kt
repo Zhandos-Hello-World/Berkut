@@ -4,6 +4,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kz.cicada.berkut.feature.auth.R
+import kz.cicada.berkut.feature.auth.domain.model.LoginParams
+import kz.cicada.berkut.feature.auth.domain.model.UserType
 import kz.cicada.berkut.feature.auth.domain.repository.AuthRepository
 import kz.cicada.berkut.feature.auth.navigation.AuthScreens
 import kz.cicada.berkut.feature.auth.presentation.common.AuthFlow
@@ -21,6 +23,7 @@ import kz.cicada.berkut.lib.core.ui.compose.extension.tryToUpdate
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 
 class LoginViewModel(
+    private val userType: UserType,
     private val repository: AuthRepository,
     private val errorHandler: ErrorHandler,
     private val routerFacade: RouterFacade,
@@ -75,10 +78,10 @@ class LoginViewModel(
                 _uiState.tryToUpdate {
                     it.copy(passwordError = null, emailError = null)
                 }
-                repository.loginUser(
-                    email = value.email,
-                    password = value.password,
-                )
+//                repository.loginUser(
+//                    email = value.email,
+//                    password = value.password,
+//                )
             },
             onSuccess = {
                 // TODO: Добавить проверку на первичную и вторичную авторизацию
@@ -110,6 +113,9 @@ class LoginViewModel(
                 InputNameLauncher(
                     flow = AuthFlow.Registration,
                     behavior = RegistrationInputEmailBehavior,
+                    params = LoginParams(
+                        userType = userType,
+                    )
                 )
             )
         )

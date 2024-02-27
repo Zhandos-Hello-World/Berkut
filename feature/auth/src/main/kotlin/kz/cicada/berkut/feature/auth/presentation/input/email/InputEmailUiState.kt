@@ -12,6 +12,5 @@ internal data class InputEmailUiState(
     val description: VmRes<CharSequence>,
     val primaryButtonText: VmRes<CharSequence>,
     val phoneNumber: String,
-    val userName: String,
     val phoneNumberError: VmRes<CharSequence>? = null,
 )

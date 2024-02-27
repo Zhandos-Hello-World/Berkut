@@ -2,6 +2,7 @@ plugins {
     id(Build.androidApplication)
     id(Build.kotlinAndroid)
     id(Build.kotlinKspPlugin)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 apply {
@@ -21,6 +22,7 @@ android {
         versionCode = ProjectConfig.versionCode
         versionName = ProjectConfig.versionName
 
+
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -37,6 +39,21 @@ android {
             isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = false
+        }
+
+        secrets {
+            // Optionally specify a different file name containing your secrets.
+            // The plugin defaults to "local.properties"
+            propertiesFileName = "secrets.properties"
+
+            // A properties file containing default secret values. This file can be
+            // checked in version control.
+            defaultPropertiesFileName = "local.defaults.properties"
+
+            // Configure which keys should be ignored by the plugin by providing regular expressions.
+            // "sdk.dir" is ignored by default.
+            ignoreList.add("keyToIgnore") // Ignore the key "keyToIgnore"
+            ignoreList.add("sdk.*")       // Ignore all keys matching the regexp "sdk.*"
         }
     }
 
@@ -59,6 +76,7 @@ dependencies {
     implementation(project(Modules.result))
     implementation(project(Modules.chooser))
     implementation(project(Modules.language))
+    implementation(project(Modules.maps))
 
     // Dependencies
     implementation(AndroidX.coreKtx)

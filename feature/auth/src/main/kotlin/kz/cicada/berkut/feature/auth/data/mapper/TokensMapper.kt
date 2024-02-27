@@ -5,7 +5,7 @@ import kz.cicada.berkut.feature.auth.domain.model.Tokens
 
 fun LoginResponse.toTokens(): Tokens {
     return Tokens(
-        accessToken = accessToken.orEmpty(),
+        accessToken = jwt.orEmpty(),
         refreshToken = refreshToken.orEmpty(),
     )
 }

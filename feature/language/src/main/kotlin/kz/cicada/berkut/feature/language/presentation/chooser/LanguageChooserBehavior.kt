@@ -30,8 +30,5 @@ class LanguageChooserBehavior(private val selectedLanguageName: String) : Simple
     )
 
     override suspend fun onSelectableTextClick(item: ChooserDvo.SelectableText): List<SystemEvent> =
-        listOf(
-            LanguageResultEvent(Language.valueOf(item.id)),
-            ActionResultEvent(),
-        )
+        listOf(ActionResultEvent(LanguageResultEvent(Language.valueOf(item.id))))
 }

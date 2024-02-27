@@ -29,7 +29,6 @@ internal class InputEmailViewModel(
             description = launcher.behavior.getDescription(),
             primaryButtonText = launcher.behavior.getPrimaryButtonText(),
             phoneNumber = String.empty,
-            userName = String.empty,
         ),
     )
 
@@ -46,7 +45,9 @@ internal class InputEmailViewModel(
                 updateLoadingState(isLoading = isLoading)
             },
             request = {
-                launcher.behavior.onPrimaryButtonClick(uiState.value.phoneNumber)
+                launcher.behavior.onPrimaryButtonClick(
+                    launcher.params.copy(phoneNumber = uiState.value.phoneNumber)
+                )
             },
             onSuccess = { events ->
                 events.forEach { event ->

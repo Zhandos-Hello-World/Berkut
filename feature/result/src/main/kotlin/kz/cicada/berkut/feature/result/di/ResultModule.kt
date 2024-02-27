@@ -10,6 +10,7 @@ val resultModule = module {
     viewModel { parameters ->
         ResultViewModel(
             launcher = parameters.get(),
+            routerFacade = get(),
         )
     }
 

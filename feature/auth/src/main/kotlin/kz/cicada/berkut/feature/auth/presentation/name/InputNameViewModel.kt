@@ -44,6 +44,7 @@ internal class InputNameViewModel(
                 InputEmailLauncher(
                     flow = AuthFlow.Registration,
                     behavior = RegistrationInputEmailBehavior,
+                    params = launcher.params.copy(username = uiState.value.username)
                 )
             )
         )

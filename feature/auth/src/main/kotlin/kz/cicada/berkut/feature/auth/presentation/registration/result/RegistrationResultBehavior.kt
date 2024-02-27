@@ -2,6 +2,7 @@ package kz.cicada.berkut.feature.auth.presentation.registration.result
 
 import kotlinx.parcelize.Parcelize
 import kz.cicada.berkut.feature.auth.navigation.AuthScreens
+import kz.cicada.berkut.feature.maps.navigation.MapsScreen
 import kz.cicada.berkut.feature.result.R
 import kz.cicada.berkut.feature.result.presentation.feature.ResultBehavior
 import kz.cicada.berkut.lib.core.localization.string.VmRes
@@ -19,10 +20,10 @@ internal class RegistrationResultBehavior : ResultBehavior {
     override fun getPrimaryButtonText(): VmRes<CharSequence> = VmRes.StrRes(kz.cicada.berkut.core.presentation.R.string.to_main_page)
 
     override suspend fun onPrimaryButtonClick(): List<SystemEvent> = listOf(
-        OpenScreenEvent(AuthScreens.Login()),
+        OpenScreenEvent(MapsScreen.Main()),
     )
 
     override suspend fun onNavigateBack(): List<SystemEvent> = listOf(
-        OpenScreenEvent(AuthScreens.Login()),
+//        OpenScreenEvent(AuthScreens.Login()),
     )
 }

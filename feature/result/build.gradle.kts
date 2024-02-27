@@ -15,6 +15,7 @@ dependencies {
     implementation(project(Modules.coreData))
     implementation(project(Modules.coreUI))
     implementation(project(Modules.coreUICompose))
+    implementation(project(Modules.maps))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)

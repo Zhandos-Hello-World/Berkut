@@ -108,22 +108,22 @@ internal class InputPasswordViewModel(
     }
 
     override fun onNavigateBack() {
-        routerFacade.backTo(
-            AuthScreens.Email(
-                launcher = InputEmailLauncher(
-                    flow = launcher.flow,
-                    behavior = when (launcher.flow) {
-                        AuthFlow.Registration -> {
-                            RegistrationInputEmailBehavior
-                        }
-
-                        AuthFlow.ResetPassword -> {
-                            ResetPasswordInputEmailBehavior
-                        }
-                    },
-                ),
-            )
-        )
+//        routerFacade.backTo(
+//            AuthScreens.Email(
+//                launcher = InputEmailLauncher(
+//                    flow = launcher.flow,
+//                    behavior = when (launcher.flow) {
+//                        AuthFlow.Registration -> {
+//                            RegistrationInputEmailBehavior
+//                        }
+//
+//                        AuthFlow.ResetPassword -> {
+//                            ResetPasswordInputEmailBehavior
+//                        }
+//                    },
+//                ),
+//            )
+//        )
     }
 
     private fun updateLoadingState(isLoading: Boolean) {
