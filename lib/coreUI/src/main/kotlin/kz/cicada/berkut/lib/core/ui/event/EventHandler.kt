@@ -34,6 +34,7 @@ object CallBackPressedEvent : ActionEvent()
 object CloseAppEvent : ActionEvent()
 
 class OpenScreenEvent(val screen: BerkutScreen): ActionEvent()
+class NewRootScreen(val screen: BerkutScreen) : ActionEvent()
 
 /**
  * Intended for showing simple common error dialogs with fixed title, common to whole application

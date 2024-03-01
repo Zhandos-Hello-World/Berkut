@@ -1,6 +1,6 @@
 plugins {
     id(Build.androidLibrary)
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id(Build.mapsPlatform)
 }
 
 apply {
@@ -22,11 +22,14 @@ dependencies {
     implementation(project(Modules.coreUI))
     implementation(project(Modules.coreUICompose))
 
+    implementation(project(Modules.shareQR))
+
+
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)
-    implementation("com.google.android.gms:play-services-maps:18.2.0")
 
-    implementation(Storage.prefDataStore)
+    implementation(Google.playServiceMaps)
+
     implementation(Coroutines.coroutines)
     implementation(Navigation.cicreone)
 

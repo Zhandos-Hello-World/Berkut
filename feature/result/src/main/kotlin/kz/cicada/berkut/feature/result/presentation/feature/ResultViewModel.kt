@@ -20,10 +20,7 @@ class ResultViewModel(
                 launcher.behavior.onPrimaryButtonClick()
             },
             onSuccess = { events ->
-                events.forEach { event ->
-                    val screen = (event as? OpenScreenEvent)?.screen
-                    screen?.let(routerFacade::navigateTo)
-                }
+                sendEvent(*events.toTypedArray())
             },
         )
     }

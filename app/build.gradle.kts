@@ -77,6 +77,8 @@ dependencies {
     implementation(project(Modules.chooser))
     implementation(project(Modules.language))
     implementation(project(Modules.maps))
+    implementation(project(Modules.shareQR))
+    implementation(project(Modules.home))
 
     // Dependencies
     implementation(AndroidX.coreKtx)

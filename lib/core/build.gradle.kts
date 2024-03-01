@@ -22,8 +22,6 @@ dependencies {
     implementation(AndroidX.appCompat)
     implementation(AndroidX.annotation)
 
-    implementation(Storage.prefDataStore)
-
     implementation(Koin.koinAndroid)
     implementation(Koin.koinCore)
 }

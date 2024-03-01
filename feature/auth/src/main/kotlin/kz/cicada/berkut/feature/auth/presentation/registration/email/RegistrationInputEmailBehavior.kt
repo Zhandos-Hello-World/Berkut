@@ -34,13 +34,14 @@ internal object RegistrationInputEmailBehavior : InputEmailBehavior {
     }
 
     override suspend fun onPrimaryButtonClick(params: LoginParams): List<SystemEvent> {
-        repository.validatePhone(params.phoneNumber)
+        val argParams = params.copy(phoneNumber = params.phoneNumber.substring(1))
+        repository.validatePhone(argParams.phoneNumber)
         return listOf(
             OpenScreenEvent(
                 AuthScreens.InputCode(
                     InputCodeLauncher(
                         flow = AuthFlow.Registration,
-                        params = params,
+                        params = argParams,
                     ),
                 ),
             )

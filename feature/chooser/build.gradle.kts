@@ -12,14 +12,11 @@ android {
 
 dependencies {
     implementation(project(Modules.core))
-    implementation(project(Modules.coreData))
     implementation(project(Modules.coreUI))
     implementation(project(Modules.coreUICompose))
 
     AndroidX.all.forEach(::implementation)
-    Network.all.forEach(::implementation)
 
-    implementation(Storage.prefDataStore)
     implementation(Coroutines.coroutines)
     implementation(Navigation.cicreone)
 

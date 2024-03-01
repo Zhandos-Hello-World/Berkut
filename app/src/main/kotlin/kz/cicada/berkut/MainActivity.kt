@@ -13,6 +13,7 @@ import kz.cicada.berkut.lib.core.ui.navigation.MainActivityNavigation
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.BerkutNavigator
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 import kz.cicada.berkut.feature.language.navigation.LanguageScreens
+import kz.cicada.berkut.feature.maps.navigation.MapsScreen
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), MainActivityNavigation {
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
     }
 
     override fun openMainFlow() {
-        //TODO
+        routerFacade.newRootScreen(MapsScreen.Main())
     }
 
     override fun openAuthFlow(logOut: Boolean) {

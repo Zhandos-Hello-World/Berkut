@@ -23,7 +23,6 @@ import kz.cicada.berkut.lib.core.ui.compose.extension.tryToUpdate
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 
 class LoginViewModel(
-    private val userType: UserType,
     private val repository: AuthRepository,
     private val errorHandler: ErrorHandler,
     private val routerFacade: RouterFacade,
@@ -108,17 +107,7 @@ class LoginViewModel(
     }
 
     override fun onRegisterButtonClick() {
-        routerFacade.navigateTo(
-            AuthScreens.InputName(
-                InputNameLauncher(
-                    flow = AuthFlow.Registration,
-                    behavior = RegistrationInputEmailBehavior,
-                    params = LoginParams(
-                        userType = userType,
-                    )
-                )
-            )
-        )
+        routerFacade.navigateTo(AuthScreens.ChooseRole())
     }
 
     override fun onChangeFocus(focusedField: FocusedField) {

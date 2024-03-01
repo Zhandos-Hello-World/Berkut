@@ -7,6 +7,8 @@ import org.koin.dsl.module
 val mapsModule = module {
 
     viewModel {
-        MapsViewModel()
+        MapsViewModel(
+            routerFacade = get(),
+        )
     }
 }

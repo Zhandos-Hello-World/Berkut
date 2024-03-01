@@ -7,4 +7,5 @@ import kotlinx.serialization.Serializable
 data class LoginResponse(
     @SerialName("jwt") val jwt: String? = null,
     @SerialName("refresh_token") val refreshToken: String? = null,
+    @SerialName("id") val id: Long? = null,
 )

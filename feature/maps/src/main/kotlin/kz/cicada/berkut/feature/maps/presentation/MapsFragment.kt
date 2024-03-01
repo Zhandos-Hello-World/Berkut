@@ -13,10 +13,11 @@ import kz.cicada.berkut.feature.maps.databinding.FragmentMapsBinding
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.base.fragment.BindingBaseFragment
 import kz.cicada.berkut.lib.core.ui.navigation.FragmentTransition
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_maps),
     OnMapReadyCallback, FragmentTransition.LeftRight {
-    override val viewModel: BaseViewModel? = null
+    override val viewModel: MapsViewModel by viewModel()
     private lateinit var mMap: GoogleMap
     override fun bindView(view: View) = FragmentMapsBinding.bind(view)
 

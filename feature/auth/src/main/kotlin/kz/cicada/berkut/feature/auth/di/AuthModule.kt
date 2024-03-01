@@ -5,7 +5,6 @@ import kz.cicada.berkut.feature.auth.data.remote.AuthApi
 import kz.cicada.berkut.feature.auth.data.remote.ValidationApi
 import kz.cicada.berkut.feature.auth.data.repository.DefaultAuthRepository
 import kz.cicada.berkut.feature.auth.data.repository.DefaultValidationRepository
-import kz.cicada.berkut.feature.auth.domain.model.UserType
 import kz.cicada.berkut.feature.auth.domain.repository.AuthRepository
 import kz.cicada.berkut.feature.auth.domain.repository.ValidationRepository
 import kz.cicada.berkut.feature.auth.presentation.code.InputCodeLauncher
@@ -33,6 +32,7 @@ val authModule = module {
     single<AuthRepository> {
         DefaultAuthRepository(
             api = get(),
+            userPref = get(),
             dispatcher = Dispatchers.IO,
         )
     }
@@ -45,14 +45,14 @@ val authModule = module {
     }
 
     // presentation
-    viewModel { (launcher: UserType) ->
+    viewModel {
         LoginViewModel(
-            userType = launcher,
             repository = get(),
             errorHandler = get(),
             routerFacade = get(),
         )
     }
+
     viewModel { (launcher: InputCodeLauncher) ->
         InputCodeViewModel(
             launcher = launcher,

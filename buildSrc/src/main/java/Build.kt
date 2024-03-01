@@ -10,4 +10,10 @@ object Build {
     const val kspVersion = "$kotlinVersion-1.0.13"
     const val kotlinKspPlugin = "com.google.devtools.ksp"
     const val kotlinSerialization = "org.jetbrains.kotlin.plugin.serialization"
+
+    const val protobufVersion = "0.8.17"
+    const val proto = "com.google.protobuf"
+
+
+    const val mapsPlatform = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
 }

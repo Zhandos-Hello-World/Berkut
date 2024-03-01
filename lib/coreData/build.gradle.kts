@@ -5,6 +5,7 @@ plugins {
 apply {
     from("$rootDir/config/java17-android-library.gradle")
     from("$rootDir/config/compose-module.gradle")
+    from("$rootDir/config/room-database-module.gradle")
 }
 android {
     namespace = "${ProjectConfig.appId}.lib.core.data"
@@ -24,9 +25,13 @@ dependencies {
     implementation(Koin.koinCore)
     implementation(Koin.koinAndroid)
 
-
+    implementation(Storage.prefDataStore)
     implementation(Util.timber)
-    Util.Hyperion.all.forEach(::debugImplementation)
+
+    //CHUCKER FOR LOG REQUESTS
     debugImplementation(Util.chuckerLibrary)
     releaseImplementation(Util.chuckerLibraryNoOp)
+
+    //HYPERION FOR DEBUG
+    Util.Hyperion.all.forEach(::debugImplementation)
 }

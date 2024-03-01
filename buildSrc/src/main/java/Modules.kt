@@ -9,7 +9,9 @@ object Modules {
     const val auth = ":feature:auth"
     const val result = ":feature:result"
     const val chooser = ":feature:chooser"
-    const val language = ":feature:language"
+    const val language = ":feature:onboarding"
     const val location = ":feature:location"
     const val maps = ":feature:maps"
+    const val shareQR = ":feature:shareQR"
+    const val home = ":feature:home"
 }

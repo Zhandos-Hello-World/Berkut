@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "kz.cicada.berkut.feature.auth";
+option java_multiple_files = true;
+
+message TokensPreferences {
+  string access_token = 1;
+  string refresh_token = 2;
+}

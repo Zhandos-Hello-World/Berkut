@@ -20,7 +20,6 @@ dependencies {
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)
 
-    implementation(Storage.prefDataStore)
     implementation(Coroutines.coroutines)
     implementation(Navigation.cicreone)
 

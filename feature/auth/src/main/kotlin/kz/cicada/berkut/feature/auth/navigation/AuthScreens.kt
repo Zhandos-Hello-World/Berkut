@@ -10,12 +10,17 @@ import kz.cicada.berkut.feature.auth.presentation.input.password.InputPasswordLa
 import kz.cicada.berkut.feature.auth.presentation.login.LoginFragment
 import kz.cicada.berkut.feature.auth.presentation.name.InputNameFragment
 import kz.cicada.berkut.feature.auth.presentation.name.InputNameLauncher
+import kz.cicada.berkut.feature.auth.presentation.role.ChooseRoleFragment
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.screen.BerkutFragmentScreen
 
 object AuthScreens {
 
-    fun Login(type: UserType): BerkutFragmentScreen = BerkutFragmentScreen {
-        LoginFragment(type = type)
+    fun Login(): BerkutFragmentScreen = BerkutFragmentScreen {
+        LoginFragment()
+    }
+
+    fun ChooseRole(): BerkutFragmentScreen = BerkutFragmentScreen {
+        ChooseRoleFragment()
     }
 
     internal fun InputName(launcher: InputNameLauncher): BerkutFragmentScreen = BerkutFragmentScreen {

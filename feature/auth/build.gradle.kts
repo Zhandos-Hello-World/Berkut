@@ -17,12 +17,10 @@ dependencies {
     implementation(project(Modules.coreUICompose))
 
     implementation(project(Modules.result))
-    implementation(project(":feature:maps"))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)
 
-    implementation(Storage.prefDataStore)
     implementation(Coroutines.coroutines)
     implementation(Navigation.cicreone)
 

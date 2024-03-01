@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_qr">Пусть твои родители отсканирует тебя:)</string>
+    <string name="dont_show_qr">Не показывай незнакомым Дядкам свой QR. Покажи только своим близким</string>
+    <string name="skip_sad_emoji">Пропустить :(</string>
+</resources>

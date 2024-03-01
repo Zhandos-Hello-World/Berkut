@@ -80,7 +80,7 @@ internal class InputCodeViewModel(
                 onError(errorText = null)
                 authRepo.loginUser(
                     params = launcher.params.copy(
-                        code = uiState.value.otpValue
+                        code = uiState.value.otpValue,
                     )
                 )
             },

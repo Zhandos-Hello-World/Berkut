@@ -71,4 +71,7 @@
     <string name="phone_number">Номер телефона</string>
     <string name="telegram_account_link">Ссылка на аккаунт в Telegram</string>
     <string name="calm_down_it_is_normal">Не переживай! Это нужен для идентификаций</string>
+    <string name="choice_role">Выбери роль</string>
+    <string name="parent">Родитель</string>
+    <string name="child">Ребенок</string>
 </resources>

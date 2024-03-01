@@ -3,4 +3,5 @@ object Storage {
     private const val protoDataStoreVersion = "3.18.0"
 
     const val prefDataStore = "androidx.datastore:datastore-preferences:$dataStoreVersion"
+    const val protoDataStore = "com.google.protobuf:protobuf-javalite:$protoDataStoreVersion"
 }

@@ -27,7 +27,10 @@ include ":lib:coreUICompose"
 include ":feature"
 include ":feature:auth"
 include ':feature:result'
-include ':feature:language'
+include ':feature:onboarding'
 include ':feature:chooser'
 include ':feature:location'
 include ':feature:maps'
+include ':feature:uploadPhoto'
+include ':feature:shareQR'
+include ':feature:home'

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_photo">Добавь фото</string>
+    <string name="do_not_be_shy_you_are_beautiful">Не стесняйся, ты самый красивый человек у своей мамы!</string>
+    <string name="skip_sad_emoji">Пропустить :(</string>
+    <string name="choose_photo">Выбрать фото</string>
+    <string name="from_gallery">Из галереи</string>
+    <string name="take_picture">Сделать фото</string>
+    <string name="continue_text">Продолжить</string>
+    <string name="input_name">Введи имя</string>
+    <string name="input_surname">Введи фамилию</string>
+    <string name="input_birthday">Введи дату рождения</string>
+    <string name="input_address">Укажи адрес проживания</string>
+    <string name="input_job_position">Укажи должность</string>
+    <string name="input_start_work_date">Введи дату выхода на работу</string>
+    <string name="input_phone_number">Введи номер телефона</string>
+    <string name="input_telegram_account">Введи аккаунт в telegram</string>
+    <string name="choose_date">Выбери дату</string>
+    <string name="cancel">Отмена</string>
+    <string name="choose">Выбрать</string>
+    <string name="fill_out_your_profile">Заполни свой профиль</string>
+    <string name="fill_profile_description">Ну надо, всё это, надо. Что поделаешь…</string>
+    <string name="personal_data">Личные данные</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="mail">Почта</string>
+    <string name="birthday">Дата рождения</string>
+    <string name="address_hint">Страна, город, полный адрес</string>
+    <string name="information">Информация</string>
+    <string name="job_position">Должность</string>
+    <string name="start_work_day">Дата начала выхода на работу</string>
+    <string name="contacts">Контакты</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="telegram_account_link">Ссылка на аккаунт в Telegram</string>
+</resources>

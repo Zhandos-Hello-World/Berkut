@@ -19,4 +19,7 @@ object Compose {
 
     private const val lottieVersion = "6.3.0"
     const val lottie = "com.airbnb.android:lottie-compose:$lottieVersion"
+
+    private const val composeQrVersion = "1.0.1"
+    const val composeQR = "com.lightspark:compose-qr-code:$composeQrVersion"
 }

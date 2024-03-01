@@ -31,4 +31,5 @@ dependencies {
     implementation Compose.activityCompose
     implementation Coil.coilCompose
     implementation Compose.lottie
+    implementation Compose.composeQR
 }

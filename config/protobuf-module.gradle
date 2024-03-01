@@ -1,0 +1,21 @@
+apply plugin: 'com.google.protobuf'
+
+dependencies {
+    implementation Storage.protoDataStore
+    implementation Storage.prefDataStore
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.7"
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
+    }
+}
