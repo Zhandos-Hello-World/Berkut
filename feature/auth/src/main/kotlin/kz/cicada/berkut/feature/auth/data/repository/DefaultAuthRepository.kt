@@ -1,7 +1,6 @@
 package kz.cicada.berkut.feature.auth.data.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import kz.cicada.berkut.feature.auth.data.mapper.toRequest
 import kz.cicada.berkut.feature.auth.data.remote.AuthApi
@@ -32,6 +31,7 @@ internal class DefaultAuthRepository(
                     jwt = response.jwt.orEmpty(),
                     refreshToken = response.refreshToken.orEmpty(),
                 )
+                setAuth(isAuth = true)
             }
         }
     }

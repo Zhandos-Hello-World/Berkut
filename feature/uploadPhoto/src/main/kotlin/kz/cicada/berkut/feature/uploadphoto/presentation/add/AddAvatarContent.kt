@@ -137,7 +137,7 @@ private fun AddAvatarFooter(
 
 @Preview(showSystemUi = true)
 @Composable
-fun AddAvatarContentPreview() {
+private fun AddAvatarContentPreview() {
     class FakeAddAvatarController : AddAvatarController {
         override fun onAddAvatarButtonIconClick() = Unit
         override fun onContinueButtonClick() = Unit

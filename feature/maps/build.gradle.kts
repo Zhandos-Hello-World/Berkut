@@ -23,7 +23,7 @@ dependencies {
     implementation(project(Modules.coreUICompose))
 
     implementation(project(Modules.shareQR))
-
+    implementation(project(Modules.uploadPhoto))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)

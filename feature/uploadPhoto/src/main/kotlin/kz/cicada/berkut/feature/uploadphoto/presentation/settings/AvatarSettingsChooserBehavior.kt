@@ -5,11 +5,12 @@ import kz.cicada.berkut.feature.chooser.presentation.feature.simple.SimpleChoose
 import kz.cicada.berkut.feature.chooser.presentation.model.ChooserDvo
 import kz.cicada.berkut.feature.uploadPhoto.R
 import kz.cicada.berkut.lib.core.localization.string.VmRes
+import kz.cicada.berkut.lib.core.ui.event.ActionResultEvent
 import kz.cicada.berkut.lib.core.ui.event.SystemEvent
 import kz.cicada.berkut.lib.core.ui.compose.R as composeR
 
 @Parcelize
-internal class AvatarSettingsChooserBehavior : SimpleChooserBehavior {
+class AvatarSettingsChooserBehavior : SimpleChooserBehavior {
     override fun getHeaderOrNull(): VmRes<CharSequence> = VmRes.StrRes(R.string.choose_photo)
 
     override suspend fun getItemList(): List<ChooserDvo> {
@@ -31,12 +32,14 @@ internal class AvatarSettingsChooserBehavior : SimpleChooserBehavior {
 
     override suspend fun onSecondaryButtonClick(item: ChooserDvo.SecondaryButton): List<SystemEvent> {
         return listOf(
-            AvatarSettingsResultEvent(
-                when (item.id) {
-                    AvatarSettings.OPEN_CAMERA.name -> AvatarSettings.OPEN_CAMERA
-                    else -> AvatarSettings.OPEN_GALLERY
-                },
-            ),
+            ActionResultEvent(
+                AvatarSettingsResultEvent(
+                    when (item.id) {
+                        AvatarSettings.OPEN_CAMERA.name -> AvatarSettings.OPEN_CAMERA
+                        else -> AvatarSettings.OPEN_GALLERY
+                    },
+                ),
+            )
         )
     }
 }

@@ -1,6 +1,10 @@
 package kz.cicada.berkut.feature.uploadphoto.presentation.settings
 
-internal enum class AvatarSettings {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+internal enum class AvatarSettings: Parcelable {
     OPEN_GALLERY,
     OPEN_CAMERA,
 }

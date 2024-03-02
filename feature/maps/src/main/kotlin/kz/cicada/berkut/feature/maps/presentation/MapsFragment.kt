@@ -34,6 +34,6 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
         mMap = googleMap
         val sydney = LatLng(43.23, 76.88)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Almaty"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12F))
     }
 }

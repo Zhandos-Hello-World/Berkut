@@ -17,6 +17,7 @@ dependencies {
     implementation(project(Modules.coreUICompose))
 
     implementation(project(Modules.result))
+    implementation(project(Modules.uploadPhoto))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)

@@ -15,6 +15,7 @@ import kz.cicada.berkut.feature.auth.presentation.registration.result.Registrati
 import kz.cicada.berkut.feature.auth.presentation.reset.password.ResetPasswordResultBehavior
 import kz.cicada.berkut.feature.result.presentation.feature.ResultLauncher
 import kz.cicada.berkut.feature.result.presentation.navigation.ResultScreens
+import kz.cicada.berkut.feature.uploadphoto.navigation.AddAvatarScreen
 import kz.cicada.berkut.lib.core.empty
 import kz.cicada.berkut.lib.core.error.handling.ErrorHandler
 import kz.cicada.berkut.lib.core.error.handling.INVALID_CODE
@@ -85,7 +86,7 @@ internal class InputCodeViewModel(
                 )
             },
             onSuccess = {
-                routerFacade.navigateTo(
+                routerFacade.newChain(
                     ResultScreens.Result(
                         launcher = ResultLauncher(
                             behavior = when (launcher.flow) {
@@ -98,7 +99,8 @@ internal class InputCodeViewModel(
                                 }
                             },
                         )
-                    )
+                    ),
+                    AddAvatarScreen.AddAvatar(),
                 )
             },
             onError = ::handleOtpError,

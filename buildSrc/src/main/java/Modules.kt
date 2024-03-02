@@ -13,5 +13,5 @@ object Modules {
     const val location = ":feature:location"
     const val maps = ":feature:maps"
     const val shareQR = ":feature:shareQR"
-    const val home = ":feature:home"
+    const val uploadPhoto = ":feature:uploadPhoto"
 }
