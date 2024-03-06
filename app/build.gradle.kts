@@ -79,6 +79,7 @@ dependencies {
     implementation(project(Modules.maps))
     implementation(project(Modules.shareQR))
     implementation(project(Modules.uploadPhoto))
+    implementation(project(Modules.location))
 
     // Dependencies
     implementation(AndroidX.coreKtx)

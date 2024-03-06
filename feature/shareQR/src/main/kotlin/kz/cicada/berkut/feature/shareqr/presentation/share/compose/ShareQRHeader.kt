@@ -1,4 +1,4 @@
-package kz.cicada.berkut.feature.shareqr.presentation.compose
+package kz.cicada.berkut.feature.shareqr.presentation.share.compose
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth

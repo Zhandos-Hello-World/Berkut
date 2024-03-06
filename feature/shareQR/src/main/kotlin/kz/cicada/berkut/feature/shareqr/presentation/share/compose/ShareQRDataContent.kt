@@ -1,4 +1,4 @@
-package kz.cicada.berkut.feature.shareqr.presentation.compose
+package kz.cicada.berkut.feature.shareqr.presentation.share.compose
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lightspark.composeqr.QrCodeView
-import kz.cicada.berkut.feature.shareqr.presentation.ShareQRUIState
+import kz.cicada.berkut.feature.shareqr.presentation.share.ShareQRUIState
 import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 
 @Composable

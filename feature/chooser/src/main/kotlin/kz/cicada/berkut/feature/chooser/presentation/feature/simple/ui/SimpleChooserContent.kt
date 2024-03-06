@@ -1,5 +1,6 @@
 package kz.cicada.berkut.feature.chooser.presentation.feature.simple.ui
 
+import androidx.compose.foundation.background
 import kz.cicada.berkut.feature.chooser.presentation.model.ChooserDvo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,7 +30,7 @@ fun SimpleChooserContent(
     uiState: ViewState<SimpleChooserUiState>,
     controller: SimpleChooserController,
 ) {
-    Column(modifier = Modifier) {
+    Column(modifier = Modifier.background(MaterialTheme.additionalColors.backgroundLight)) {
         TopHandle(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

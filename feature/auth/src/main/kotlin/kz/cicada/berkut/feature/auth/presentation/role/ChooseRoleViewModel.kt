@@ -3,7 +3,7 @@ package kz.cicada.berkut.feature.auth.presentation.role
 import kotlinx.coroutines.flow.MutableStateFlow
 import kz.cicada.berkut.feature.auth.R
 import kz.cicada.berkut.feature.auth.domain.model.LoginParams
-import kz.cicada.berkut.feature.auth.domain.model.UserType
+import kz.cicada.berkut.lib.core.data.network.UserType
 import kz.cicada.berkut.feature.auth.navigation.AuthScreens
 import kz.cicada.berkut.feature.auth.presentation.common.AuthFlow
 import kz.cicada.berkut.feature.auth.presentation.model.RoleDvo

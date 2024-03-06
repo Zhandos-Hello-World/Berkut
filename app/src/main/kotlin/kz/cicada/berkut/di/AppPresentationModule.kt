@@ -11,6 +11,7 @@ internal val appPresentationModule = module {
 		MainActivityViewModel(
 			userPreferences = get(),
 			dispatcher = Dispatchers.IO,
+			externalLocationService = get(),
 		)
 	}
 }

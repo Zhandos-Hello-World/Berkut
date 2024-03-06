@@ -1,8 +1,9 @@
-package kz.cicada.berkut.feature.shareqr.presentation
+package kz.cicada.berkut.feature.shareqr.presentation.share
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kz.cicada.berkut.lib.core.data.local.UserPreferences
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
@@ -24,7 +25,7 @@ class ShareQRViewModel(
 
     private fun getQR() {
         viewModelScope.launch(Dispatchers.IO) {
-            val id = userPreferences.getId()
+            val id = userPreferences.getId().first()
             val url = "https://berkut.app/id=$id"
             uiState.tryToUpdate { ShareQRUIState.Data(url) }
         }

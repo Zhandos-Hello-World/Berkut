@@ -1,6 +1,5 @@
 package kz.cicada.berkut.feature.auth.navigation
 
-import kz.cicada.berkut.feature.auth.domain.model.UserType
 import kz.cicada.berkut.feature.auth.presentation.code.InputCodeFragment
 import kz.cicada.berkut.feature.auth.presentation.code.InputCodeLauncher
 import kz.cicada.berkut.feature.auth.presentation.input.email.InputEmailFragment

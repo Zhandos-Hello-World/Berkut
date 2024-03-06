@@ -10,6 +10,7 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import kotlinx.coroutines.launch
 import kz.cicada.berkut.databinding.ActivityMainBinding
 import kz.cicada.berkut.feature.language.navigation.LanguageScreens
+import kz.cicada.berkut.feature.location.service.LocationService
 import kz.cicada.berkut.feature.maps.navigation.MapsScreen
 import kz.cicada.berkut.lib.core.ui.compose.activity.ActivityProvider
 import kz.cicada.berkut.lib.core.ui.event.EventObserver
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
                 binding.bottomNav.isVisible = isAuth
                 if (isAuth) {
                     openMainFlow()
+                    viewModel.checkAndRunGeoService()
                 } else {
                     openAuthFlow()
                 }
@@ -108,7 +110,10 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
             this,
             EventObserver {
                 when (it) {
-                    is OpenMainActivityEvent -> openMainFlow()
+                    is OpenMainActivityEvent -> {
+                        viewModel.checkAndRunGeoService()
+                        openMainFlow()
+                    }
                     is OpenAuthFlowEvent -> openAuthFlow()
                     is OpenExternalLinkEvent -> it.link.openInBrowser(this)
                     else -> Unit

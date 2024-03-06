@@ -4,7 +4,6 @@ import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kz.cicada.berkut.feature.auth.R
 import kz.cicada.berkut.feature.auth.domain.model.LoginParams
-import kz.cicada.berkut.feature.auth.domain.model.UserType
 import kz.cicada.berkut.feature.auth.domain.repository.ValidationRepository
 import kz.cicada.berkut.feature.auth.navigation.AuthScreens
 import kz.cicada.berkut.feature.auth.presentation.code.InputCodeLauncher

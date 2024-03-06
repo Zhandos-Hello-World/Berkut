@@ -1,4 +1,4 @@
-package kz.cicada.berkut.feature.auth.domain.model
+package kz.cicada.berkut.lib.core.data.network
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

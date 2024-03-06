@@ -4,13 +4,13 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.preferencesOf
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class UserPreferences(
     private val dataStore: DataStore<Preferences>,
+    private val tokenPreferences: TokenPreferences,
 ) {
 
     suspend fun setData(
@@ -18,11 +18,10 @@ class UserPreferences(
         refreshToken: String,
         jwt: String,
     ) {
+        tokenPreferences.setRefreshToken(refreshToken)
+        tokenPreferences.setJWT(jwt)
         dataStore.edit { preferences ->
             preferences[USER_ID] = id
-            preferences[USER_REFRESH_TOKEN] = refreshToken
-            preferences[USER_JWT] = jwt
-
         }
     }
 
@@ -41,6 +40,12 @@ class UserPreferences(
     suspend fun setAuth(isAuth: Boolean) {
         dataStore.edit { preferences ->
             preferences[AUTHORIZED] = isAuth
+        }
+    }
+
+    fun getUserName(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[USER_NAME].orEmpty()
         }
     }
 
@@ -65,8 +70,6 @@ class UserPreferences(
 
     companion object {
         private val USER_ID = stringPreferencesKey("USER_ID")
-        private val USER_REFRESH_TOKEN = stringPreferencesKey("USER_TOKEN")
-        private val USER_JWT = stringPreferencesKey("USER_JWT")
 
         private val USER_TYPE = stringPreferencesKey("USER_TYPE")
         private val USER_NAME = stringPreferencesKey("USER_NAME")

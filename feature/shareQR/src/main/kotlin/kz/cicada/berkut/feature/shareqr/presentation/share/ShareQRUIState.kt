@@ -1,4 +1,4 @@
-package kz.cicada.berkut.feature.shareqr.presentation
+package kz.cicada.berkut.feature.shareqr.presentation.share
 
 sealed interface ShareQRUIState {
 

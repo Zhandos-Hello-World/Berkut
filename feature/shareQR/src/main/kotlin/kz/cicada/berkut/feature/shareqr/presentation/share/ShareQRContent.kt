@@ -1,5 +1,6 @@
-package kz.cicada.berkut.feature.shareqr.presentation
+package kz.cicada.berkut.feature.shareqr.presentation.share
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -9,15 +10,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kz.cicada.berkut.feature.shareqr.presentation.compose.ShareQRDataContent
-import kz.cicada.berkut.feature.shareqr.presentation.compose.ShareQRHeader
-import kz.cicada.berkut.feature.shareqr.presentation.compose.ShareQRLoadingContent
+import kz.cicada.berkut.feature.shareqr.presentation.share.compose.ShareQRDataContent
+import kz.cicada.berkut.feature.shareqr.presentation.share.compose.ShareQRHeader
+import kz.cicada.berkut.feature.shareqr.presentation.share.compose.ShareQRLoadingContent
 import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 import kz.cicada.berkut.lib.core.ui.compose.widgets.button.CommonPrimaryButton
 import kz.cicada.berkut.lib.core.ui.compose.widgets.toolbar.Toolbar
@@ -30,6 +32,7 @@ internal fun ShareQRContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colors.background)
             .windowInsetsPadding(WindowInsets.statusBars),
     ) {
         Toolbar(navigateUp = controller::onNavigateBack)

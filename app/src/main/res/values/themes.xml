@@ -1,8 +1,3 @@
 <resources>
-    <style name="Theme.Berkut" parent="Theme.MaterialComponents.Light" >
-
-        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorOnPrimary">@color/grey</item>
-    </style>
+    <style name="Theme.Berkut" parent="Theme.MaterialComponents.NoActionBar" />
 </resources>

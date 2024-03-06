@@ -4,14 +4,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kz.cicada.berkut.feature.auth.R
-import kz.cicada.berkut.feature.auth.domain.model.LoginParams
-import kz.cicada.berkut.feature.auth.domain.model.UserType
 import kz.cicada.berkut.feature.auth.domain.repository.AuthRepository
 import kz.cicada.berkut.feature.auth.navigation.AuthScreens
-import kz.cicada.berkut.feature.auth.presentation.common.AuthFlow
 import kz.cicada.berkut.feature.auth.presentation.common.isValidEmail
-import kz.cicada.berkut.feature.auth.presentation.name.InputNameLauncher
-import kz.cicada.berkut.feature.auth.presentation.registration.email.RegistrationInputEmailBehavior
 import kz.cicada.berkut.lib.core.empty
 import kz.cicada.berkut.lib.core.error.handling.BAD_REQUEST
 import kz.cicada.berkut.lib.core.error.handling.ErrorHandler
