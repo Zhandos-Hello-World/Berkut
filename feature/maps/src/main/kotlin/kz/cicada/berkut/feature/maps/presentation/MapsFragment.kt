@@ -1,7 +1,6 @@
 package kz.cicada.berkut.feature.maps.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -14,9 +13,6 @@ import kz.cicada.berkut.feature.maps.databinding.FragmentMapsBinding
 import kz.cicada.berkut.lib.core.ui.base.fragment.BindingBaseFragment
 import kz.cicada.berkut.lib.core.ui.navigation.FragmentTransition
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ua.naiksoftware.stomp.Stomp
-import ua.naiksoftware.stomp.dto.StompHeader
-import java.util.LinkedList
 
 
 class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_maps),
@@ -31,31 +27,35 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
         mapFragment.getMapAsync { googleMap ->
             this@MapsFragment.onMapReady(googleMap)
         }
+        observeCurrentLocation()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         val sydney = LatLng(43.23, 76.88)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Almaty"))
+//            "/user/${1}/geo-data",
+//            LinkedList(),
+//        )?.doOnError {
+//            Log.d(
+//                "WEBSOCKERPAY",
+//                it.message.toString()
+//            )
+//        }?.subscribe { topicMessage ->
+//            Log.d(
+//                "WEBSOCKERPAY",
+//                topicMessage.payload
+//            )
+//        }
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12F))
     }
 
 
-    fun configureWebSocket() {
-        val mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://berkut-mobile-app-dev.up.railway.app/ws-connection")
+    private fun observeCurrentLocation() {
+//
+    }
 
-        mStompClient.connect()
-
-        mStompClient.topic(
-            "/topic/greetings",
-            LinkedList<StompHeader>()
-        ).subscribe { topicMessage ->
-            Log.d(
-                TAG,
-                topicMessage.getPayload()
-            )
-        }
-
-        mStompClient.send("/topic/hello-msg-mapping", "My first STOMP message!").subscribe()
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 }

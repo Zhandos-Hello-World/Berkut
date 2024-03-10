@@ -12,4 +12,5 @@ val mapsModule = module {
             preferences = get(),
         )
     }
+
 }

@@ -36,5 +36,4 @@ dependencies {
     implementation(Koin.koinCore)
     implementation(Koin.koinAndroid)
     implementation(Google.material)
-    implementation("com.github.NaikSoftware:StompProtocolAndroid:1.6.6")
 }

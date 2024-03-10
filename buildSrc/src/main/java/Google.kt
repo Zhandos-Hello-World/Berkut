@@ -9,4 +9,6 @@ object Google {
     private const val googleGMSLocationVersion = "20.0.0"
     const val googleGMSLocation = "com.google.android.gms:play-services-location:$googleGMSLocationVersion"
 
+    const val zxing = "com.google.zxing:core:3.5.1"
+
 }

@@ -83,10 +83,11 @@ class NetworkApiFactory(
                 readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 writeTimeout(WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
 
+                val token = UserScope.jwtToken
                 if (authorized) {
                     addInterceptor(
                         AuthorizationInterceptor(
-                            jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzA5NTIyODk0LCJleHAiOjE3MTA2MDI4OTQsInBob25lTnVtYmVyIjoiMjIyMjIyMjIyMyIsInJvbGUiOiJDSElMRCJ9.Zw-kRCgQS6TOvp1Fgy4eF2C6kPwEjf9qJIGxTgH69rw",
+                            jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3IiwiaWF0IjoxNzEwMDkzOTAyLCJleHAiOjE3MTExNzM5MDIsInBob25lTnVtYmVyIjoiNjY2NjY2NjY2NiIsInJvbGUiOiJQQVJFTlQifQ.Mub2ji-ptDWph2Mf5XjqJj89xciEXoLvjSTO6EKTq1g",
                         )
                     )
                 }

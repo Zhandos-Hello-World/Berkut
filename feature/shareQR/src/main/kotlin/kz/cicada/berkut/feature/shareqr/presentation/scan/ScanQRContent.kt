@@ -11,11 +11,8 @@ import androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,13 +22,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import kz.cicada.berkut.feature.shareqr.presentation.scan.compose.TransparentClipLayout
 import kz.cicada.berkut.feature.shareqr.presentation.scan.ext.QrCodeAnalyzer
-
+import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 
 @Composable
 fun ScanQRContent(
@@ -60,7 +55,7 @@ fun ScanQRContent(
     LaunchedEffect(key1 = true) {
         launcher.launch(Manifest.permission.CAMERA)
     }
-    Column(
+    Box(
         modifier = Modifier.fillMaxSize()
     ) {
         if (hasCamPermission) {
@@ -73,10 +68,10 @@ fun ScanQRContent(
                             .build()
                     preview.setSurfaceProvider(previewView.surfaceProvider)
                     val imageAnalysis = ImageAnalysis.Builder().setTargetResolution(
-                            Size(
-                                previewView.width, previewView.height
-                            )
-                        ).setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST).build()
+                        Size(
+                            previewView.width, previewView.height
+                        )
+                    ).setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST).build()
                     imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(context),
                         QrCodeAnalyzer { result ->
                             code = result
@@ -90,16 +85,25 @@ fun ScanQRContent(
                         e.printStackTrace()
                     }
                     previewView
-                }, modifier = Modifier.weight(1f)
+                },
+                modifier = Modifier.fillMaxSize(),
             )
-            Text(
-                text = code,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(32.dp)
+
+            TransparentClipLayout(
+                modifier = Modifier.fillMaxSize()
             )
         }
+    }
+}
+
+@androidx.compose.ui.tooling.preview.Preview
+@Composable
+private fun ScanQRContentPreview() {
+    AppTheme {
+        ScanQRContent(
+            controller = object : ScanQRViewController {
+                override fun detekt(url: String) = Unit
+            },
+        )
     }
 }
