@@ -24,6 +24,7 @@ dependencies {
 
     implementation(project(Modules.shareQR))
     implementation(project(Modules.uploadPhoto))
+    implementation(project(Modules.socketConnection))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)

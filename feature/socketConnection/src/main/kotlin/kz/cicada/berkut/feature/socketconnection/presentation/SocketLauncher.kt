@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class SocketLauncher(
-    val path: String,
+    val behavior: SocketBehavior,
 ) : Parcelable

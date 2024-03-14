@@ -1,5 +1,6 @@
 package kz.cicada.berkut
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.first
@@ -20,6 +21,8 @@ internal class MainActivityViewModel(
         viewModelScope.launch {
             if (userPreferences.getType().first() == UserType.CHILD.name) {
                 externalLocationService.startLocationService()
+
+                Log.d("JWTToken", userPreferences.getJWT().first())
             }
         }
     }

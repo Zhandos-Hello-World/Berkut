@@ -28,11 +28,15 @@ class UserPreferences(
     suspend fun setUserType(
         type: String,
         username: String,
+        jwtToken: String,
+        refreshToken: String,
         phoneNumber: String,
     ) {
         dataStore.edit { preferences ->
             preferences[USER_TYPE] = type
             preferences[USER_NAME] = username
+            preferences[JWT_TOKEN] = jwtToken
+            preferences[REFRESH_TOKEN] = refreshToken
             preferences[PHONE_NUMBER] = phoneNumber
         }
     }
@@ -68,12 +72,21 @@ class UserPreferences(
         }
     }
 
+    fun getJWT(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[JWT_TOKEN].orEmpty()
+        }
+    }
+
     companion object {
         private val USER_ID = stringPreferencesKey("USER_ID")
 
         private val USER_TYPE = stringPreferencesKey("USER_TYPE")
         private val USER_NAME = stringPreferencesKey("USER_NAME")
         private val PHONE_NUMBER = stringPreferencesKey("USER_PHONE_NUMBER")
+
+        private val JWT_TOKEN = stringPreferencesKey("JWT_TOKEN")
+        private val REFRESH_TOKEN = stringPreferencesKey("REFRESH_TOKEN")
 
 
         private val AUTHORIZED = booleanPreferencesKey("AUTHORIZED")

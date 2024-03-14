@@ -13,9 +13,13 @@ android {
 dependencies {
     implementation(project(Modules.core))
     implementation(project(Modules.coreData))
+    implementation(project(Modules.coreUI))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)
+
+    implementation(Koin.koinCore)
+    implementation(Koin.koinAndroid)
 
     implementation(Coroutines.coroutines)
     implementation(SocketConnection.rx)

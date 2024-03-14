@@ -19,7 +19,7 @@ class LocationRepository(
         with(dispatcher) {
             api.pushLocation(
                 request = PushLocationRequest(
-                    userId = 10,
+                    userId = defaultUserPreferences.getId().first().toInt(),
                     latitude = latitude.toString(),
                     longitude = longitude.toString(),
                     timestamp = System.currentTimeMillis().toString(),

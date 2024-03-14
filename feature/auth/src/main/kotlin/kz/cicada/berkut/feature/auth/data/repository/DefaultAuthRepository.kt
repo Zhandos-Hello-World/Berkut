@@ -24,6 +24,8 @@ internal class DefaultAuthRepository(
                 setUserType(
                     type = params.userType.name,
                     username = params.username,
+                    jwtToken = response.jwt.orEmpty(),
+                    refreshToken = response.refreshToken.orEmpty(),
                     phoneNumber = params.phoneNumber,
                 )
                 setData(

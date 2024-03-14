@@ -6,15 +6,16 @@ import kz.cicada.berkut.lib.core.data.local.DefaultTokensPreferences
 import kz.cicada.berkut.lib.core.data.local.TokenPreferences
 import kz.cicada.berkut.lib.core.data.local.UserPreferences
 import kz.cicada.berkut.lib.core.data.local.dataStore
+import kz.cicada.berkut.lib.core.data.network.AuthorizationInterceptor
 import kz.cicada.berkut.lib.core.data.network.NetworkApiFactory
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 fun coreDataModule(backendUrl: String) = module {
-    factory {
+    single {
         NetworkApiFactory(
             url = backendUrl,
-            tokenPreferences = get(),
+            interceptor = get(),
             context = androidContext(),
         )
     }
@@ -31,6 +32,12 @@ fun coreDataModule(backendUrl: String) = module {
         UserPreferences(
             dataStore = get(),
             tokenPreferences = get(),
+        )
+    }
+
+    single {
+        AuthorizationInterceptor(
+            dataStore = get(),
         )
     }
 }

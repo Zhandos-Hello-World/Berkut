@@ -80,6 +80,7 @@ dependencies {
     implementation(project(Modules.shareQR))
     implementation(project(Modules.uploadPhoto))
     implementation(project(Modules.location))
+    implementation(project(Modules.socketConnection))
 
     // Dependencies
     implementation(AndroidX.coreKtx)

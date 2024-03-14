@@ -13,6 +13,7 @@ import kz.cicada.berkut.feature.language.di.languageModule
 import kz.cicada.berkut.feature.location.di.geolocationModule
 import kz.cicada.berkut.feature.maps.di.mapsModule
 import kz.cicada.berkut.feature.shareqr.di.qrModule
+import kz.cicada.berkut.feature.socketconnection.di.socketDi
 import kz.cicada.berkut.feature.uploadphoto.di.addAvatarModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -32,6 +33,7 @@ internal object KoinModules {
 		qrModule,
 		addAvatarModule,
 		geolocationModule,
+		socketDi,
 	)
 	private val libraryModules = listOf(
 		coreModule,

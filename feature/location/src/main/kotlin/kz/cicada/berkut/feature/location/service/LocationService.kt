@@ -60,6 +60,6 @@ class LocationService : Service() {
     companion object {
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
-        private const val LOCATION_UPDATE_INTERVAL = 3000L
+        private const val LOCATION_UPDATE_INTERVAL = 3_000L
     }
 }

@@ -3,21 +3,21 @@
     <item
         android:id="@+id/map_page"
         android:enabled="true"
-        android:icon="@android:drawable/ic_secure"
-        android:title="Карта"/>
+        android:icon="@drawable/distance"
+        android:title="Карта" />
     <item
         android:id="@+id/page_2"
         android:enabled="true"
-        android:icon="@android:drawable/ic_secure"
-        android:title="page 2"/>
+        android:icon="@drawable/account_child_invert"
+        android:title="Child info" />
     <item
         android:id="@+id/page_3"
         android:enabled="true"
-        android:icon="@android:drawable/ic_secure"
-        android:title="page 3"/>
+        android:icon="@drawable/list_alt_add"
+        android:title="Locations" />
     <item
         android:id="@+id/profile_page"
         android:enabled="true"
-        android:icon="@android:drawable/ic_secure"
-        android:title="page 4"/>
+        android:icon="@drawable/home"
+        android:title="home" />
 </menu>

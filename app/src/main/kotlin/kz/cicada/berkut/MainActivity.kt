@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
                 binding.bottomNav.isVisible = isAuth
                 if (isAuth) {
                     openMainFlow()
-                    viewModel.checkAndRunGeoService()
                 } else {
                     openAuthFlow()
                 }
@@ -74,6 +73,7 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
     }
 
     override fun openMainFlow() {
+        viewModel.checkAndRunGeoService()
         binding.bottomNav.isVisible = true
         routerFacade.newRootScreen(MapsScreen.Main())
     }

@@ -31,7 +31,7 @@ private const val WRITE_TIMEOUT_SECONDS = 60L
 @OptIn(ExperimentalSerializationApi::class)
 class NetworkApiFactory(
     private val url: String,
-    private val tokenPreferences: TokenPreferences,
+    private val interceptor: AuthorizationInterceptor,
     private val context: Context
 ) {
 
@@ -83,13 +83,8 @@ class NetworkApiFactory(
                 readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 writeTimeout(WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
 
-                val token = UserScope.jwtToken
                 if (authorized) {
-                    addInterceptor(
-                        AuthorizationInterceptor(
-                            jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3IiwiaWF0IjoxNzEwMDkzOTAyLCJleHAiOjE3MTExNzM5MDIsInBob25lTnVtYmVyIjoiNjY2NjY2NjY2NiIsInJvbGUiOiJQQVJFTlQifQ.Mub2ji-ptDWph2Mf5XjqJj89xciEXoLvjSTO6EKTq1g",
-                        )
-                    )
+                    addInterceptor(interceptor)
                 }
 
                 if (BuildConfig.DEBUG) {

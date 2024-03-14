@@ -17,7 +17,6 @@ val qrModule = module {
         ScanQRViewModel(
             api = get(),
             userPref = get(),
-            routerFacade = get(),
         )
     }
 

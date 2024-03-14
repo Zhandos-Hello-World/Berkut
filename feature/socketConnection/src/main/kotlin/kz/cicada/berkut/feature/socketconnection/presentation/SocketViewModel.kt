@@ -3,21 +3,28 @@ package kz.cicada.berkut.feature.socketconnection.presentation
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kz.cicada.berkut.lib.core.data.local.UserPreferences
+import kz.cicada.berkut.lib.core.data.network.UserType
+import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.StompClient
 import ua.naiksoftware.stomp.dto.LifecycleEvent
 import ua.naiksoftware.stomp.dto.StompMessage
-import ua.naiksoftware.stomp.provider.OkHttpConnectionProvider.TAG
 
-
-class MainViewModel {
+class SocketViewModel(
+    private val userPreferences: UserPreferences,
+): BaseViewModel() {
     companion object {
         const val SOCKET_URL = "ws://berkut-mobile-app-dev.up.railway.app/ws-connection"
-        const val CHAT_TOPIC = "/user/${1}/geo-data"
     }
+    val geoPath: String by lazy { "/user/${id}/geo-data" }
+    private var id = ""
 
     private var mStompClient: StompClient? = null
     private var compositeDisposable: CompositeDisposable? = null
@@ -25,35 +32,41 @@ class MainViewModel {
     private val _chatState = MutableLiveData<String?>()
     val liveChatState: LiveData<String?> = _chatState
 
-    init {
-        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, SOCKET_URL/*, headerMap*/)
-            .withServerHeartbeat(30000)
-        resetSubscriptions()
-        initChat()
+    fun start() {
+        viewModelScope.launch {
+            if (userPreferences.getType().first() == UserType.PARENT.name) {
+                val userId = userPreferences.getId().first()
+                id = userId
+                mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, SOCKET_URL)
+                    .withServerHeartbeat(3000)
+                initChat()
+            }
+        }
     }
 
     private fun initChat() {
         resetSubscriptions()
 
-        if (mStompClient != null) {
             val topicSubscribe =
-                mStompClient!!.topic(CHAT_TOPIC).subscribeOn(Schedulers.io(), false)
+                mStompClient!!.topic(geoPath)
+                    .subscribeOn(Schedulers.io(), true)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ topicMessage: StompMessage ->
-                        Log.d(TAG, topicMessage.payload)
+                        Log.d("SocketViewModel", topicMessage.payload)
                         addMessage(topicMessage.payload)
                     }, {
-                        Log.e(TAG, "Error!", it)
+                        Log.e("SocketViewModel", "Error!", it)
                     })
+
 
             val lifecycleSubscribe = mStompClient!!.lifecycle().subscribeOn(Schedulers.io(), false)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { lifecycleEvent: LifecycleEvent ->
                     when (lifecycleEvent.type!!) {
-                        LifecycleEvent.Type.OPENED -> Log.d(TAG, "Stomp connection opened")
-                        LifecycleEvent.Type.ERROR -> Log.e(TAG, "Error", lifecycleEvent.exception)
+                        LifecycleEvent.Type.OPENED -> Log.d("SocketViewModel", "Stomp connection opened")
+                        LifecycleEvent.Type.ERROR -> Log.e("SocketViewModel", "Error", lifecycleEvent.exception)
                         LifecycleEvent.Type.FAILED_SERVER_HEARTBEAT, LifecycleEvent.Type.CLOSED -> {
-                            Log.d(TAG, "Stomp connection closed")
+                            Log.d("SocketViewModel", "Stomp connection closed")
                         }
                     }
                 }
@@ -64,11 +77,6 @@ class MainViewModel {
             if (!mStompClient!!.isConnected) {
                 mStompClient!!.connect()
             }
-
-
-        } else {
-            Log.e(TAG, "mStompClient is null!")
-        }
     }
 
     private fun addMessage(message: String) {
@@ -83,8 +91,12 @@ class MainViewModel {
         compositeDisposable = CompositeDisposable()
     }
 
-    fun onCleared() {
+    override fun onCleared() {
         mStompClient?.disconnect()
         compositeDisposable?.dispose()
+    }
+
+    enum class TypeConnection(val path: String) {
+
     }
 }
