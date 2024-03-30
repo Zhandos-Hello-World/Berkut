@@ -82,6 +82,9 @@ class EventHandlerHelper : KoinComponent {
                         is NewRootScreen -> {
                             routerFacade.newRootScreen(event.screen)
                         }
+                        is CloseScreenEvent -> {
+                            routerFacade.exit()
+                        }
                         is CallBackPressedEvent   -> {
                             fragment.activity?.onBackPressed()
                         }

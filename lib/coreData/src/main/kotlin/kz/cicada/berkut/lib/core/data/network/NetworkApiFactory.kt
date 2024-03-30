@@ -8,10 +8,8 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kz.cicada.berkut.lib.core.BuildConfig
-import kz.cicada.berkut.lib.core.data.UserScope
 import kz.cicada.berkut.lib.core.data.error.ErrorHandlingCallAdapterFactory
 import kz.cicada.berkut.lib.core.data.error.ErrorHandlingConverterFactory
-import kz.cicada.berkut.lib.core.data.local.TokenPreferences
 import me.nemiron.hyperion.networkemulation.NetworkEmulatorInterceptor
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType

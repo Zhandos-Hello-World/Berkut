@@ -12,6 +12,7 @@ import kz.cicada.berkut.lib.core.ui.di.corePresentationModule
 import kz.cicada.berkut.feature.language.di.languageModule
 import kz.cicada.berkut.feature.location.di.geolocationModule
 import kz.cicada.berkut.feature.maps.di.mapsModule
+import kz.cicada.berkut.feature.profile.di.profileDi
 import kz.cicada.berkut.feature.shareqr.di.qrModule
 import kz.cicada.berkut.feature.socketconnection.di.socketDi
 import kz.cicada.berkut.feature.uploadphoto.di.addAvatarModule
@@ -34,6 +35,7 @@ internal object KoinModules {
 		addAvatarModule,
 		geolocationModule,
 		socketDi,
+		profileDi,
 	)
 	private val libraryModules = listOf(
 		coreModule,

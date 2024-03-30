@@ -15,4 +15,5 @@ object Modules {
     const val shareQR = ":feature:shareQR"
     const val uploadPhoto = ":feature:uploadPhoto"
     const val socketConnection = ":feature:socketConnection"
+    const val profile = ":feature:profile"
 }

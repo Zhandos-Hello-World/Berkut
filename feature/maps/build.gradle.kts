@@ -30,6 +30,7 @@ dependencies {
     Network.all.forEach(::implementation)
 
     implementation(Google.playServiceMaps)
+    implementation(Google.gson)
 
     implementation(Coroutines.coroutines)
     implementation(Navigation.cicreone)

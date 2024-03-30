@@ -15,6 +15,7 @@ dependencies {
     implementation(project(Modules.coreData))
     implementation(project(Modules.coreUI))
     implementation(project(Modules.coreUICompose))
+    implementation(project(Modules.socketConnection))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)
@@ -25,6 +26,7 @@ dependencies {
     implementation(Koin.koinCore)
     implementation(Koin.koinAndroid)
     implementation(Google.material)
+    implementation(Google.gson)
 
     implementation(AndroidX.Camera.camera2)
     implementation(AndroidX.Camera.cameraLifecycle)

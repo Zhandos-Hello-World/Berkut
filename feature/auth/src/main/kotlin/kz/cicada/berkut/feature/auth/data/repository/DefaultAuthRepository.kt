@@ -22,16 +22,12 @@ internal class DefaultAuthRepository(
 
             with(userPref) {
                 setUserType(
+                    id = response.id.toString(),
                     type = params.userType.name,
                     username = params.username,
                     jwtToken = response.jwt.orEmpty(),
                     refreshToken = response.refreshToken.orEmpty(),
                     phoneNumber = params.phoneNumber,
-                )
-                setData(
-                    id = response.id.toString(),
-                    jwt = response.jwt.orEmpty(),
-                    refreshToken = response.refreshToken.orEmpty(),
                 )
                 setAuth(isAuth = true)
             }

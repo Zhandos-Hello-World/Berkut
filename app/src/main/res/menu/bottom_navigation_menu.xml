@@ -14,7 +14,7 @@
         android:id="@+id/page_3"
         android:enabled="true"
         android:icon="@drawable/list_alt_add"
-        android:title="Locations" />
+        android:title="Tasks" />
     <item
         android:id="@+id/profile_page"
         android:enabled="true"

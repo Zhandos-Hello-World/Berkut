@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import kz.cicada.berkut.feature.shareqr.presentation.share.compose.ShareQRDataContent
 import kz.cicada.berkut.feature.shareqr.presentation.share.compose.ShareQRHeader
 import kz.cicada.berkut.feature.shareqr.presentation.share.compose.ShareQRLoadingContent
+import kz.cicada.berkut.feature.shareqr.presentation.share.socket.QRSocketModel
 import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 import kz.cicada.berkut.lib.core.ui.compose.widgets.button.CommonPrimaryButton
 import kz.cicada.berkut.lib.core.ui.compose.widgets.toolbar.Toolbar
@@ -76,6 +77,7 @@ internal fun ShareQRContent(
 @Composable
 private fun ShareQRLoadingContentPreview() {
     class FakeShareQRController : ShareQRController {
+        override fun saveDataAndExit(model: QRSocketModel) = Unit
         override fun onNavigateBack() = Unit
     }
     AppTheme {
@@ -90,6 +92,7 @@ private fun ShareQRLoadingContentPreview() {
 @Composable
 private fun ShareQRDataContentPreview() {
     class FakeShareQRController : ShareQRController {
+        override fun saveDataAndExit(model: QRSocketModel) = Unit
         override fun onNavigateBack() = Unit
     }
     AppTheme {

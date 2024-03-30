@@ -10,8 +10,8 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import kotlinx.coroutines.launch
 import kz.cicada.berkut.databinding.ActivityMainBinding
 import kz.cicada.berkut.feature.language.navigation.LanguageScreens
-import kz.cicada.berkut.feature.location.service.LocationService
 import kz.cicada.berkut.feature.maps.navigation.MapsScreen
+import kz.cicada.berkut.feature.profile.navigation.ProfileScreens
 import kz.cicada.berkut.lib.core.ui.compose.activity.ActivityProvider
 import kz.cicada.berkut.lib.core.ui.event.EventObserver
 import kz.cicada.berkut.lib.core.ui.event.OpenAuthFlowEvent
@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
 
     override fun openAuthFlow(logOut: Boolean) {
         routerFacade.newRootScreen(LanguageScreens.Onboarding())
+        binding.bottomNav.isVisible = false
     }
 
     override fun openMapTab() {
@@ -88,10 +89,13 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
 
     override fun openChildTab() = Unit
 
-    override fun openHomeTab() = Unit
+    override fun openHomeTab() {
+//        routerFacade.newRootScreen(ProfileScreens.Profile())
+    }
 
-    override fun openParentTab() = Unit
-
+    override fun openParentTab()  {
+//        routerFacade.newRootScreen(ProfileScreens.Profile())
+    }
 
     private fun setupBottomNavigationView() {
         binding.bottomNav.setOnItemSelectedListener { item ->
@@ -99,7 +103,7 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
             item.isChecked = true
             when (item.itemId) {
                 R.id.map_page -> routerFacade.newRootScreen(screen = MapsScreen.Main())
-                R.id.profile_page -> routerFacade
+                R.id.profile_page -> routerFacade.newRootScreen(ProfileScreens.Home())
             }
             true
         }
@@ -114,7 +118,9 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
                         viewModel.checkAndRunGeoService()
                         openMainFlow()
                     }
-                    is OpenAuthFlowEvent -> openAuthFlow()
+                    is OpenAuthFlowEvent -> {
+                        openAuthFlow()
+                    }
                     is OpenExternalLinkEvent -> it.link.openInBrowser(this)
                     else -> Unit
                 }

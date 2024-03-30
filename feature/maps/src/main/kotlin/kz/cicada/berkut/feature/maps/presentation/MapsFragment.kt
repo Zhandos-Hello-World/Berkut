@@ -18,23 +18,35 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import kz.cicada.berkut.feature.maps.R
 import kz.cicada.berkut.feature.maps.databinding.FragmentMapsBinding
+import kz.cicada.berkut.feature.maps.presentation.socket.MapsSocketBehavior
+import kz.cicada.berkut.feature.maps.presentation.socket.MapsSocketModel
+import kz.cicada.berkut.feature.socketconnection.presentation.SocketLauncher
 import kz.cicada.berkut.feature.socketconnection.presentation.SocketViewModel
 import kz.cicada.berkut.lib.core.ui.base.fragment.BindingBaseFragment
 import kz.cicada.berkut.lib.core.ui.navigation.FragmentTransition
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 private const val REQUEST_LOCATION_PERMISSION = 1
 
 class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_maps),
     OnMapReadyCallback, FragmentTransition.LeftRight {
     override val viewModel: MapsViewModel by viewModel()
-    val almaty = LatLng(43.23, 76.88)
+    var geoSecondLocation = LatLng(43.23, 76.88)
 
-
-    private val socketViewModel: SocketViewModel by viewModel()
+    private val socketViewModel: SocketViewModel by viewModel(
+        parameters = {
+            parametersOf(
+                SocketLauncher(
+                    behavior = MapsSocketBehavior(),
+                ),
+            )
+        },
+    )
     private lateinit var mMap: GoogleMap
     override fun bindView(view: View) = FragmentMapsBinding.bind(view)
 
@@ -53,13 +65,11 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap.addMarker(
-            MarkerOptions()
-                .position(almaty)
-                .title("Marker in Almaty")
+            MarkerOptions().position(geoSecondLocation).title("Marker in Almaty")
         )
 
-        drawCircle(almaty)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(almaty, 12F))
+        drawCircle(geoSecondLocation)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(geoSecondLocation, 12F))
     }
 
     private fun setListeners() {
@@ -67,19 +77,18 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
             eye.setOnClickListener {
                 mMap.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
-                        almaty,
-                        12F
+                        geoSecondLocation, 12F
                     )
                 )
             }
             zoom.setOnClickListener {
                 mMap.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(almaty, mMap.cameraPosition.zoom + 1F)
+                    CameraUpdateFactory.newLatLngZoom(geoSecondLocation, mMap.cameraPosition.zoom + 1F)
                 )
             }
             unzoom.setOnClickListener {
                 mMap.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(almaty, mMap.cameraPosition.zoom - 1F)
+                    CameraUpdateFactory.newLatLngZoom(geoSecondLocation, mMap.cameraPosition.zoom - 1F)
                 )
             }
         }
@@ -96,8 +105,20 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
                 }
             }
         }
-        socketViewModel.liveChatState.observe(viewLifecycleOwner) {
-            Log.d("liveChatState", it.toString())
+        socketViewModel.messageState.observe(viewLifecycleOwner) {
+            try {
+                val model = Gson().fromJson(it, MapsSocketModel::class.java)
+                val latitude = model.latitude?.toDouble() ?: 0.0
+                val longitude = model.longitude?.toDouble() ?: 0.0
+
+                mMap.clear()
+                geoSecondLocation = LatLng(latitude, longitude)
+                mMap.addMarker(
+                    MarkerOptions().position(geoSecondLocation).title(model.username)
+                )
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
         }
     }
 
@@ -131,12 +152,4 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
         circleOptions.strokeWidth(2f)
         mMap.addCircle(circleOptions)
     }
-
-
-    data class Place(
-        val name: String,
-        val latLng: LatLng,
-        val address: LatLng,
-        val rating: Float
-    )
 }

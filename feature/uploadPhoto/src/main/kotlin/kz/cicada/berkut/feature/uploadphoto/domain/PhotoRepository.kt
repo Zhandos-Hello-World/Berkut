@@ -1,6 +1,9 @@
 package kz.cicada.berkut.feature.uploadphoto.domain
 
-class PhotoRepository {
+import android.net.Uri
 
+interface PhotoRepository {
+
+    suspend fun uploadPhoto(userAvatarUri: Uri)
 
 }

@@ -10,22 +10,10 @@ import kotlinx.coroutines.flow.map
 
 class UserPreferences(
     private val dataStore: DataStore<Preferences>,
-    private val tokenPreferences: TokenPreferences,
 ) {
 
-    suspend fun setData(
-        id: String,
-        refreshToken: String,
-        jwt: String,
-    ) {
-        tokenPreferences.setRefreshToken(refreshToken)
-        tokenPreferences.setJWT(jwt)
-        dataStore.edit { preferences ->
-            preferences[USER_ID] = id
-        }
-    }
-
     suspend fun setUserType(
+        id: String,
         type: String,
         username: String,
         jwtToken: String,
@@ -33,6 +21,7 @@ class UserPreferences(
         phoneNumber: String,
     ) {
         dataStore.edit { preferences ->
+            preferences[USER_ID] = id
             preferences[USER_TYPE] = type
             preferences[USER_NAME] = username
             preferences[JWT_TOKEN] = jwtToken
@@ -41,9 +30,33 @@ class UserPreferences(
         }
     }
 
+    suspend fun setSecondUserType(
+        id: String,
+        type: String,
+        username: String,
+        phoneNumber: String,
+        rel: String,
+        href: String,
+    ) {
+        dataStore.edit { preferences ->
+            preferences[SECOND_USER_ID] = id
+            preferences[SECOND_USER_TYPE] = type
+            preferences[SECOND_USER_NAME] = username
+            preferences[SECOND_PHONE_NUMBER] = phoneNumber
+            preferences[SECOND_REL] = rel
+            preferences[SECOND_HREF] = href
+        }
+    }
+
     suspend fun setAuth(isAuth: Boolean) {
         dataStore.edit { preferences ->
             preferences[AUTHORIZED] = isAuth
+        }
+    }
+
+    suspend fun clearAllData() {
+        dataStore.edit { preferences ->
+            preferences.clear()
         }
     }
 
@@ -90,5 +103,12 @@ class UserPreferences(
 
 
         private val AUTHORIZED = booleanPreferencesKey("AUTHORIZED")
+
+        private val SECOND_USER_ID = stringPreferencesKey("SECOND_USER_ID")
+        private val SECOND_USER_TYPE = stringPreferencesKey("SECOND_USER_TYPE")
+        private val SECOND_USER_NAME = stringPreferencesKey("SECOND_USER_NAME")
+        private val SECOND_PHONE_NUMBER = stringPreferencesKey("SECOND_USER_PHONE_NUMBER")
+        private val SECOND_REL = stringPreferencesKey("SECOND_REL")
+        private val SECOND_HREF = stringPreferencesKey("SECOND_HREF")
     }
 }

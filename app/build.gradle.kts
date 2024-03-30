@@ -81,6 +81,7 @@ dependencies {
     implementation(project(Modules.uploadPhoto))
     implementation(project(Modules.location))
     implementation(project(Modules.socketConnection))
+    implementation(project(Modules.profile))
 
     // Dependencies
     implementation(AndroidX.coreKtx)
