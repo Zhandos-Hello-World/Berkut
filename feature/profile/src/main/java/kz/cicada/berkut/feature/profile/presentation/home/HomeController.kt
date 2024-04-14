@@ -9,5 +9,6 @@ interface HomeController {
     fun navigateToSupport()
     fun navigateToAddTask()
     fun navigateToAddSaveLocations()
+    fun navigateToFAQ()
     fun onLogoutClick()
 }

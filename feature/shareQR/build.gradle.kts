@@ -32,4 +32,5 @@ dependencies {
     implementation(AndroidX.Camera.cameraLifecycle)
     implementation(AndroidX.Camera.cameraView)
     implementation(Google.zxing)
+    implementation(Google.journeyApps)
 }

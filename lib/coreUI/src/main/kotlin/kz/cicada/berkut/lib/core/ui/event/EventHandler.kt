@@ -35,6 +35,7 @@ object CloseAppEvent : ActionEvent()
 
 object CloseScreenEvent : ActionEvent()
 class OpenScreenEvent(val screen: BerkutScreen): ActionEvent()
+class ReplaceScreenEvent(val screen: BerkutScreen): ActionEvent()
 class NewRootScreen(val screen: BerkutScreen) : ActionEvent()
 
 /**

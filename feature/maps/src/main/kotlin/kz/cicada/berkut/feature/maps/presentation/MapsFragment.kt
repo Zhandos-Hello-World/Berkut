@@ -3,14 +3,16 @@ package kz.cicada.berkut.feature.maps.presentation
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -26,6 +28,7 @@ import kz.cicada.berkut.feature.maps.presentation.socket.MapsSocketBehavior
 import kz.cicada.berkut.feature.maps.presentation.socket.MapsSocketModel
 import kz.cicada.berkut.feature.socketconnection.presentation.SocketLauncher
 import kz.cicada.berkut.feature.socketconnection.presentation.SocketViewModel
+import kz.cicada.berkut.lib.core.data.network.UserType
 import kz.cicada.berkut.lib.core.ui.base.fragment.BindingBaseFragment
 import kz.cicada.berkut.lib.core.ui.navigation.FragmentTransition
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,7 +39,7 @@ private const val REQUEST_LOCATION_PERMISSION = 1
 class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_maps),
     OnMapReadyCallback, FragmentTransition.LeftRight {
     override val viewModel: MapsViewModel by viewModel()
-    var geoSecondLocation = LatLng(43.23, 76.88)
+    private var geoSecondLocation: LatLng? = null
 
     private val socketViewModel: SocketViewModel by viewModel(
         parameters = {
@@ -64,47 +67,46 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        mMap.addMarker(
-            MarkerOptions().position(geoSecondLocation).title("Marker in Almaty")
-        )
-
-        drawCircle(geoSecondLocation)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(geoSecondLocation, 12F))
     }
 
     private fun setListeners() {
         with(viewBinding) {
-            eye.setOnClickListener {
-                mMap.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        geoSecondLocation, 12F
-                    )
-                )
-            }
             zoom.setOnClickListener {
-                mMap.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(geoSecondLocation, mMap.cameraPosition.zoom + 1F)
-                )
+                geoSecondLocation?.let { geoSecondLocation ->
+                    mMap.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            geoSecondLocation, mMap.cameraPosition.zoom + 1F
+                        )
+                    )
+                }
             }
             unzoom.setOnClickListener {
-                mMap.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(geoSecondLocation, mMap.cameraPosition.zoom - 1F)
-                )
+                geoSecondLocation?.let { geoSecondLocation ->
+                    mMap.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            geoSecondLocation, mMap.cameraPosition.zoom - 1F
+                        )
+                    )
+                }
             }
         }
     }
 
 
     private fun observeCurrentLocation() {
+        socketViewModel.start()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.connectionWebSocket.collect {
-                    if (it) {
-                        socketViewModel.start()
+                viewModel.role.collect {
+                    viewBinding.sos.isVisible = it == UserType.CHILD
+                    viewBinding.sos.setOnClickListener {
+                        viewModel.onSOSClick()
                     }
                 }
             }
         }
+
+
         socketViewModel.messageState.observe(viewLifecycleOwner) {
             try {
                 val model = Gson().fromJson(it, MapsSocketModel::class.java)
@@ -113,9 +115,12 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
 
                 mMap.clear()
                 geoSecondLocation = LatLng(latitude, longitude)
-                mMap.addMarker(
-                    MarkerOptions().position(geoSecondLocation).title(model.username)
-                )
+                geoSecondLocation?.let { geoSecondLocation ->
+                    mMap.addMarker(
+                        MarkerOptions().position(geoSecondLocation).title(model.username)
+                    )
+                }
+
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
@@ -126,6 +131,22 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
     private fun enableMyLocation() {
         if (isPermissionGranted()) {
             mMap.isMyLocationEnabled = true
+            LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener { location: Location? ->
+                location?.let {
+                    geoSecondLocation = LatLng(
+                        location.latitude,
+                        location.longitude,
+                    )
+                    geoSecondLocation?.let { geoSecondLocation ->
+                        drawCircle(geoSecondLocation)
+                        mMap.animateCamera(
+                            CameraUpdateFactory.newLatLngZoom(
+                                geoSecondLocation, 12F
+                            )
+                        )
+                    }
+                }
+            }
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),

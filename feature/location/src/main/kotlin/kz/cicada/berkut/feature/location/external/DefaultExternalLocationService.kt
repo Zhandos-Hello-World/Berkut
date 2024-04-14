@@ -53,8 +53,6 @@ internal class DefaultExternalLocationService(
                 context,
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION,
             ) == PackageManager.PERMISSION_GRANTED
-
-
             startLocationWithPermission(isPermissionGPSBackground)
         } else {
             startLocationWithPermission(true)

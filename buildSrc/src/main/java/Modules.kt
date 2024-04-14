@@ -16,4 +16,8 @@ object Modules {
     const val uploadPhoto = ":feature:uploadPhoto"
     const val socketConnection = ":feature:socketConnection"
     const val profile = ":feature:profile"
+    const val sos = ":feature:sos"
+    const val savedLocations = ":feature:savedLocations"
+    const val tasks = ":feature:tasks"
+    const val children = ":feature:children"
 }

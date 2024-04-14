@@ -29,8 +29,8 @@ internal class PhotoRepositoryImpl(
         val userId = userPreferences.getId().first().toInt()
         val userName = userPreferences.getUserName().first()
         photoApi.uploadPhoto(
-//            userId = userId,
-            username = createRequestBody(userName),
+            id = userId,
+            username = userName,
             image = createImageMultipartData(userAvatarUri),
         )
         Unit
@@ -50,8 +50,8 @@ internal class PhotoRepositoryImpl(
             }
         }
         return MultipartBody.Part.createFormData(
-            name = "avatar",
-            filename = "avatar.jpg",
+            name = "image",
+            filename = "image.jpg",
             body = requestBody,
         )
     }

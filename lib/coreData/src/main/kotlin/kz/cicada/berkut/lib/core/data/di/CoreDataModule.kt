@@ -2,6 +2,8 @@ package kz.cicada.berkut.lib.core.data.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import kz.cicada.berkut.lib.core.data.DefaultDeviceUtils
+import kz.cicada.berkut.lib.core.data.DeviceUtils
 import kz.cicada.berkut.lib.core.data.local.UserPreferences
 import kz.cicada.berkut.lib.core.data.local.dataStore
 import kz.cicada.berkut.lib.core.data.network.AuthorizationInterceptor
@@ -24,6 +26,12 @@ fun coreDataModule(backendUrl: String) = module {
     single<UserPreferences> {
         UserPreferences(
             dataStore = get(),
+        )
+    }
+
+    factory<DeviceUtils> {
+        DefaultDeviceUtils(
+            context = get(),
         )
     }
 

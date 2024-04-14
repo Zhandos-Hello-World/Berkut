@@ -9,6 +9,7 @@ import kotlinx.coroutines.withContext
 import kz.cicada.berkut.feature.profile.navigation.ProfileScreens
 import kz.cicada.berkut.feature.profile.presentation.logout.LogoutConfirmEvent
 import kz.cicada.berkut.feature.shareqr.navigation.QRScreens
+import kz.cicada.berkut.feature.sos.presentation.navigation.HotlineNumberScreens
 import kz.cicada.berkut.lib.core.data.local.UserPreferences
 import kz.cicada.berkut.lib.core.data.network.UserType
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
@@ -38,12 +39,13 @@ class HomeViewModel(
         }
     }
 
-    override fun navigateToHotlineNumbers() = sendEvent(OpenScreenEvent(ProfileScreens.AddHotlineNumbers()))
+    override fun navigateToHotlineNumbers() = sendEvent(OpenScreenEvent(HotlineNumberScreens.AddHotlineNumbers()))
     override fun navigateToScanQr() = sendEvent(OpenScreenEvent(QRScreens.scanQRScreen()))
     override fun navigateToShareQR() = sendEvent(OpenScreenEvent(QRScreens.qRScreen()))
     override fun navigateUp() = sendEvent(CloseScreenEvent)
     override fun navigateToPrivacy() = sendEvent(OpenScreenEvent(ProfileScreens.Privacy()))
     override fun navigateToSupport() = sendEvent(OpenScreenEvent(ProfileScreens.Support()))
+    override fun navigateToFAQ() = sendEvent(OpenScreenEvent(ProfileScreens.FAQ()))
     override fun onLogoutClick() = sendEvent(OpenScreenEvent(ProfileScreens.LogoutConfirm()))
     override fun navigateToAddTask() {
         //TODO

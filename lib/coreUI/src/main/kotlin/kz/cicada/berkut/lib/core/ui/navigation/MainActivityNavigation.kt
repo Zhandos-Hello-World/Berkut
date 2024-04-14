@@ -6,5 +6,5 @@ interface MainActivityNavigation {
     fun openMapTab()
     fun openChildTab()
     fun openHomeTab()
-    fun openParentTab()
+    fun openLocationsTab()
 }

@@ -34,6 +34,7 @@ val authModule = module {
             api = get(),
             userPref = get(),
             dispatcher = Dispatchers.IO,
+            deviceUtils = get(),
         )
     }
 

@@ -67,6 +67,8 @@ val Blue950 = Color(0xFF041C34)
 val Violet100 = Color(0xFFf4edff)
 val Violet500 = Color(0xFF4651E3)
 val Violet700 = Color(0xFF3c47b3)
+val Yellow = Color(0xFFFDE697)
+
 
 data class AdditionalColors(
     val coreWhite: Color,
@@ -82,6 +84,7 @@ data class AdditionalColors(
     val backgroundSuccessLight1: Color,
     val backgroundError: Color,
     val backgroundErrorLight1: Color,
+    val backgroundSecondary: Color,
     val elementsWhite: Color,
     val elementsLight: Color,
     val elementsLowContrast: Color,
@@ -130,6 +133,7 @@ val additionalLightColors = AdditionalColors(
     shadesSuccessDark3 = Green800,
     shadesErrorDark2 = Red700,
     shadesErrorDark3 = Red800,
+    backgroundSecondary = Yellow,
 )
 
 val LocalAdditionalColorsProvider = staticCompositionLocalOf<AdditionalColors> {

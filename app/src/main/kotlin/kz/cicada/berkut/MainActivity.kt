@@ -1,17 +1,27 @@
 package kz.cicada.berkut
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.github.terrakok.cicerone.NavigatorHolder
 import kotlinx.coroutines.launch
+import kz.cicada.berkut.behaviors.AddTaskChildrenBehavior
+import kz.cicada.berkut.behaviors.LocationChildrenBehavior
 import kz.cicada.berkut.databinding.ActivityMainBinding
+import kz.cicada.berkut.feature.children.navigation.ChildrenScreens
+import kz.cicada.berkut.feature.children.presentation.childs.ChildrenLauncher
 import kz.cicada.berkut.feature.language.navigation.LanguageScreens
 import kz.cicada.berkut.feature.maps.navigation.MapsScreen
 import kz.cicada.berkut.feature.profile.navigation.ProfileScreens
+import kz.cicada.berkut.feature.uploadphoto.presentation.navigation.AddAvatarScreen
 import kz.cicada.berkut.lib.core.ui.compose.activity.ActivityProvider
 import kz.cicada.berkut.lib.core.ui.event.EventObserver
 import kz.cicada.berkut.lib.core.ui.event.OpenAuthFlowEvent
@@ -24,7 +34,7 @@ import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), MainActivityNavigation {
-
+    private var currentPage: Int? = null
     private lateinit var binding: ActivityMainBinding
     private val activityProvider: ActivityProvider by inject()
 
@@ -45,6 +55,8 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        requestNotificationPermission()
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
@@ -75,37 +87,56 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
     override fun openMainFlow() {
         viewModel.checkAndRunGeoService()
         binding.bottomNav.isVisible = true
-        routerFacade.newRootScreen(MapsScreen.Main())
+        openMapTab()
     }
 
     override fun openAuthFlow(logOut: Boolean) {
-        routerFacade.newRootScreen(LanguageScreens.Onboarding())
+        routerFacade.newRootChain(LanguageScreens.Onboarding())
         binding.bottomNav.isVisible = false
     }
 
     override fun openMapTab() {
-        routerFacade.newRootScreen(MapsScreen.Main())
+        routerFacade.newRootChain(AddAvatarScreen.AddAvatar())
     }
 
-    override fun openChildTab() = Unit
-
-    override fun openHomeTab() {
-//        routerFacade.newRootScreen(ProfileScreens.Profile())
+    override fun openChildTab() {
+        routerFacade.newRootChain(
+            ChildrenScreens.ChildrenScreen(
+                launcher = ChildrenLauncher(
+                    behavior = AddTaskChildrenBehavior()
+                ),
+            )
+        )
     }
 
-    override fun openParentTab()  {
-//        routerFacade.newRootScreen(ProfileScreens.Profile())
-    }
+    override fun openHomeTab() = routerFacade.newRootChain(ProfileScreens.Home())
+
+    override fun openLocationsTab() = routerFacade.newRootChain(
+        ChildrenScreens.ChildrenScreen(
+            launcher = ChildrenLauncher(
+                behavior = LocationChildrenBehavior()
+            ),
+        )
+    )
+
 
     private fun setupBottomNavigationView() {
         binding.bottomNav.setOnItemSelectedListener { item ->
             item.isCheckable = true
             item.isChecked = true
-            when (item.itemId) {
-                R.id.map_page -> routerFacade.newRootScreen(screen = MapsScreen.Main())
-                R.id.profile_page -> routerFacade.newRootScreen(ProfileScreens.Home())
+
+            if (item.itemId == currentPage) {
+                false
+            } else {
+                when (item.itemId) {
+                    R.id.map_page -> openMapTab()
+                    R.id.profile_page -> openHomeTab()
+                    R.id.my_children -> openChildTab()
+                    R.id.locations_page -> openLocationsTab()
+                }
+                currentPage = item.itemId
+                true
             }
-            true
         }
     }
 
@@ -118,13 +149,32 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
                         viewModel.checkAndRunGeoService()
                         openMainFlow()
                     }
+
                     is OpenAuthFlowEvent -> {
                         openAuthFlow()
                     }
+
                     is OpenExternalLinkEvent -> it.link.openInBrowser(this)
                     else -> Unit
                 }
             },
         )
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val hasPermission = ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS,
+            ) == PackageManager.PERMISSION_GRANTED
+
+            if (!hasPermission) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    0,
+                )
+            }
+        }
     }
 }

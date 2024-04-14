@@ -13,6 +13,6 @@ interface SocketBehavior : Parcelable, KoinComponent {
 
     companion object {
         private const val DEFAULT_SOCKET_CONNECTION_BASE_URL =
-            "ws://berkut-mobile-app-dev.up.railway.app/ws-connection"
+            "ws://berkut-mobile-app-production.up.railway.app/ws-connection"
     }
 }

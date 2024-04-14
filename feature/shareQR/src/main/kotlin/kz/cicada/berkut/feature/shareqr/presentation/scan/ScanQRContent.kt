@@ -2,7 +2,6 @@ package kz.cicada.berkut.feature.shareqr.presentation.scan
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.util.Size
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
@@ -47,11 +46,11 @@ fun ScanQRContent(
             ) == PackageManager.PERMISSION_GRANTED
         )
     }
-    val launcher =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.RequestPermission(),
-            onResult = { granted ->
-                hasCamPermission = granted
-            })
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { granted ->
+            hasCamPermission = granted
+        })
     LaunchedEffect(key1 = true) {
         launcher.launch(Manifest.permission.CAMERA)
     }
@@ -67,19 +66,22 @@ fun ScanQRContent(
                         CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK)
                             .build()
                     preview.setSurfaceProvider(previewView.surfaceProvider)
-                    val imageAnalysis = ImageAnalysis.Builder().setTargetResolution(
-                        Size(
-                            previewView.width, previewView.height
-                        )
-                    ).setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST).build()
-                    imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(context),
+                    val imageAnalysis =
+                        ImageAnalysis.Builder().setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST)
+                            .build()
+                    imageAnalysis.setAnalyzer(
+                        ContextCompat.getMainExecutor(context),
                         QrCodeAnalyzer { result ->
                             code = result
                             controller.detekt(result)
-                        })
+                        },
+                    )
                     try {
                         cameraProviderFuture.get().bindToLifecycle(
-                            lifecycleOwner, selector, preview, imageAnalysis
+                            lifecycleOwner,
+                            selector,
+                            preview,
+                            imageAnalysis,
                         )
                     } catch (e: Exception) {
                         e.printStackTrace()

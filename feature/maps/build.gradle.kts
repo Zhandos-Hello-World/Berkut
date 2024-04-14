@@ -25,11 +25,13 @@ dependencies {
     implementation(project(Modules.shareQR))
     implementation(project(Modules.uploadPhoto))
     implementation(project(Modules.socketConnection))
+    implementation(project(Modules.sos))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)
 
     implementation(Google.playServiceMaps)
+    implementation(Google.googleGMSLocation)
     implementation(Google.gson)
 
     implementation(Coroutines.coroutines)

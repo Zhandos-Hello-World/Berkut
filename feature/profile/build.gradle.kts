@@ -16,6 +16,7 @@ dependencies {
     implementation(project(Modules.coreUI))
     implementation(project(Modules.coreUICompose))
     implementation(project(Modules.shareQR))
+    implementation(project(Modules.sos))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)

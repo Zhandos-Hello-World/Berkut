@@ -37,11 +37,11 @@ class LocationService : Service() {
             .onEach { location ->
                 if (applicationContext.isConnectedToInternet()) {
                     serviceScope.launch(Dispatchers.IO) {
+                        Log.d("Location", "location(${location.latitude}, ${location.longitude})")
                         locationRepository.pushCurrentLocation(
                             location.latitude,
                             location.longitude
                         )
-                        Log.d("Location", "location(${location.latitude}, ${location.longitude})")
                     }
                 }
             }

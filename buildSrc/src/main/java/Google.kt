@@ -11,6 +11,8 @@ object Google {
 
     const val zxing = "com.google.zxing:core:3.5.1"
 
+    const val journeyApps = "com.journeyapps:zxing-android-embedded:4.2.0"
+
     private const val gsonVersion = "2.10.1"
     const val gson = "com.google.code.gson:gson:$gsonVersion"
 }

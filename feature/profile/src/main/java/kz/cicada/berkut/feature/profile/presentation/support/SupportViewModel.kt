@@ -24,9 +24,8 @@ class SupportViewModel(
     override fun navigateUp() = sendEvent(CloseScreenEvent)
     override fun navigateToOurMission() = sendEvent(OpenScreenEvent(ProfileScreens.Mission()))
     override fun navigateToPrivacyPolicy() = sendEvent(OpenScreenEvent(ProfileScreens.Privacy()))
-    override fun navigateToYourId() {
-        //TODO
-    }
+    override fun navigateToYourId() = sendEvent(OpenScreenEvent(ProfileScreens.Profile()))
+
     private fun fetchUserId() {
         viewModelScope.launch {
             val id = userPreferences.getId().first()

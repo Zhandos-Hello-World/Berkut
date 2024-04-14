@@ -30,6 +30,12 @@ class UserPreferences(
         }
     }
 
+    suspend fun setUsername(username: String) {
+        dataStore.edit { preferences ->
+            preferences[USER_NAME] = username
+        }
+    }
+
     suspend fun setSecondUserType(
         id: String,
         type: String,
@@ -63,6 +69,12 @@ class UserPreferences(
     fun getUserName(): Flow<String> {
         return dataStore.data.map { preferences ->
             preferences[USER_NAME].orEmpty()
+        }
+    }
+
+    fun getUserPhoneNumber() : Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[PHONE_NUMBER].orEmpty()
         }
     }
 

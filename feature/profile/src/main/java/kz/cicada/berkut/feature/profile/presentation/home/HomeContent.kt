@@ -18,6 +18,7 @@ import kz.cicada.berkut.feature.profile.presentation.home.role.ProfileParentCont
 import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 import kz.cicada.berkut.lib.core.ui.compose.theme.additionalColors
 import kz.cicada.berkut.lib.core.ui.compose.widgets.button.CommonPrimaryButton
+import kz.cicada.berkut.lib.core.ui.compose.widgets.button.CommonSecondaryButton
 
 @Composable
 fun HomeContent(
@@ -36,6 +37,19 @@ fun HomeContent(
             else -> Unit
         }
         Spacer(modifier = Modifier.height(16.dp))
+
+        CommonSecondaryButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 16.dp,
+                ),
+            text = "FAQ",
+            onClick = controller::navigateToFAQ,
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+        
         CommonPrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
@@ -76,6 +90,7 @@ fun ProfileParentContentPreview() {
                 override fun navigateToSupport() = Unit
                 override fun navigateToAddTask() = Unit
                 override fun navigateToAddSaveLocations() = Unit
+                override fun navigateToFAQ() = Unit
                 override fun onLogoutClick() = Unit
             },
             state = HomeUIState.ParentData,
@@ -97,6 +112,7 @@ fun ProfileChildContentPreview() {
                 override fun navigateToSupport() = Unit
                 override fun navigateToAddTask() = Unit
                 override fun navigateToAddSaveLocations() = Unit
+                override fun navigateToFAQ() = Unit
                 override fun onLogoutClick() = Unit
             },
             state = HomeUIState.ChildData,

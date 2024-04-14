@@ -24,26 +24,26 @@ fun ColumnScope.ProfileParentContent(
         text = "Add Child",
         onClick = controller::navigateToScanQr,
     )
-    Spacer(modifier = Modifier.height(16.dp))
-    CommonSecondaryButton(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = 16.dp,
-            ),
-        text = "Add Task",
-        onClick = controller::navigateToAddTask,
-    )
-    Spacer(modifier = Modifier.height(16.dp))
-    CommonSecondaryButton(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = 16.dp,
-            ),
-        text = "Add Save Locations",
-        onClick = controller::navigateToAddSaveLocations,
-    )
+//    Spacer(modifier = Modifier.height(16.dp))
+//    CommonSecondaryButton(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(
+//                horizontal = 16.dp,
+//            ),
+//        text = "Add Task",
+//        onClick = controller::navigateToAddTask,
+//    )
+//    Spacer(modifier = Modifier.height(16.dp))
+//    CommonSecondaryButton(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(
+//                horizontal = 16.dp,
+//            ),
+//        text = "Add Save Locations",
+//        onClick = controller::navigateToAddSaveLocations,
+//    )
     Spacer(modifier = Modifier.height(16.dp))
     CommonSecondaryButton(
         modifier = Modifier
