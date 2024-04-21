@@ -12,13 +12,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
+import kz.cicada.berkut.lib.core.R
 import kz.cicada.berkut.lib.core.localization.string.VmRes
 import kz.cicada.berkut.lib.core.message.Message
 import kz.cicada.berkut.lib.core.message.MessageHandler
-import kz.cicada.berkut.lib.core.R
 import kz.cicada.berkut.lib.core.ui.compose.activity.ActivityProvider
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 private const val KEY_OPEN_CAMERA = "KEY_OPEN_CAMERA"
 private const val KEY_OPEN_GALLERY = "KEY_OPEN_GALLERY"
@@ -30,50 +33,52 @@ class DefaultExternalAppService(
     private val messageHandler: MessageHandler,
 ) : ExternalAppService {
     private val cameraChannel = Channel<CameraResultEvent>(Channel.UNLIMITED)
-    private val galleryChannel = Channel<Bitmap>(Channel.UNLIMITED)
+    private val galleryChannel = Channel<PhotoPickerResultEvent>(Channel.UNLIMITED)
 
     override val cameraEvents = cameraChannel.receiveAsFlow()
     override val galleryEvents = galleryChannel.receiveAsFlow()
 
-    private val galleryLauncher = activityProvider
-        .activity
-        ?.activityResultRegistry
-        ?.register(
+    private val galleryLauncher = activityProvider.activity?.activityResultRegistry?.register(
             KEY_OPEN_GALLERY,
             ActivityResultContracts.GetContent(),
         ) { uri: Uri? ->
             uri?.let {
                 galleryChannel.trySend(
-                    ImageDecoder.decodeBitmap(
-                        ImageDecoder.createSource(context.contentResolver, it),
-                    ),
+                    PhotoPickerResultEvent.SuccessPhotoResult(
+                        bitmap = ImageDecoder.decodeBitmap(
+                            ImageDecoder.createSource(context.contentResolver, it),
+                        ),
+                        uri = it,
+                    )
                 )
             }
         }
 
-    private val cameraLauncher = activityProvider
-        .activity
-        ?.activityResultRegistry
-        ?.register(
+    private val cameraLauncher = activityProvider.activity?.activityResultRegistry?.register(
             KEY_OPEN_CAMERA,
             ActivityResultContracts.TakePicturePreview(),
-        ) { bitmap: Bitmap? ->
-            bitmap?.let { cameraChannel.trySend(CameraResultEvent.SuccessCameraResult(it)) }
-        }
-
-    private val requestMultiplePermissionsLauncher = activityProvider
-        .activity
-        ?.activityResultRegistry
-        ?.register(
-            KEY_REQUEST_MULTIPLE_PERMISSIONS,
-            ActivityResultContracts.RequestMultiplePermissions(),
-        ) { resultsMap ->
-            resultsMap.forEach { permission ->
-                when (permission.key) {
-                    Manifest.permission.CAMERA -> onHandleCameraPermission(granted = permission.value)
-                }
+        ) { bitmap ->
+            bitmap?.let {
+                cameraChannel.trySend(
+                    CameraResultEvent.SuccessCameraResult(
+                        bitmap = it,
+                        uri = generateUri(it),
+                    )
+                )
             }
         }
+
+    private val requestMultiplePermissionsLauncher =
+        activityProvider.activity?.activityResultRegistry?.register(
+                KEY_REQUEST_MULTIPLE_PERMISSIONS,
+                ActivityResultContracts.RequestMultiplePermissions(),
+            ) { resultsMap ->
+                resultsMap.forEach { permission ->
+                    when (permission.key) {
+                        Manifest.permission.CAMERA -> onHandleCameraPermission(granted = permission.value)
+                    }
+                }
+            }
 
     override fun openGallery() {
         galleryLauncher?.launch("image/*")
@@ -135,5 +140,24 @@ class DefaultExternalAppService(
                 data = Uri.fromParts("package", context.packageName, null)
             },
         )
+    }
+
+    private fun generateUri(
+        bitmap: Bitmap,
+    ): Uri {
+        val file = File(context.cacheDir, "BERKUT_AVATAR")
+        file.delete()
+        file.createNewFile()
+        val fileOutputStream = file.outputStream()
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val bytearray = byteArrayOutputStream.toByteArray()
+        fileOutputStream.apply {
+            write(bytearray)
+            flush()
+            close()
+        }
+        byteArrayOutputStream.close()
+        return file.toUri()
     }
 }

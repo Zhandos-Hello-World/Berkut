@@ -2,6 +2,9 @@ pluginManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://jitpack.io'
+        }
         gradlePluginPortal()
     }
 }
@@ -10,6 +13,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://jitpack.io'
+        }
     }
 }
 
@@ -33,3 +39,9 @@ include ':feature:location'
 include ':feature:maps'
 include ':feature:uploadPhoto'
 include ':feature:shareQR'
+include ':feature:socketConnection'
+include ':feature:profile'
+include ':feature:tasks'
+include ':feature:sos'
+include ':feature:savedLocations'
+include ':feature:children'

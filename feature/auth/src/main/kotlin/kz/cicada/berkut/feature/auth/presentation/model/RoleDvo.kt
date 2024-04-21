@@ -1,7 +1,7 @@
 package kz.cicada.berkut.feature.auth.presentation.model
 
 import androidx.annotation.DrawableRes
-import kz.cicada.berkut.feature.auth.domain.model.UserType
+import kz.cicada.berkut.lib.core.data.network.UserType
 import kz.cicada.berkut.lib.core.localization.string.VmRes
 
 data class RoleDvo(

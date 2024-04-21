@@ -9,6 +9,8 @@ val mapsModule = module {
     viewModel {
         MapsViewModel(
             routerFacade = get(),
+            preferences = get(),
+            savedLocationsRepo = get(),
         )
     }
 }

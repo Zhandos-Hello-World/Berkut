@@ -30,6 +30,7 @@ fun Toolbar(
     backgroundColor: Color = Color.Transparent,
     contentColor: Color = contentColorFor(backgroundColor),
     elevation: Dp = 0.dp,
+    iconTintColor: Color = MaterialTheme.additionalColors.elementsAccent,
 ) {
     TopAppBar(
         title = { Text(text = title) },
@@ -42,7 +43,7 @@ fun Toolbar(
                         contentDescription = null,
                         modifier = Modifier
                             .size(24.dp),
-                        tint = MaterialTheme.additionalColors.elementsAccent,
+                        tint = iconTintColor,
                     )
                 }
             }

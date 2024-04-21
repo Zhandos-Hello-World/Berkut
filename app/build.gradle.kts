@@ -3,6 +3,7 @@ plugins {
     id(Build.kotlinAndroid)
     id(Build.kotlinKspPlugin)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.gms.google-services")
 }
 
 apply {
@@ -39,6 +40,7 @@ android {
             isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = false
+            signingConfig = signingConfigs.getByName("debug")
         }
 
         secrets {
@@ -79,6 +81,17 @@ dependencies {
     implementation(project(Modules.maps))
     implementation(project(Modules.shareQR))
     implementation(project(Modules.uploadPhoto))
+    implementation(project(Modules.location))
+    implementation(project(Modules.socketConnection))
+    implementation(project(Modules.profile))
+    implementation(project(Modules.sos))
+    implementation(project(Modules.savedLocations))
+    implementation(project(Modules.tasks))
+    implementation(project(Modules.children))
+
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-analytics")
 
     // Dependencies
     implementation(AndroidX.coreKtx)

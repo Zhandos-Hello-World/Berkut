@@ -34,4 +34,5 @@ dependencies {
 
     //HYPERION FOR DEBUG
     Util.Hyperion.all.forEach(::debugImplementation)
+    Util.Hyperion.all.forEach(::releaseImplementation)
 }

@@ -15,6 +15,7 @@ import kz.cicada.berkut.core.presentation.R
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.event.ActionEvent
 import kz.cicada.berkut.lib.core.ui.event.BlockingLoaderEvent
+import kz.cicada.berkut.lib.core.ui.event.CloseScreenEvent
 import kz.cicada.berkut.lib.core.ui.event.EventCloseKeyboard
 import kz.cicada.berkut.lib.core.ui.event.EventHandler
 import kz.cicada.berkut.lib.core.ui.event.EventHandlerHelper
@@ -95,6 +96,10 @@ class DefaultFragmentDelegate : FragmentDelegate, DefaultLifecycleObserver {
                 }
                 is GetFragmentActivityEvent -> event.action.invoke(fragment.requireActivity())
                 is GetFragmentEvent -> event.action.invoke(fragment)
+                is CloseScreenEvent -> {
+                    this.activity?.onBackPressed()
+                    Unit
+                }
             }
         }
     }

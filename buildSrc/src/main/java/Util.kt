@@ -24,7 +24,7 @@ object Util {
 
         val all = listOf(
             hyperionCore,
-            hyperionCrash,
+//            hyperionCrash,
             hyperionDisk,
             hyperionPreferences,
             hyperionTimber,

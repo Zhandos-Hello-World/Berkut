@@ -1,6 +1,8 @@
 package kz.cicada.berkut.feature.uploadphoto.presentation.add
 
 import android.graphics.Bitmap
+import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kz.cicada.berkut.feature.chooser.presentation.feature.navigation.SimpleChooseScreens
 import kz.cicada.berkut.feature.chooser.presentation.feature.simple.SimpleChooserLauncher
+import kz.cicada.berkut.feature.uploadphoto.domain.PhotoRepository
 import kz.cicada.berkut.feature.uploadphoto.presentation.settings.AvatarSettings
 import kz.cicada.berkut.feature.uploadphoto.presentation.settings.AvatarSettingsChooserBehavior
 import kz.cicada.berkut.feature.uploadphoto.presentation.settings.AvatarSettingsResultEvent
@@ -16,12 +19,14 @@ import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.compose.extension.tryToUpdate
 import kz.cicada.berkut.lib.core.ui.compose.external.app.service.CameraResultEvent
 import kz.cicada.berkut.lib.core.ui.compose.external.app.service.ExternalAppService
+import kz.cicada.berkut.lib.core.ui.compose.external.app.service.PhotoPickerResultEvent
 import kz.cicada.berkut.lib.core.ui.event.OpenScreenEvent
 import kz.cicada.berkut.lib.core.ui.event.SystemEvent
 import kz.cicada.berkut.lib.core.ui.navigation.cicerone.router.RouterFacade
 
 internal class AddAvatarViewModel(
     private val externalAppService: ExternalAppService,
+    private val photoRepo: PhotoRepository,
     private val routerFacade: RouterFacade,
 ) : BaseViewModel(), AddAvatarController {
 
@@ -46,9 +51,26 @@ internal class AddAvatarViewModel(
     }
 
     override fun onContinueButtonClick() {
-        // TODO: Отправить на backend полученный Bitmap
-        // TODO: Navigate to home screen
-        routerFacade.exit()
+        networkRequest(
+            request = {
+                setLoadingState(true)
+                val uri = _uiState.value.avatarUri
+                photoRepo.uploadPhoto(
+                    userAvatarUri = uri,
+                )
+            },
+            onSuccess = {
+                Log.d("onContinueButtonClickSuccess", "true")
+            },
+            onError = {
+                it.printStackTrace()
+                Log.d("onContinueButtonClickError", "true")
+            },
+            finally = {
+                setLoadingState(false)
+//                routerFacade.exit()
+            },
+        )
     }
 
     override fun onSkipButtonClick() = routerFacade.exit()
@@ -65,7 +87,10 @@ internal class AddAvatarViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             externalAppService.cameraEvents.collect {
                 if (it is CameraResultEvent.SuccessCameraResult) {
-                    handleAvatar(it.bitmap)
+                    handleAvatar(
+                        bitmap = it.bitmap,
+                        uri = it.uri,
+                    )
                 } else {
                     externalAppService.checkPermissionAndOpenCamera()
                 }
@@ -76,7 +101,14 @@ internal class AddAvatarViewModel(
     private fun handleGalleryEvents() {
         viewModelScope.launch(Dispatchers.IO) {
             externalAppService.galleryEvents.collect {
-                handleAvatar(it)
+                if (it is PhotoPickerResultEvent.SuccessPhotoResult) {
+                    handleAvatar(
+                        bitmap = it.bitmap,
+                        uri = it.uri,
+                    )
+                } else {
+                    externalAppService.checkPermissionAndOpenCamera()
+                }
             }
         }
     }
@@ -95,9 +127,21 @@ internal class AddAvatarViewModel(
         }
     }
 
-    private fun handleAvatar(bitmap: Bitmap?) {
+    private fun handleAvatar(
+        bitmap: Bitmap?,
+        uri: Uri,
+    ) {
         _uiState.tryToUpdate {
-            uiState.value.copy(avatar = bitmap)
+            uiState.value.copy(
+                avatar = bitmap,
+                avatarUri = uri,
+            )
+        }
+    }
+
+    private fun setLoadingState(value: Boolean) {
+        _uiState.tryToUpdate {
+            uiState.value.copy(loadingContinueButton = value)
         }
     }
 }

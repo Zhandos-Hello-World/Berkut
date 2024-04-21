@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "889136650383",
+    "project_id": "berkut-49db9",
+    "storage_bucket": "berkut-49db9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889136650383:android:d80b9dca266f8eec40b8fa",
+        "android_client_info": {
+          "package_name": "kz.cicada.berkut"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk7l539DZ66QmlhppWV6PZhLXDr_aKUD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889136650383:android:307e67e29eb6616d40b8fa",
+        "android_client_info": {
+          "package_name": "kz.cicada.berkut.qa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk7l539DZ66QmlhppWV6PZhLXDr_aKUD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

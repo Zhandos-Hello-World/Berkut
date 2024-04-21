@@ -1,9 +1,6 @@
 package kz.cicada.berkut.lib.core.data.network
 
-import kz.cicada.berkut.lib.core.data.error.ErrorHandlingCallAdapterFactory
-import kz.cicada.berkut.lib.core.data.error.ErrorHandlingConverterFactory
 import android.content.Context
-import android.util.Log
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
@@ -11,6 +8,8 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kz.cicada.berkut.lib.core.BuildConfig
+import kz.cicada.berkut.lib.core.data.error.ErrorHandlingCallAdapterFactory
+import kz.cicada.berkut.lib.core.data.error.ErrorHandlingConverterFactory
 import me.nemiron.hyperion.networkemulation.NetworkEmulatorInterceptor
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -28,7 +27,11 @@ private const val WRITE_TIMEOUT_SECONDS = 60L
  * Создает реализации ретрофитных api
  */
 @OptIn(ExperimentalSerializationApi::class)
-class NetworkApiFactory(private val url: String, private val context: Context) {
+class NetworkApiFactory(
+    private val url: String,
+    private val interceptor: AuthorizationInterceptor,
+    private val context: Context
+) {
 
     private val chuckerCollector = ChuckerCollector(
         context = context,
@@ -62,29 +65,24 @@ class NetworkApiFactory(private val url: String, private val context: Context) {
     }
 
     private fun createRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(url)
-            .client(okHttpClient)
-            .addCallAdapterFactory(ErrorHandlingCallAdapterFactory())
-            .addConverterFactory(
+        return Retrofit.Builder().baseUrl(url).client(okHttpClient)
+            .addCallAdapterFactory(ErrorHandlingCallAdapterFactory()).addConverterFactory(
                 ErrorHandlingConverterFactory(
                     json.asConverterFactory(
                         "application/json".toMediaType(),
                     ),
                 ),
-            )
-            .build()
+            ).build()
     }
 
     private fun createOkHttpClient(authorized: Boolean): OkHttpClient {
-        return OkHttpClient.Builder()
-            .apply {
+        return OkHttpClient.Builder().apply {
                 connectTimeout(CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 writeTimeout(WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
 
                 if (authorized) {
-                    addInterceptor(AuthorizationInterceptor())
+                    addInterceptor(interceptor)
                 }
 
                 if (BuildConfig.DEBUG) {
@@ -92,13 +90,11 @@ class NetworkApiFactory(private val url: String, private val context: Context) {
                     addNetworkInterceptor(createChuckerInterceptor())
                     addNetworkInterceptor(NetworkEmulatorInterceptor(context))
                 }
-            }
-            .build()
+            }.build()
     }
 
     private fun createLoggingInterceptor(): Interceptor {
         return HttpLoggingInterceptor { message ->
-            Log.d("OkHttp", message)
             Timber.tag("OkHttp").d(message)
         }.apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -106,12 +102,9 @@ class NetworkApiFactory(private val url: String, private val context: Context) {
     }
 
     private fun createChuckerInterceptor(): ChuckerInterceptor {
-        return ChuckerInterceptor.Builder(context)
-            .collector(chuckerCollector)
-            .maxContentLength(250000L)
-            .redactHeaders(emptySet())
-            .alwaysReadResponseBody(enable = true)
-            .build()
+        return ChuckerInterceptor.Builder(context).collector(chuckerCollector)
+            .maxContentLength(250000L).redactHeaders(emptySet())
+            .alwaysReadResponseBody(enable = true).build()
     }
 
     private fun createJson(): Json {

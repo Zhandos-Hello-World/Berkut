@@ -9,4 +9,5 @@ internal data class LoginRequest(
     @SerialName("code") val code: String,
     @SerialName("role") val role: String,
     @SerialName("phone_number") val phoneNumber: String,
+    @SerialName("fcm_token") val deviceId: String,
 )
