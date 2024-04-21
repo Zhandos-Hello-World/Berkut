@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import kz.cicada.berkut.feature.location.data.repository.LocationRepository
 import kz.cicada.berkut.feature.location.ext.isConnectedToInternet
 import org.koin.android.ext.android.inject
+import java.lang.Exception
 
 class LocationService : Service() {
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -35,15 +36,20 @@ class LocationService : Service() {
             .getLocationUpdates(LOCATION_UPDATE_INTERVAL)
             .catch { e -> e.printStackTrace() }
             .onEach { location ->
-                if (applicationContext.isConnectedToInternet()) {
-                    serviceScope.launch(Dispatchers.IO) {
-                        Log.d("Location", "location(${location.latitude}, ${location.longitude})")
-                        locationRepository.pushCurrentLocation(
-                            location.latitude,
-                            location.longitude
-                        )
+                try {
+                    if (applicationContext.isConnectedToInternet()) {
+                        serviceScope.launch(Dispatchers.IO) {
+                            Log.d("Location", "location(${location.latitude}, ${location.longitude})")
+                            locationRepository.pushCurrentLocation(
+                                location.latitude,
+                                location.longitude
+                            )
+                        }
                     }
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
                 }
+
             }
             .launchIn(serviceScope)
     }

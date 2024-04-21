@@ -20,6 +20,7 @@ import kz.cicada.berkut.feature.children.navigation.ChildrenScreens
 import kz.cicada.berkut.feature.children.presentation.childs.ChildrenLauncher
 import kz.cicada.berkut.feature.language.navigation.LanguageScreens
 import kz.cicada.berkut.feature.maps.navigation.MapsScreen
+import kz.cicada.berkut.feature.maps.presentation.MapsFragment
 import kz.cicada.berkut.feature.profile.navigation.ProfileScreens
 import kz.cicada.berkut.feature.uploadphoto.presentation.navigation.AddAvatarScreen
 import kz.cicada.berkut.lib.core.ui.compose.activity.ActivityProvider
@@ -96,7 +97,7 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
     }
 
     override fun openMapTab() {
-        routerFacade.newRootChain(AddAvatarScreen.AddAvatar())
+        routerFacade.newRootChain(MapsScreen.Main())
     }
 
     override fun openChildTab() {

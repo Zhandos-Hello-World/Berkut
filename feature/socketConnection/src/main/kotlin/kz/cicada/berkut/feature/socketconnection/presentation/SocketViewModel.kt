@@ -9,7 +9,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kz.cicada.berkut.lib.core.data.local.UserPreferences
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.StompClient
@@ -17,7 +16,6 @@ import ua.naiksoftware.stomp.dto.LifecycleEvent
 import ua.naiksoftware.stomp.dto.StompMessage
 
 class SocketViewModel(
-    private val userPreferences: UserPreferences,
     private val launcher: SocketLauncher,
 ) : BaseViewModel() {
     private var mStompClient: StompClient? = null
@@ -54,24 +52,25 @@ class SocketViewModel(
             )
 
 
-        val lifecycleSubscribe = mStompClient!!.lifecycle().subscribeOn(Schedulers.io(), false)
-            .observeOn(
-                AndroidSchedulers.mainThread()
-            ).subscribe { lifecycleEvent: LifecycleEvent ->
-                when (lifecycleEvent.type!!) {
-                    LifecycleEvent.Type.OPENED -> Log.d(
-                        "SocketViewModel", "Stomp connection opened"
-                    )
+        val lifecycleSubscribe =
+            mStompClient!!.lifecycle()
+                .subscribeOn(Schedulers.io(), false)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { lifecycleEvent: LifecycleEvent ->
+                    when (lifecycleEvent.type!!) {
+                        LifecycleEvent.Type.OPENED -> Log.d(
+                            "SocketViewModel", "Stomp connection opened"
+                        )
 
-                    LifecycleEvent.Type.ERROR -> Log.e(
-                        "SocketViewModel", "Error", lifecycleEvent.exception
-                    )
+                        LifecycleEvent.Type.ERROR -> Log.e(
+                            "SocketViewModel", "Error", lifecycleEvent.exception
+                        )
 
-                    LifecycleEvent.Type.FAILED_SERVER_HEARTBEAT, LifecycleEvent.Type.CLOSED -> {
-                        Log.d("SocketViewModel", "Stomp connection closed")
+                        LifecycleEvent.Type.FAILED_SERVER_HEARTBEAT, LifecycleEvent.Type.CLOSED -> {
+                            Log.d("SocketViewModel", "Stomp connection closed")
+                        }
                     }
                 }
-            }
 
         compositeDisposable!!.add(lifecycleSubscribe)
         compositeDisposable!!.add(topicSubscribe)

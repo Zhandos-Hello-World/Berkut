@@ -25,6 +25,10 @@ dependencies {
     implementation(Coroutines.coroutines)
     implementation(Navigation.cicreone)
 
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-analytics")
+
     implementation(Koin.koinCore)
     implementation(Koin.koinAndroid)
     implementation(Google.material)

@@ -3,7 +3,6 @@ package kz.cicada.berkut.feature.savedlocations.presentation.maps
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar

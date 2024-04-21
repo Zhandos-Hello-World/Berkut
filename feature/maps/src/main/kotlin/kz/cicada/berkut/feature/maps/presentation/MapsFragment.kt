@@ -26,6 +26,7 @@ import kz.cicada.berkut.feature.maps.R
 import kz.cicada.berkut.feature.maps.databinding.FragmentMapsBinding
 import kz.cicada.berkut.feature.maps.presentation.socket.MapsSocketBehavior
 import kz.cicada.berkut.feature.maps.presentation.socket.MapsSocketModel
+import kz.cicada.berkut.feature.savedlocations.presentation.maps.SavedLocationsMapLauncher
 import kz.cicada.berkut.feature.socketconnection.presentation.SocketLauncher
 import kz.cicada.berkut.feature.socketconnection.presentation.SocketViewModel
 import kz.cicada.berkut.lib.core.data.network.UserType
@@ -40,6 +41,7 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
     OnMapReadyCallback, FragmentTransition.LeftRight {
     override val viewModel: MapsViewModel by viewModel()
     private var geoSecondLocation: LatLng? = null
+    private var savedLocations: List<SavedLocationsMapLauncher.SafeLocation> = emptyList()
 
     private val socketViewModel: SocketViewModel by viewModel(
         parameters = {
@@ -61,6 +63,7 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
             enableMyLocation()
         }
         observeCurrentLocation()
+        observeSafeLocations()
         setListeners()
 
     }
@@ -105,8 +108,6 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
                 }
             }
         }
-
-
         socketViewModel.messageState.observe(viewLifecycleOwner) {
             try {
                 val model = Gson().fromJson(it, MapsSocketModel::class.java)
@@ -114,6 +115,7 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
                 val longitude = model.longitude?.toDouble() ?: 0.0
 
                 mMap.clear()
+                drawSafeLocations()
                 geoSecondLocation = LatLng(latitude, longitude)
                 geoSecondLocation?.let { geoSecondLocation ->
                     mMap.addMarker(
@@ -124,6 +126,29 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
+        }
+    }
+
+    private fun observeSafeLocations() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.savedLocations.collect {
+                    savedLocations = it
+                    drawSafeLocations()
+                }
+            }
+        }
+    }
+
+    private fun drawSafeLocations() {
+        savedLocations.forEach {
+            val geoLocation = LatLng(it.latitude, it.longitude)
+            mMap.addMarker(MarkerOptions().position(geoLocation).title(it.name))
+            val circleOptions = getCircleOptionsByDefault(geoLocation)
+            circleOptions.radius(it.radius)
+            circleOptions.fillColor(0x30E33322)
+            circleOptions.strokeColor(0x50E30200)
+            circleOptions.let(mMap::addCircle)
         }
     }
 
@@ -163,6 +188,14 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
         ) == PackageManager.PERMISSION_GRANTED
     }
 
+    private fun getCircleOptionsByDefault(point: LatLng): CircleOptions {
+        val circleOptions = CircleOptions()
+        circleOptions.center(point)
+        circleOptions.strokeColor(0x304651E3)
+        circleOptions.fillColor(0x304651E3)
+        circleOptions.strokeWidth(2f)
+        return circleOptions
+    }
 
     private fun drawCircle(point: LatLng) {
         val circleOptions = CircleOptions()

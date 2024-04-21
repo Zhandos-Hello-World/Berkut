@@ -9,7 +9,6 @@ val socketDi = module {
 
     viewModel { (launcher: SocketLauncher) ->
         SocketViewModel(
-            userPreferences = get(),
             launcher = launcher,
         )
     }

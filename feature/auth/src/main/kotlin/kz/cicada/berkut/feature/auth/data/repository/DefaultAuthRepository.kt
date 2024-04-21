@@ -1,19 +1,20 @@
 package kz.cicada.berkut.feature.auth.data.repository
 
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import kz.cicada.berkut.feature.auth.data.mapper.toRequest
 import kz.cicada.berkut.feature.auth.data.remote.AuthApi
 import kz.cicada.berkut.feature.auth.domain.model.LoginParams
 import kz.cicada.berkut.feature.auth.domain.repository.AuthRepository
-import kz.cicada.berkut.lib.core.data.DeviceUtils
 import kz.cicada.berkut.lib.core.data.local.UserPreferences
 
 internal class DefaultAuthRepository(
     private val api: AuthApi,
     private val userPref: UserPreferences,
     private val dispatcher: CoroutineDispatcher,
-    private val deviceUtils: DeviceUtils,
 ) : AuthRepository {
 
     override suspend fun loginUser(
@@ -21,9 +22,7 @@ internal class DefaultAuthRepository(
     ) {
         withContext(dispatcher) {
             val response = api.loginUser(
-                params.toRequest(
-                    deviceId = deviceUtils.getDeviceId(),
-                )
+                params.toRequest(deviceId = Firebase.messaging.token.await())
             )
 
             with(userPref) {
