@@ -30,4 +30,5 @@ dependencies {
     implementation(Koin.koinCore)
     implementation(Koin.koinAndroid)
     implementation(Google.material)
+    implementation(Coil.coilCompose)
 }

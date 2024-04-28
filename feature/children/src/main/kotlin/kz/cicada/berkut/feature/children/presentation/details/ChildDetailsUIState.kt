@@ -5,5 +5,7 @@ sealed interface ChildDetailsUIState {
     data class Data(
         val imageUrl: String,
         val username: String,
+        val location: String,
+        val battery: String,
     ) : ChildDetailsUIState
 }

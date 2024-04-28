@@ -4,7 +4,7 @@ import kz.cicada.berkut.feature.savedlocations.data.model.SavedLocationResponse
 
 sealed interface SaveLocationListUIState {
     data class Data(
-        val list: List<SavedLocationResponse>,
+        val list: MutableList<SavedLocationResponse>,
         val isParent: Boolean,
     ) : SaveLocationListUIState
 

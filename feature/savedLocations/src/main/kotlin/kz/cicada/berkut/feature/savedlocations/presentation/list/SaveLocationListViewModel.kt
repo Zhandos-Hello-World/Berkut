@@ -9,6 +9,7 @@ import kz.cicada.berkut.feature.savedlocations.presentation.maps.SavedLocationsM
 import kz.cicada.berkut.lib.core.data.local.UserPreferences
 import kz.cicada.berkut.lib.core.data.network.UserType
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
+import kz.cicada.berkut.lib.core.ui.base.ViewState
 import kz.cicada.berkut.lib.core.ui.event.CloseScreenEvent
 import kz.cicada.berkut.lib.core.ui.event.OpenScreenEvent
 import kz.cicada.berkut.lib.core.ui.extensions.tryToUpdate
@@ -21,7 +22,7 @@ class SaveLocationListViewModel(
     val uiState = MutableStateFlow<SaveLocationListUIState>(
         SaveLocationListUIState.Loading,
     )
-    private var savedLocations: List<SavedLocationResponse> = listOf()
+    private var savedLocations: MutableList<SavedLocationResponse> = mutableListOf()
 
     init {
         getData()
@@ -34,7 +35,7 @@ class SaveLocationListViewModel(
             },
             onSuccess = { response ->
                 val isParent = userPreferences.getType().first() == UserType.PARENT.name
-                savedLocations = response
+                savedLocations = response.toMutableList()
                 uiState.tryToUpdate {
                     SaveLocationListUIState.Data(
                         savedLocations,
@@ -66,5 +67,21 @@ class SaveLocationListViewModel(
                 ),
             ),
         )
+    }
+
+    override fun onDeleteClick(savedLocation: SavedLocationResponse) {
+        networkRequest(
+            request = {
+                repository.deleteLocation(
+                    userId = userPreferences.getId().first().toInt(),
+                    locationId = savedLocation.id
+                )
+            },
+        )
+        uiState.tryToUpdate {
+            val state = (uiState.value as SaveLocationListUIState.Data)
+            state.list.remove(savedLocation)
+            state
+        }
     }
 }

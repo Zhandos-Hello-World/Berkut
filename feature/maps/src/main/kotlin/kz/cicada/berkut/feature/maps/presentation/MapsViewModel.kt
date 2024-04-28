@@ -1,6 +1,5 @@
 package kz.cicada.berkut.feature.maps.presentation
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,12 +36,7 @@ class MapsViewModel(
                     }
                 }.first()
             }
-
-            when (preferences.getType().first()) {
-                UserType.CHILD.name -> {
-                    getSaveLocations(preferences.getId().first().toInt())
-                }
-            }
+            getSaveLocations(preferences.getId().first().toInt())
         }
     }
 

@@ -41,4 +41,16 @@ class SavedLocationsRepositoryImpl(
             )
         }
     }
+
+    override suspend fun deleteLocation(
+        userId: Int,
+        locationId: Int,
+    ) {
+        return withContext(ioDispatcher) {
+            apiService.deleteSavedLocation(
+                userId = userId,
+                locationId = locationId,
+            )
+        }
+    }
 }

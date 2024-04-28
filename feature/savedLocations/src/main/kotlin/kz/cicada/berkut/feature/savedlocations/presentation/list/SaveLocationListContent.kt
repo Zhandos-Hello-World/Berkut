@@ -12,10 +12,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.DismissDirection
+import androidx.compose.material.DismissValue
 import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.rememberDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.cicada.berkut.feature.savedlocations.data.model.SavedLocationResponse
 import kz.cicada.berkut.lib.core.ui.compose.R
+import kz.cicada.berkut.lib.core.ui.compose.menu.MenuLazyItemDivider
 import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 import kz.cicada.berkut.lib.core.ui.compose.theme.additionalColors
 import kz.cicada.berkut.lib.core.ui.compose.widgets.button.CommonPrimaryButton
@@ -56,20 +65,17 @@ fun SaveLocationListContent(
 
             when (uiState) {
                 is SaveLocationListUIState.Data -> {
-                    uiState.list.forEach {
-                        Item(
-                            name = it.name,
-                            latitude = it.latitude,
-                            longitude = it.longitude,
-                        )
-                        Divider()
-                        Spacer(modifier = Modifier.height(16.dp))
-                    }
+                    SaveLocationDataListContent(
+                        items = uiState.list,
+                        onDeleteClick = controller::onDeleteClick,
+                    )
                 }
 
                 is SaveLocationListUIState.Loading -> {
                     Box(
-                        modifier = Modifier.fillMaxSize().weight(1F),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(1F),
                         contentAlignment = Alignment.Center,
                     ) {
                         CustomProgressBar(
@@ -93,6 +99,66 @@ fun SaveLocationListContent(
         }
     }
 }
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun SaveLocationDataListContent(
+    items: MutableList<SavedLocationResponse>,
+    onDeleteClick: (SavedLocationResponse) -> Unit,
+) {
+    items.forEach { value ->
+        val state = rememberDismissState(
+            confirmStateChange = {
+                if (it == DismissValue.DismissedToStart) {
+                    items.remove(value)
+                    onDeleteClick(value)
+                }
+                true
+            },
+        )
+        SwipeToDismiss(
+            state = state,
+            background = {
+                val color = when (state.dismissDirection) {
+                    DismissDirection.EndToStart -> {
+                        items.remove(value)
+                        Color.Red
+                    }
+                    else -> Color.Transparent
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color)
+                        .padding(8.dp)
+                ) {
+                    Icon(
+                        imageVector = when (state.dismissDirection) {
+                            DismissDirection.EndToStart -> Icons.Default.Delete
+                            else -> Icons.Default.Check
+                        },
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                    )
+                }
+            },
+            dismissContent = {
+                Item(
+                    name = value.name,
+                    latitude = value.latitude,
+                    longitude = value.longitude,
+                )
+                Divider()
+            },
+            directions = setOf(
+                DismissDirection.EndToStart,
+            ),
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
 
 @Composable
 fun Item(
@@ -140,7 +206,9 @@ fun SaveLocationListContentLoadingPreview() {
             controller = object : SaveLocationListController {
                 override fun navigateUp() = Unit
                 override fun onAddSaveLocationClick() = Unit
-            }, uiState = SaveLocationListUIState.Loading
+                override fun onDeleteClick(savedLocation: SavedLocationResponse) = Unit
+            },
+            uiState = SaveLocationListUIState.Loading,
         )
     }
 }
@@ -153,9 +221,12 @@ fun SaveLocationListContentDataPreview() {
             controller = object : SaveLocationListController {
                 override fun navigateUp() = Unit
                 override fun onAddSaveLocationClick() = Unit
-            }, uiState = SaveLocationListUIState.Data(
-                list = listOf(
+                override fun onDeleteClick(savedLocation: SavedLocationResponse) = Unit
+            },
+            uiState = SaveLocationListUIState.Data(
+                list = mutableListOf(
                     SavedLocationResponse(
+                        id = 1,
                         latitude = 32.0,
                         longitude = 32.0,
                         name = "Zhandos",
@@ -163,6 +234,7 @@ fun SaveLocationListContentDataPreview() {
                         notify = true,
                     ),
                     SavedLocationResponse(
+                        id = 2,
                         latitude = 32.0,
                         longitude = 32.0,
                         name = "Zhandos2",
@@ -170,6 +242,7 @@ fun SaveLocationListContentDataPreview() {
                         notify = true,
                     ),
                     SavedLocationResponse(
+                        id = 3,
                         latitude = 32.0,
                         longitude = 32.0,
                         name = "Zhandos3",
@@ -178,7 +251,7 @@ fun SaveLocationListContentDataPreview() {
                     ),
                 ),
                 isParent = true,
-            )
+            ),
         )
     }
 }

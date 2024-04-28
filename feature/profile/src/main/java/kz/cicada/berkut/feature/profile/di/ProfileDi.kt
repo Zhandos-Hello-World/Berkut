@@ -47,6 +47,7 @@ val profileDi = module {
 
     viewModel {
         ProfileViewModel(
+            externalAppService = get(),
             userPreferences = get(),
             repository = get(),
         )
