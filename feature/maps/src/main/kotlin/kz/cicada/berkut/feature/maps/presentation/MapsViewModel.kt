@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kz.cicada.berkut.feature.children.navigation.ChildrenScreens
+import kz.cicada.berkut.feature.children.presentation.details.ChildDetailsLauncher
+import kz.cicada.berkut.feature.maps.presentation.socket.MapsSocketModel
 import kz.cicada.berkut.feature.savedlocations.domain.repository.SavedLocationsRepository
 import kz.cicada.berkut.feature.savedlocations.presentation.maps.SavedLocationsMapLauncher
 import kz.cicada.berkut.feature.sos.presentation.navigation.HotlineNumberScreens
@@ -63,6 +66,19 @@ class MapsViewModel(
     fun onSOSClick() {
         routerFacade.navigateTo(
             HotlineNumberScreens.HoltineListOfNumbers()
+        )
+    }
+
+    fun onDetailsClick(model: MapsSocketModel) {
+        routerFacade.navigateTo(
+            ChildrenScreens.ChildDetailScreen(
+                ChildDetailsLauncher(
+                    id = model.userId ?: 0,
+                    username = model.username.orEmpty(),
+                    location = "long: " + model.longitude.orEmpty() + ", lat: " + model.latitude.orEmpty(),
+                    battery = model.battery ?: 0,
+                )
+            )
         )
     }
 }

@@ -20,6 +20,7 @@ import kz.cicada.berkut.feature.socketconnection.di.socketDi
 import kz.cicada.berkut.feature.sos.di.sosDi
 import kz.cicada.berkut.feature.tasks.di.taskDI
 import kz.cicada.berkut.feature.uploadphoto.di.addAvatarModule
+import kz.cicada.berkut.push.di.pushDI
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -44,6 +45,7 @@ internal object KoinModules {
 		savedLocationsDi,
 		taskDI,
 		childrenDi,
+		pushDI,
 	)
 	private val libraryModules = listOf(
 		coreModule,

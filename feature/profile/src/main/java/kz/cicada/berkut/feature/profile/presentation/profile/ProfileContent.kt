@@ -58,7 +58,7 @@ fun ProfileContent(
             Spacer(modifier = Modifier.height(16.dp))
             AddAvatarBody(
                 onAddAvatarButtonIconClick = controller::onAddAvatarButtonIconClick,
-                avatar = null,
+                avatar = uiState.avatar,
             )
 
             Spacer(modifier = Modifier.height(16.dp))

@@ -68,10 +68,25 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
             this@MapsFragment.onMapReady(googleMap)
             enableMyLocation()
         }
-        observeCurrentLocation()
         observeSafeLocations()
         setListeners()
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        observeCurrentLocation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mMap.clear()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mMap.clear()
+        socketViewModel.stop()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -127,6 +142,10 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
                     mMap.addMarker(
                         MarkerOptions().position(geoSecondLocation).title(model.username)
                     )
+                    mMap.setOnMarkerClickListener { marker ->
+                        viewModel.onDetailsClick(model)
+                        true
+                    }
                 }
 
             } catch (ex: Exception) {
@@ -151,11 +170,11 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
             val geoLocation = LatLng(it.latitude, it.longitude)
             mMap.addMarker(
                 MarkerOptions().position(geoLocation).title(it.name).icon(
-                    generateBitmapDescriptorFromRes(
-                        requireContext(),
-                        kz.cicada.berkut.lib.core.ui.compose.R.drawable.ic_eagle,
-                    )
-                ),
+                        generateBitmapDescriptorFromRes(
+                            requireContext(),
+                            kz.cicada.berkut.lib.core.ui.compose.R.drawable.ic_eagle,
+                        )
+                    ),
             )
             val circleOptions = getCircleOptionsByDefault(geoLocation)
             circleOptions.radius(it.radius)

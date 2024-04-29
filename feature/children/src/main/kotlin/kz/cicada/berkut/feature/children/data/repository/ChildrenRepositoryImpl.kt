@@ -16,4 +16,10 @@ class ChildrenRepositoryImpl(
             api.getChildren(parentId)
         }
     }
+
+    override suspend fun getChildPhoto(userId: Int): String {
+        return withContext(ioDispatcher) {
+            api.getProfilePhoto(userId)
+        }
+    }
 }

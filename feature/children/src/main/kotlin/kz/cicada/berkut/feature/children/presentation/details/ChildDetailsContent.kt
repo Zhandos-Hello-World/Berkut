@@ -5,15 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -22,9 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 import kz.cicada.berkut.lib.core.ui.compose.theme.additionalColors
 
@@ -35,35 +33,29 @@ fun ChildDetailsContent(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.statusBars)
-            .imePadding(),
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .background(Color.Transparent),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Card(
             modifier = Modifier
                 .offset(y = 52.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.additionalColors.backgroundPrimary)
-                ,
+                .background(MaterialTheme.additionalColors.backgroundPrimary),
         ) {
-            Image(
+            AsyncImage(
                 modifier = Modifier
                     .padding(64.dp)
                     .size(50.dp),
-                painter = painterResource(id = kz.cicada.berkut.lib.core.ui.compose.R.drawable.ic_coins),
+                model = uiState.imageUrl,
                 contentDescription = null,
             )
-
-            //        AsyncImage(
-//            model = uiState.imageUrl,
-//            contentDescription = null,
-//        )
         }
 
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .background(MaterialTheme.additionalColors.backgroundPrimary),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {

@@ -13,4 +13,6 @@ sealed interface ProfIleUIState {
         val loadingContinueButton: Boolean = false,
         val enabled: Boolean = false,
     ) : ProfIleUIState
+
+    data object Loading: ProfIleUIState
 }

@@ -10,9 +10,11 @@ import kotlinx.coroutines.launch
 import kz.cicada.berkut.feature.chooser.presentation.feature.navigation.SimpleChooseScreens
 import kz.cicada.berkut.feature.chooser.presentation.feature.simple.SimpleChooserLauncher
 import kz.cicada.berkut.feature.profile.domain.repository.ProfileRepository
+import kz.cicada.berkut.feature.uploadPhoto.BuildConfig
 import kz.cicada.berkut.feature.uploadphoto.presentation.settings.AvatarSettings
 import kz.cicada.berkut.feature.uploadphoto.presentation.settings.AvatarSettingsChooserBehavior
 import kz.cicada.berkut.feature.uploadphoto.presentation.settings.AvatarSettingsResultEvent
+import kz.cicada.berkut.feature.uploadphoto.utils.ExternalRemoteImageStreamService
 import kz.cicada.berkut.lib.core.data.local.UserPreferences
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
 import kz.cicada.berkut.lib.core.ui.compose.extension.tryToUpdate
@@ -25,11 +27,13 @@ import kz.cicada.berkut.lib.core.ui.event.SystemEvent
 
 class ProfileViewModel(
     private val externalAppService: ExternalAppService,
+    private val externalRemoteImage: ExternalRemoteImageStreamService,
     private val userPreferences: UserPreferences,
     private val repository: ProfileRepository,
 ) : BaseViewModel(), ProfileController {
-    val uiState = MutableStateFlow<ProfIleUIState.Data>(ProfIleUIState.Data())
+    val uiState = MutableStateFlow<ProfIleUIState>(ProfIleUIState.Data())
     private var cachedUsername: String = ""
+    private var imageChanged: Boolean = false
 
     init {
         handleCameraEvents()
@@ -42,36 +46,42 @@ class ProfileViewModel(
     }
 
     override fun changeUsername(username: String) {
-        if (!uiState.value.loadingContinueButton) {
-            val data: ProfIleUIState.Data = uiState.value.copy(
+        if (getDataState()?.loadingContinueButton != true) {
+            val data: ProfIleUIState = getDataState()?.copy(
                 username = username,
-                enabled = username != cachedUsername && username.isNotEmpty(),
-            )
+                enabled = username.isNotEmpty(),
+            ) ?: ProfIleUIState.Loading
             uiState.tryToUpdate { data }
         }
     }
 
     override fun changeProfile() {
-        val username = uiState.value.username
+        val username = getDataState()?.username ?: return
         networkRequest(
             request = {
                 uiState.tryToUpdate {
-                    uiState.value.copy(
+                    getDataState()?.copy(
                         loadingContinueButton = true,
                         enabled = true,
-                    )
+                    ) ?: ProfIleUIState.Loading
                 }
-                repository.updateProfile(username = username)
+                repository.updateProfile(
+                    username = username,
+                    avatarUri = if (imageChanged) getDataState()?.avatarUri else null,
+                )
             },
             onSuccess = {
                 userPreferences.setUsername(username = username)
             },
+            onError = {
+                      it.printStackTrace()
+            },
             finally = {
                 uiState.tryToUpdate {
-                    uiState.value.copy(
+                    getDataState()?.copy(
                         loadingContinueButton = false,
                         enabled = false,
-                    )
+                    ) ?: ProfIleUIState.Loading
                 }
             },
         )
@@ -95,15 +105,21 @@ class ProfileViewModel(
             val id = userPreferences.getId().first().toInt()
             val phoneNumber = userPreferences.getUserPhoneNumber().first()
 
-            uiState.tryToUpdate {
-                ProfIleUIState.Data(
-                    userId = id,
-                    username = cachedUsername,
-                    phoneNumber = phoneNumber,
-                    loadingContinueButton = false,
-                    enabled = false,
-                )
-            }
+            externalRemoteImage.getImage(
+                url = BuildConfig.BERKUT_BASE_URL + "users/${id}/profile-photo",
+                onResponse = { response ->
+                    uiState.tryToUpdate {
+                        ProfIleUIState.Data(
+                            userId = id,
+                            avatar = response,
+                            username = cachedUsername,
+                            phoneNumber = phoneNumber,
+                            loadingContinueButton = false,
+                            enabled = false,
+                        )
+                    }
+                },
+            )
         }
     }
 
@@ -162,11 +178,18 @@ class ProfileViewModel(
         bitmap: Bitmap?,
         uri: Uri,
     ) {
+        imageChanged = true
         uiState.tryToUpdate {
-            uiState.value.copy(
+            getDataState()?.copy(
                 avatar = bitmap,
                 avatarUri = uri,
-            )
+                enabled = true,
+            ) ?: ProfIleUIState.Loading
         }
+    }
+
+
+    private fun getDataState(): ProfIleUIState.Data? {
+        return uiState.value as? ProfIleUIState.Data
     }
 }

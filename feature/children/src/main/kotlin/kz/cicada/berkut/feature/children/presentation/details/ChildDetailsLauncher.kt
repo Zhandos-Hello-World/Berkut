@@ -1,4 +1,8 @@
 package kz.cicada.berkut.feature.children.presentation.details
 
-class ChildDetailsLauncher {
-}
+data class ChildDetailsLauncher(
+    val id: Int,
+    val username: String,
+    val location: String,
+    val battery: Int,
+)

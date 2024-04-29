@@ -38,6 +38,10 @@ class SocketViewModel(
         }
     }
 
+    fun stop() {
+        mStompClient?.disconnect()
+    }
+
     private fun initChat(path: String) {
         resetSubscriptions()
         val topicSubscribe = mStompClient!!.topic(path).subscribeOn(Schedulers.io(), true)
