@@ -31,7 +31,7 @@ class ProfileViewModel(
     private val userPreferences: UserPreferences,
     private val repository: ProfileRepository,
 ) : BaseViewModel(), ProfileController {
-    val uiState = MutableStateFlow<ProfIleUIState>(ProfIleUIState.Data())
+    val uiState = MutableStateFlow<ProfIleUIState>(ProfIleUIState.Loading)
     private var cachedUsername: String = ""
     private var imageChanged: Boolean = false
 
