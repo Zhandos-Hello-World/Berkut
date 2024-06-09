@@ -45,7 +45,7 @@ internal fun OnBoardingLanguageContent(
             modifier = Modifier
                 .padding(top = 50.dp)
                 .align(Alignment.CenterHorizontally),
-            painter = painterResource(id = kz.cicada.berkut.core.presentation.R.drawable.ic_main),
+            painter = painterResource(id = kz.cicada.berkut.core.presentation.R.drawable.ic_berkut),
             contentDescription = null,
         )
 

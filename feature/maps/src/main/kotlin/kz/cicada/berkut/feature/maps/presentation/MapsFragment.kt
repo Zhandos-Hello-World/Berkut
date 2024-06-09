@@ -185,7 +185,7 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
     @SuppressLint("MissingPermission")
     private fun enableMyLocation() {
         if (isPermissionGranted()) {
-            mMap.isMyLocationEnabled = true
+            mMap.isMyLocationEnabled = false
             LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
                     geoSecondLocation = LatLng(

@@ -59,7 +59,7 @@ fun SupportContent(
                 .padding(
                     horizontal = 16.dp,
                 ),
-            text = "Your ID: $id",
+            text = "Profile",
             onClick = controller::navigateToYourId,
         )
     }

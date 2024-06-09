@@ -23,7 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val MAX_SIZE_RADIUS = 1_500.0
 const val DEFAULT_SIZE_RADIUS = 750.0
-const val MIN_SIZE_RADIUS = 100.0
 
 private const val REQUEST_LOCATION_PERMISSION = 1
 
@@ -72,6 +71,8 @@ class SavedLocationsMapFragment(
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(geoLocation, 12F))
         circleOptions = getCircleOptionsByDefault(geoLocation)
         circleOptions?.let(mMap::addCircle)
+        viewBinding.radiusSeekbar.progress = ((radius.toInt() / MAX_SIZE_RADIUS) * 100).toInt()
+        viewBinding.seekBarValue.text = "$radius m"
 
         setupLastLocations()
 
@@ -83,8 +84,6 @@ class SavedLocationsMapFragment(
             circleOptions = getCircleOptionsByDefault(geoLocation)
             circleOptions?.let(mMap::addCircle)
             viewBinding.seekBarValue.text = "$radius m"
-            viewBinding.centerInfo.text =
-                "lat: ${geoLocation.latitude.toFloat()}, lon: ${geoLocation.longitude}"
         }
 
 
@@ -107,8 +106,6 @@ class SavedLocationsMapFragment(
                     mMap.addMarker(MarkerOptions().position(geoLocation).title("New Safe location"))
 
                     circleOptions?.let(mMap::addCircle)
-                    viewBinding.centerInfo.text =
-                        "lat: ${geoLocation.latitude.toFloat()}, lon: ${geoLocation.longitude}"
                 }
             },
         )

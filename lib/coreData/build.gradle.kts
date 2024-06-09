@@ -29,10 +29,10 @@ dependencies {
     implementation(Util.timber)
 
     //CHUCKER FOR LOG REQUESTS
-//    debugImplementation(Util.chuckerLibrary)
-//    releaseImplementation(Util.chuckerLibraryNoOp)
-
-    //HYPERION FOR DEBUG
-//    Util.Hyperion.all.forEach(::debugImplementation)
-//    Util.Hyperion.all.forEach(::releaseImplementation)
+    debugImplementation(Util.chuckerLibrary)
+    releaseImplementation(Util.chuckerLibraryNoOp)
+//
+//    HYPERION FOR DEBUG
+    Util.Hyperion.all.forEach(::debugImplementation)
+    Util.Hyperion.all.forEach(::releaseImplementation)
 }

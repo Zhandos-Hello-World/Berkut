@@ -27,6 +27,7 @@ import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 import kz.cicada.berkut.lib.core.ui.compose.theme.additionalColors
 import kz.cicada.berkut.lib.core.ui.compose.widgets.button.CommonPrimaryButton
 import kz.cicada.berkut.lib.core.ui.compose.widgets.progress.CustomProgressBar
+import kz.cicada.berkut.lib.core.ui.compose.widgets.toolbar.Toolbar
 
 @Composable
 fun ChildrenContent(
@@ -38,6 +39,10 @@ fun ChildrenContent(
             .fillMaxSize()
             .background(MaterialTheme.additionalColors.backgroundPrimary)
     ) {
+        Toolbar(
+            title = "Children",
+        )
+
         Column(
             modifier = Modifier
                 .weight(1F)
@@ -149,21 +154,25 @@ fun SaveLocationListContentDataPreview() {
                         username = "Zhandos1",
                         role = "CHILD",
                         userID = 12,
+                        phoneNumber = "87071234567",
                     ),
                     ChildrenResponse(
                         username = "Zhandos2",
                         role = "CHILD",
                         userID = 13,
+                        phoneNumber = "87071234567",
                     ),
                     ChildrenResponse(
                         username = "Zhandos3",
                         role = "CHILD",
                         userID = 14,
+                        phoneNumber = "87071234567",
                     ),
                     ChildrenResponse(
                         username = "Zhandos4",
                         role = "CHILD",
                         userID = 15,
+                        phoneNumber = "87071234567",
                     ),
                 )
             )

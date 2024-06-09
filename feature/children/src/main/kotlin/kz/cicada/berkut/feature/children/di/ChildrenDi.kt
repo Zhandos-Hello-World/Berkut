@@ -8,6 +8,8 @@ import kz.cicada.berkut.feature.children.presentation.childs.ChildrenLauncher
 import kz.cicada.berkut.feature.children.presentation.childs.ChildrenViewModel
 import kz.cicada.berkut.feature.children.presentation.details.ChildDetailsLauncher
 import kz.cicada.berkut.feature.children.presentation.details.ChildDetailsViewModel
+import kz.cicada.berkut.feature.children.presentation.operation.ChildrenOperationLauncher
+import kz.cicada.berkut.feature.children.presentation.operation.ChildrenOperationViewModel
 import kz.cicada.berkut.lib.core.data.network.NetworkApiFactory
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -36,6 +38,12 @@ val childrenDi = module {
         ChildDetailsViewModel(
             launcher = launcher,
             repo = get(),
+        )
+    }
+
+    viewModel { (launcher: ChildrenOperationLauncher) ->
+        ChildrenOperationViewModel(
+            launcher = launcher,
         )
     }
 }

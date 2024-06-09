@@ -7,16 +7,8 @@ import kz.cicada.berkut.lib.core.ui.compose.base.ComposeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class SaveLocationListFragment(
-    private val launcher: SaveLocationListLauncher,
-): ComposeFragment() {
-    override val viewModel: SaveLocationListViewModel by viewModel(
-        parameters = {
-            parametersOf(
-                launcher
-            )
-        },
-    )
+class SaveLocationListFragment: ComposeFragment() {
+    override val viewModel: SaveLocationListViewModel by viewModel()
 
     @Composable
     override fun Content() {

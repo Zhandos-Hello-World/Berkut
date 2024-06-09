@@ -35,7 +35,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.cicada.berkut.feature.savedlocations.data.model.SavedLocationResponse
 import kz.cicada.berkut.lib.core.ui.compose.R
-import kz.cicada.berkut.lib.core.ui.compose.menu.MenuLazyItemDivider
 import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 import kz.cicada.berkut.lib.core.ui.compose.theme.additionalColors
 import kz.cicada.berkut.lib.core.ui.compose.widgets.button.CommonPrimaryButton
@@ -52,9 +51,7 @@ fun SaveLocationListContent(
             .fillMaxSize()
             .background(MaterialTheme.additionalColors.backgroundPrimary)
     ) {
-        Toolbar(
-            navigateUp = controller::navigateUp,
-        )
+        Toolbar(title = "Saved locations")
 
         Column(
             modifier = Modifier
@@ -124,6 +121,7 @@ fun SaveLocationDataListContent(
                         items.remove(value)
                         Color.Red
                     }
+
                     else -> Color.Transparent
                 }
                 Box(
@@ -146,8 +144,6 @@ fun SaveLocationDataListContent(
             dismissContent = {
                 Item(
                     name = value.name,
-                    latitude = value.latitude,
-                    longitude = value.longitude,
                 )
                 Divider()
             },
@@ -163,34 +159,23 @@ fun SaveLocationDataListContent(
 @Composable
 fun Item(
     name: String,
-    latitude: Double,
-    longitude: Double,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Column {
-            Text(
-                text = name,
-                style = MaterialTheme.typography.h5,
-                fontWeight = FontWeight.Bold,
-            )
+        Text(
+            modifier = Modifier.padding(8.dp),
+            text = name,
+            style = MaterialTheme.typography.h5,
+            fontWeight = FontWeight.Bold,
+        )
 
-            Text(
-                text = "lat: $latitude, lon: $longitude",
-                style = MaterialTheme.typography.body1,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.additionalColors.backgroundAccent
-            )
-
-        }
 
         Spacer(modifier = Modifier.weight(1F))
 
         Icon(
+            modifier = Modifier.padding(end = 16.dp),
             imageVector = ImageVector.vectorResource(R.drawable.ic_notifications),
             contentDescription = null,
             tint = Color.Red,

@@ -45,7 +45,7 @@ internal class DefaultExternalLocationService(
 
     override fun startLocationService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            requestMultiplePermissionsLauncher!!.launch(
+            requestMultiplePermissionsLauncher?.launch(
                 arrayOf(
                     Manifest.permission.ACCESS_BACKGROUND_LOCATION),
             )

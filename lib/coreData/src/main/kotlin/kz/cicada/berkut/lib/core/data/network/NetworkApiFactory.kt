@@ -1,16 +1,16 @@
 package kz.cicada.berkut.lib.core.data.network
 
 import android.content.Context
-//import com.chuckerteam.chucker.api.ChuckerCollector
-//import com.chuckerteam.chucker.api.ChuckerInterceptor
-//import com.chuckerteam.chucker.api.RetentionManager
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.RetentionManager
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kz.cicada.berkut.lib.core.BuildConfig
 import kz.cicada.berkut.lib.core.data.error.ErrorHandlingCallAdapterFactory
 import kz.cicada.berkut.lib.core.data.error.ErrorHandlingConverterFactory
-//import me.nemiron.hyperion.networkemulation.NetworkEmulatorInterceptor
+import me.nemiron.hyperion.networkemulation.NetworkEmulatorInterceptor
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -33,11 +33,11 @@ class NetworkApiFactory(
     private val context: Context
 ) {
 
-//    private val chuckerCollector = ChuckerCollector(
-//        context = context,
-//        showNotification = false,
-//        retentionPeriod = RetentionManager.Period.ONE_HOUR,
-//    )
+    private val chuckerCollector = ChuckerCollector(
+        context = context,
+        showNotification = false,
+        retentionPeriod = RetentionManager.Period.ONE_HOUR,
+    )
 
     private val json = createJson()
     private val authorizedOkHttpClient = createOkHttpClient(authorized = true)
@@ -87,8 +87,8 @@ class NetworkApiFactory(
 
                 if (BuildConfig.DEBUG) {
                     addNetworkInterceptor(createLoggingInterceptor())
-//                    addNetworkInterceptor(createChuckerInterceptor())
-//                    addNetworkInterceptor(NetworkEmulatorInterceptor(context))
+                    addNetworkInterceptor(createChuckerInterceptor())
+                    addNetworkInterceptor(NetworkEmulatorInterceptor(context))
                 }
             }.build()
     }
@@ -101,11 +101,11 @@ class NetworkApiFactory(
         }
     }
 
-//    private fun createChuckerInterceptor(): ChuckerInterceptor {
-//        return ChuckerInterceptor.Builder(context).collector(chuckerCollector)
-//            .maxContentLength(250000L).redactHeaders(emptySet())
-//            .alwaysReadResponseBody(enable = true).build()
-//    }
+    private fun createChuckerInterceptor(): ChuckerInterceptor {
+        return ChuckerInterceptor.Builder(context).collector(chuckerCollector)
+            .maxContentLength(250000L).redactHeaders(emptySet())
+            .alwaysReadResponseBody(enable = true).build()
+    }
 
     private fun createJson(): Json {
         return Json {

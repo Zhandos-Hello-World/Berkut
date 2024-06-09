@@ -9,7 +9,7 @@
         android:id="@+id/my_children"
         android:enabled="true"
         android:icon="@drawable/account_child_invert"
-        android:title="Tasks" />
+        android:title="My children" />
     <item
         android:id="@+id/locations_page"
         android:enabled="true"

@@ -18,6 +18,8 @@ dependencies {
 
     implementation(project(Modules.chooser))
     implementation(project(Modules.shareQR))
+    implementation(project(Modules.tasks))
+    implementation(project(Modules.sos))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)

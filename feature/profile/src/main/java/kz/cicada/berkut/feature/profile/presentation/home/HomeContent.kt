@@ -82,7 +82,6 @@ fun ProfileParentContentPreview() {
     AppTheme {
         HomeContent(
             controller = object : HomeController {
-                override fun navigateToHotlineNumbers() = Unit
                 override fun navigateToScanQr() = Unit
                 override fun navigateUp() = Unit
                 override fun navigateToShareQR() = Unit
@@ -104,7 +103,6 @@ fun ProfileChildContentPreview() {
     AppTheme {
         HomeContent(
             controller = object : HomeController {
-                override fun navigateToHotlineNumbers() = Unit
                 override fun navigateToScanQr() = Unit
                 override fun navigateToShareQR() = Unit
                 override fun navigateUp() = Unit

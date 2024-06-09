@@ -18,7 +18,7 @@ interface ExternalRemoteImageStreamService {
 
     suspend fun getImage(
         url: String,
-        onResponse: (Bitmap) -> Unit,
+        onResponse: (Bitmap?) -> Unit,
     )
 }
 
@@ -29,7 +29,7 @@ class DefaultExternalRemoteImageStreamService(
 
     override suspend fun getImage(
         url: String,
-        onResponse: (Bitmap) -> Unit,
+        onResponse: (Bitmap?) -> Unit,
     ) {
         val request = Request.Builder().url(url).addHeader(
                 "Authorization",
@@ -46,10 +46,14 @@ class DefaultExternalRemoteImageStreamService(
                     response: Response,
                 ) {
                     val body = response.body
-                    val inputStream = body!!.byteStream()
-                    val bufferedInputStream = BufferedInputStream(inputStream)
-                    val bitmap = BitmapFactory.decodeStream(bufferedInputStream)
-                    onResponse.invoke(bitmap)
+                    try {
+                        val inputStream = body?.byteStream()
+                        val bufferedInputStream = BufferedInputStream(inputStream)
+                        val bitmap = BitmapFactory.decodeStream(bufferedInputStream)
+                        onResponse.invoke(bitmap)
+                    } catch (ex: Exception) {
+                        onResponse.invoke(null)
+                    }
                 }
             },
         )

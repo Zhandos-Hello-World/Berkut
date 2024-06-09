@@ -9,7 +9,6 @@ import kotlinx.coroutines.withContext
 import kz.cicada.berkut.feature.profile.navigation.ProfileScreens
 import kz.cicada.berkut.feature.profile.presentation.logout.LogoutConfirmEvent
 import kz.cicada.berkut.feature.shareqr.navigation.QRScreens
-import kz.cicada.berkut.feature.sos.presentation.navigation.HotlineNumberScreens
 import kz.cicada.berkut.lib.core.data.local.UserPreferences
 import kz.cicada.berkut.lib.core.data.network.UserType
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
@@ -21,7 +20,7 @@ import kz.cicada.berkut.lib.core.ui.extensions.tryToUpdate
 class HomeViewModel(
     private val userPreferences: UserPreferences,
 
-) : BaseViewModel(), HomeController {
+    ) : BaseViewModel(), HomeController {
     val state = MutableStateFlow<HomeUIState>(HomeUIState.NotInit)
 
     init {
@@ -39,7 +38,6 @@ class HomeViewModel(
         }
     }
 
-    override fun navigateToHotlineNumbers() = sendEvent(OpenScreenEvent(HotlineNumberScreens.AddHotlineNumbers()))
     override fun navigateToScanQr() = sendEvent(OpenScreenEvent(QRScreens.scanQRScreen()))
     override fun navigateToShareQR() = sendEvent(OpenScreenEvent(QRScreens.qRScreen()))
     override fun navigateUp() = sendEvent(CloseScreenEvent)
@@ -50,6 +48,7 @@ class HomeViewModel(
     override fun navigateToAddTask() {
         //TODO
     }
+
     override fun navigateToAddSaveLocations() {
         //TODO
     }

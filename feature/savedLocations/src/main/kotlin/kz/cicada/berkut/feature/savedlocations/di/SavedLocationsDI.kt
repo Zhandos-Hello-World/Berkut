@@ -30,9 +30,8 @@ val savedLocationsDi = module {
         SavedLocationsMapViewModel()
     }
 
-    viewModel { (launcher: SaveLocationListLauncher) ->
+    viewModel {
         SaveLocationListViewModel(
-            launcher = launcher,
             repository = get(),
             userPreferences = get(),
         )

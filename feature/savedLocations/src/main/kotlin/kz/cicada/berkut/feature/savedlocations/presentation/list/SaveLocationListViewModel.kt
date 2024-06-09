@@ -15,7 +15,6 @@ import kz.cicada.berkut.lib.core.ui.event.OpenScreenEvent
 import kz.cicada.berkut.lib.core.ui.extensions.tryToUpdate
 
 class SaveLocationListViewModel(
-    private val launcher: SaveLocationListLauncher,
     private val repository: SavedLocationsRepository,
     private val userPreferences: UserPreferences,
 ) : BaseViewModel(), SaveLocationListController {
@@ -31,7 +30,7 @@ class SaveLocationListViewModel(
     private fun getData() {
         networkRequest(
             request = {
-                repository.getSaveLocations(childId = launcher.childId)
+                repository.getSaveLocations(childId = userPreferences.getId().first().toInt())
             },
             onSuccess = { response ->
                 val isParent = userPreferences.getType().first() == UserType.PARENT.name
