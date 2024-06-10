@@ -30,7 +30,7 @@ fun PrivacyContent(
     ) {
         Toolbar(
             navigateUp = onNavigateBack,
-            title = "Our mission",
+            title = "Privacy policy",
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(

@@ -28,7 +28,7 @@ internal class InputEmailViewModel(
             title = launcher.behavior.getTitle(),
             description = launcher.behavior.getDescription(),
             primaryButtonText = launcher.behavior.getPrimaryButtonText(),
-            phoneNumber = String.empty,
+            phoneNumber = "7",
         ),
     )
 

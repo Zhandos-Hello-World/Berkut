@@ -23,7 +23,7 @@ android {
         versionCode = ProjectConfig.versionCode
         versionName = ProjectConfig.versionName
 
-
+        resourceConfigurations.addAll(listOf("en", "ru", "kk"))
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -35,12 +35,23 @@ android {
             isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
+
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+
         }
         release {
             isDebuggable = false
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             isShrinkResources = false
             signingConfig = signingConfigs.getByName("debug")
+
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
         }
 
         secrets {

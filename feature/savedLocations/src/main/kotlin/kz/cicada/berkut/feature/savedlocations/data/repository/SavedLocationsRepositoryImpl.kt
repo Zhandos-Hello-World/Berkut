@@ -19,6 +19,7 @@ class SavedLocationsRepositoryImpl(
         name: String,
         radius: Double,
         notify: Boolean,
+        address: String
     ) {
         withContext(ioDispatcher) {
             apiService.saveLocations(
@@ -29,6 +30,7 @@ class SavedLocationsRepositoryImpl(
                     name,
                     radius,
                     notify,
+                    address
                 ),
             )
         }
@@ -38,6 +40,18 @@ class SavedLocationsRepositoryImpl(
         return withContext(ioDispatcher) {
             apiService.getSavedLocations(
                 childId,
+            )
+        }
+    }
+
+    override suspend fun deleteLocation(
+        userId: Int,
+        locationId: Int,
+    ) {
+        return withContext(ioDispatcher) {
+            apiService.deleteSavedLocation(
+                userId = userId,
+                locationId = locationId,
             )
         }
     }

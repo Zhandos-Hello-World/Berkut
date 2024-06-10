@@ -10,4 +10,9 @@ interface ChildrenApi {
     suspend fun getChildren(
         @Path("parent_id") parentId: Int,
     ): List<ChildrenResponse>
+
+    @GET("/users/{id}")
+    suspend fun getProfilePhoto(
+        @Path("id") id: Int,
+    ): String
 }

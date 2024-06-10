@@ -39,17 +39,17 @@ internal fun ShareQRContent(
         Toolbar(navigateUp = controller::onNavigateBack)
         Column(
             modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 24.dp)
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 24.dp,
+                )
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             ShareQRHeader()
 
             when (uiState) {
-                ShareQRUIState.Loading -> {
-                    ShareQRLoadingContent()
-                }
-
+                ShareQRUIState.Loading -> ShareQRLoadingContent()
                 is ShareQRUIState.Data -> {
                     ShareQRDataContent(
                         modifier = Modifier
@@ -61,7 +61,6 @@ internal fun ShareQRContent(
                     Spacer(modifier = Modifier.weight(1F))
                 }
             }
-
             CommonPrimaryButton(
                 modifier = Modifier
                     .fillMaxWidth()

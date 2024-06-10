@@ -2,6 +2,7 @@ package kz.cicada.berkut.feature.sos.presentation.hotline.listHotline
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -52,6 +53,7 @@ fun HotlineListContent(
             is HotlineListState.Data -> {
                 state.list.forEach {
                     Item(
+                        modifier = Modifier.clickable { controller.onHotlineClick(it.phoneNumber) },
                         name = it.name,
                         iconRes = it.iconRes,
                     )
@@ -75,13 +77,16 @@ fun HotlineListContent(
 
 @Composable
 fun Item(
+    modifier: Modifier,
     name: String,
     @DrawableRes iconRes: Int,
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
+            .clickable {  }
+        ,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Card(
@@ -113,6 +118,7 @@ fun HotlineListContentPreview() {
         HotlineListContent(
             controller = object : HotlineListController {
                 override fun navigateUp() = Unit
+                override fun onHotlineClick(number: String) = Unit
             },
             state = HotlineListState.Loading,
         )

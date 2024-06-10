@@ -27,6 +27,7 @@ dependencies {
     implementation(project(Modules.socketConnection))
     implementation(project(Modules.sos))
     implementation(project(Modules.savedLocations))
+    implementation(project(Modules.children))
 //    implementation("com.google.android.libraries.navigation:navigation:5.3.0")
 
     AndroidX.all.forEach(::implementation)

@@ -14,15 +14,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.github.terrakok.cicerone.NavigatorHolder
 import kotlinx.coroutines.launch
 import kz.cicada.berkut.behaviors.AddTaskChildrenBehavior
-import kz.cicada.berkut.behaviors.LocationChildrenBehavior
 import kz.cicada.berkut.databinding.ActivityMainBinding
 import kz.cicada.berkut.feature.children.navigation.ChildrenScreens
 import kz.cicada.berkut.feature.children.presentation.childs.ChildrenLauncher
 import kz.cicada.berkut.feature.language.navigation.LanguageScreens
 import kz.cicada.berkut.feature.maps.navigation.MapsScreen
-import kz.cicada.berkut.feature.maps.presentation.MapsFragment
 import kz.cicada.berkut.feature.profile.navigation.ProfileScreens
-import kz.cicada.berkut.feature.uploadphoto.presentation.navigation.AddAvatarScreen
+import kz.cicada.berkut.feature.savedlocations.navigation.SavedLocationsScreens
 import kz.cicada.berkut.lib.core.ui.compose.activity.ActivityProvider
 import kz.cicada.berkut.lib.core.ui.event.EventObserver
 import kz.cicada.berkut.lib.core.ui.event.OpenAuthFlowEvent
@@ -112,14 +110,8 @@ class MainActivity : AppCompatActivity(), MainActivityNavigation {
 
     override fun openHomeTab() = routerFacade.newRootChain(ProfileScreens.Home())
 
-    override fun openLocationsTab() = routerFacade.newRootChain(
-        ChildrenScreens.ChildrenScreen(
-            launcher = ChildrenLauncher(
-                behavior = LocationChildrenBehavior()
-            ),
-        )
-    )
-
+    override fun openLocationsTab() =
+        routerFacade.newRootChain(SavedLocationsScreens.AllSaveLocations())
 
     private fun setupBottomNavigationView() {
         binding.bottomNav.setOnItemSelectedListener { item ->

@@ -2,9 +2,13 @@ package kz.cicada.berkut.feature.maps.presentation
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -17,6 +21,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -31,14 +37,14 @@ import kz.cicada.berkut.feature.socketconnection.presentation.SocketLauncher
 import kz.cicada.berkut.feature.socketconnection.presentation.SocketViewModel
 import kz.cicada.berkut.lib.core.data.network.UserType
 import kz.cicada.berkut.lib.core.ui.base.fragment.BindingBaseFragment
-import kz.cicada.berkut.lib.core.ui.navigation.FragmentTransition
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+
 
 private const val REQUEST_LOCATION_PERMISSION = 1
 
 class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_maps),
-    OnMapReadyCallback, FragmentTransition.LeftRight {
+    OnMapReadyCallback {
     override val viewModel: MapsViewModel by viewModel()
     private var geoSecondLocation: LatLng? = null
     private var savedLocations: List<SavedLocationsMapLauncher.SafeLocation> = emptyList()
@@ -62,10 +68,24 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
             this@MapsFragment.onMapReady(googleMap)
             enableMyLocation()
         }
-        observeCurrentLocation()
         observeSafeLocations()
         setListeners()
+    }
 
+    override fun onStart() {
+        super.onStart()
+        observeCurrentLocation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mMap.clear()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mMap.clear()
+        socketViewModel.stop()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -121,6 +141,10 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
                     mMap.addMarker(
                         MarkerOptions().position(geoSecondLocation).title(model.username)
                     )
+                    mMap.setOnMarkerClickListener { marker ->
+                        viewModel.onDetailsClick(model)
+                        true
+                    }
                 }
 
             } catch (ex: Exception) {
@@ -143,11 +167,16 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
     private fun drawSafeLocations() {
         savedLocations.forEach {
             val geoLocation = LatLng(it.latitude, it.longitude)
-            mMap.addMarker(MarkerOptions().position(geoLocation).title(it.name))
+            mMap.addMarker(
+                MarkerOptions().position(geoLocation).title(it.name).icon(
+                    generateBitmapDescriptorFromRes(
+                        requireContext(),
+                        kz.cicada.berkut.core.presentation.R.drawable.ic_berkut,
+                    )
+                ),
+            )
             val circleOptions = getCircleOptionsByDefault(geoLocation)
             circleOptions.radius(it.radius)
-            circleOptions.fillColor(0x30E33322)
-            circleOptions.strokeColor(0x50E30200)
             circleOptions.let(mMap::addCircle)
         }
     }
@@ -205,5 +234,25 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
         circleOptions.fillColor(0x304651E3)
         circleOptions.strokeWidth(2f)
         mMap.addCircle(circleOptions)
+    }
+
+    companion object {
+        fun generateBitmapDescriptorFromRes(
+            context: Context?,
+            resId: Int,
+        ): BitmapDescriptor {
+            val drawable = ContextCompat.getDrawable(
+                context!!, resId
+            )
+            drawable!!.setBounds(
+                0, 0, 100, 100
+            )
+            val bitmap = Bitmap.createBitmap(
+                100, 100, Bitmap.Config.ARGB_8888
+            )
+            val canvas = Canvas(bitmap)
+            drawable.draw(canvas)
+            return BitmapDescriptorFactory.fromBitmap(bitmap)
+        }
     }
 }

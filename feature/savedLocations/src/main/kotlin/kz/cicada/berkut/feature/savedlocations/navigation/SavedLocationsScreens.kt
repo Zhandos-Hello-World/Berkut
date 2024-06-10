@@ -11,10 +11,8 @@ import kz.cicada.berkut.lib.core.ui.navigation.cicerone.screen.BerkutFragmentScr
 
 object SavedLocationsScreens {
 
-    fun AllSaveLocations(launcher: SaveLocationListLauncher): BerkutFragmentScreen = BerkutFragmentScreen {
-        SaveLocationListFragment(
-            launcher,
-        )
+    fun AllSaveLocations(): BerkutFragmentScreen = BerkutFragmentScreen {
+        SaveLocationListFragment()
     }
 
     fun SavedLocationsMap(launcher: SavedLocationsMapLauncher): BerkutFragmentScreen = BerkutFragmentScreen {

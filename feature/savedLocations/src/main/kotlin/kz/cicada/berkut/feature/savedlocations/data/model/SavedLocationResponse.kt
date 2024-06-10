@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SavedLocationResponse(
+    @SerialName("id")
+    val id: Int,
     @SerialName("latitude")
     val latitude: Double,
     @SerialName("longitude")

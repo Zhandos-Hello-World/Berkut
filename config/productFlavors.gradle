@@ -7,14 +7,21 @@ ext.flavorConfig = {
             dimension "default"
             ext.myApplicationIdSuffix = ".qa"
             versionNameSuffix '-QA'
-            buildConfigField "String", "BERKUT_BASE_URL", '"https://berkut-mobile-app-production.up.railway.app/"'
+            buildConfigField "String", "BERKUT_BASE_URL", '"https://berkut-mobile-app-production-25d0.up.railway.app/"'
             manifestPlaceholders = [
                     resourceSuffix      : "_qa",
             ]
         }
         production {
             dimension "default"
-            buildConfigField "String", "BERKUT_BASE_URL", '"https://berkut-mobile-app-production.up.railway.app/"'
+            buildConfigField "String", "BERKUT_BASE_URL", '"https://berkut-mobile-app-production-25d0.up.railway.app/"'
+            manifestPlaceholders = [
+                    resourceSuffix      : "",
+            ]
+        }
+        prod {
+            dimension "default"
+            buildConfigField "String", "BERKUT_BASE_URL", '"https://berkut-mobile-app-production-25d0.up.railway.app/"'
             manifestPlaceholders = [
                     resourceSuffix      : "",
             ]

@@ -21,6 +21,7 @@ val profileDi = module {
 
     single<ProfileRepository> {
         ProfileRepositoryImpl(
+            context = get(),
             ioDispatcher = Dispatchers.IO,
             userPreferences = get(),
             profileApi = get(),
@@ -47,7 +48,9 @@ val profileDi = module {
 
     viewModel {
         ProfileViewModel(
+            externalAppService = get(),
             userPreferences = get(),
+            externalRemoteImage = get(),
             repository = get(),
         )
     }

@@ -59,16 +59,12 @@ internal class AddAvatarViewModel(
                     userAvatarUri = uri,
                 )
             },
-            onSuccess = {
-                Log.d("onContinueButtonClickSuccess", "true")
-            },
             onError = {
                 it.printStackTrace()
-                Log.d("onContinueButtonClickError", "true")
             },
             finally = {
                 setLoadingState(false)
-//                routerFacade.exit()
+                routerFacade.exit()
             },
         )
     }

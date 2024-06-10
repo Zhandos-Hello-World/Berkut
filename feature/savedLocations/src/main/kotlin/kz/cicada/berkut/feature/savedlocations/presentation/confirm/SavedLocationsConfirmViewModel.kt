@@ -36,6 +36,7 @@ class SavedLocationsConfirmViewModel(
                     name = name,
                     radius = launcher.radius,
                     notify = notify,
+                    address = launcher.address,
                 )
             },
             finally = {

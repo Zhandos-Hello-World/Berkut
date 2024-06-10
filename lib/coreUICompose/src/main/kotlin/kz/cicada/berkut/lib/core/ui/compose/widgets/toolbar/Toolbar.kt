@@ -33,7 +33,10 @@ fun Toolbar(
     iconTintColor: Color = MaterialTheme.additionalColors.elementsAccent,
 ) {
     TopAppBar(
-        title = { Text(text = title) },
+        title = { Text(
+            text = title,
+            color = MaterialTheme.additionalColors.elementsAccent,
+        ) },
         modifier = modifier,
         navigationIcon = {
             if (navigateUp != null) {

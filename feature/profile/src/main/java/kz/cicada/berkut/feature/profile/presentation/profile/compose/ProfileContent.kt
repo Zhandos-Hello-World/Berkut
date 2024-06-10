@@ -1,4 +1,4 @@
-package kz.cicada.berkut.feature.profile.presentation.profile
+package kz.cicada.berkut.feature.profile.presentation.profile.compose
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
@@ -27,6 +27,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kz.cicada.berkut.feature.profile.presentation.profile.ProfIleUIState
+import kz.cicada.berkut.feature.profile.presentation.profile.ProfileController
 import kz.cicada.berkut.lib.core.ui.compose.R
 import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 import kz.cicada.berkut.lib.core.ui.compose.theme.additionalColors
@@ -48,6 +50,7 @@ fun ProfileContent(
     ) {
         Toolbar(
             navigateUp = controller::onNavigateBack,
+            title = "My Profile",
         )
         Column(
             modifier = Modifier
@@ -57,8 +60,8 @@ fun ProfileContent(
         ) {
             Spacer(modifier = Modifier.height(16.dp))
             AddAvatarBody(
-                onAddAvatarButtonIconClick = {},
-                avatar = null,
+                onAddAvatarButtonIconClick = controller::onAddAvatarButtonIconClick,
+                avatar = uiState.avatar,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -84,7 +87,7 @@ fun ProfileContent(
                 modifier = Modifier.fillMaxWidth(),
                 text = "Upload changes",
                 onClick = controller::changeProfile,
-                loading = uiState.loading,
+                loading = uiState.loadingContinueButton,
                 enabled = uiState.enabled,
             )
         }
@@ -132,11 +135,12 @@ fun ProfileContentPreview() {
                 override fun onNavigateBack() = Unit
                 override fun changeUsername(username: String) = Unit
                 override fun changeProfile() = Unit
+                override fun onAddAvatarButtonIconClick() = Unit
             },
             uiState = ProfIleUIState.Data(
                 userId = 2, username = "Zhasik",
                 phoneNumber = "87767773954",
-                loading = false,
+                loadingContinueButton = false,
                 enabled = false,
             ),
         )

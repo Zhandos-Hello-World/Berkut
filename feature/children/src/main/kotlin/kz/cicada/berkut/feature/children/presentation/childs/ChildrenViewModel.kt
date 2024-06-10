@@ -41,7 +41,17 @@ class ChildrenViewModel(
 
                 else -> {
                     val childId = userPreferences.getId().first().toInt()
-                    launcher.behavior.onClickNavigate(childId).forEach(::sendEvent)
+                    val child =
+                        (uiState.value as? ChildrenUIState.Data)?.list?.find { it.userID == childId }
+                    launcher.behavior.onClickNavigate(
+                        Child(
+                            id = child?.userID ?: 0,
+                            name = child?.username ?: "",
+                            imageUrl = child?.imageLink.orEmpty(),
+                            phoneNumber = child?.phoneNumber.orEmpty(),
+                            coins = child?.coins.toString(),
+                        )
+                    ).forEach(::sendEvent)
                 }
             }
         }
@@ -52,7 +62,16 @@ class ChildrenViewModel(
     }
 
     override fun onChildrenClick(id: Int) {
-        launcher.behavior.onClickNavigate(id).forEach(::sendEvent)
+        val child = (uiState.value as? ChildrenUIState.Data)?.list?.find { it.userID == id }
+        launcher.behavior.onClickNavigate(
+            Child(
+                id = child?.userID ?: 0,
+                name = child?.username ?: "",
+                imageUrl = child?.imageLink.orEmpty(),
+                phoneNumber = child?.phoneNumber.orEmpty(),
+                coins = child?.coins.toString(),
+            )
+        ).forEach(::sendEvent)
     }
 
     override fun onAddChildClick() {

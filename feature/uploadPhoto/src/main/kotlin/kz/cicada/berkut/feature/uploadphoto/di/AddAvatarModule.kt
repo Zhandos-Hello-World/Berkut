@@ -5,6 +5,8 @@ import kz.cicada.berkut.feature.uploadphoto.data.netowork.PhotoApi
 import kz.cicada.berkut.feature.uploadphoto.data.repository.PhotoRepositoryImpl
 import kz.cicada.berkut.feature.uploadphoto.domain.PhotoRepository
 import kz.cicada.berkut.feature.uploadphoto.presentation.add.AddAvatarViewModel
+import kz.cicada.berkut.feature.uploadphoto.utils.DefaultExternalRemoteImageStreamService
+import kz.cicada.berkut.feature.uploadphoto.utils.ExternalRemoteImageStreamService
 import kz.cicada.berkut.lib.core.data.network.NetworkApiFactory
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -22,6 +24,12 @@ val addAvatarModule = module {
             photoApi = get(),
             userPreferences = get(),
             context = androidContext(),
+        )
+    }
+
+    factory<ExternalRemoteImageStreamService> {
+        DefaultExternalRemoteImageStreamService(
+            userPreferences = get(),
         )
     }
 

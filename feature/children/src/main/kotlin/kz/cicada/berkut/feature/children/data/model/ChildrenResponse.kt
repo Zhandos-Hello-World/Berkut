@@ -12,4 +12,10 @@ data class ChildrenResponse(
     val role: String? = UserType.CHILD.name,
     @SerialName("id")
     val userID: Int,
+    @SerialName("phoneNumber")
+    val phoneNumber: String,
+    @SerialName("coins")
+    val coins: Int,
+    @SerialName("imageLink")
+    val imageLink: String,
 )

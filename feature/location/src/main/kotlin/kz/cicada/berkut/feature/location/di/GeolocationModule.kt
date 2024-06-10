@@ -23,7 +23,8 @@ val geolocationModule = module {
         LocationRepository(
             defaultUserPreferences = get(),
             dispatcher = Dispatchers.IO,
-            api = get()
+            api = get(),
+            deviceAppService = get(),
         )
     }
 

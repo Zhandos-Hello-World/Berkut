@@ -27,6 +27,7 @@ import kz.cicada.berkut.lib.core.ui.compose.theme.AppTheme
 import kz.cicada.berkut.lib.core.ui.compose.theme.additionalColors
 import kz.cicada.berkut.lib.core.ui.compose.widgets.button.CommonPrimaryButton
 import kz.cicada.berkut.lib.core.ui.compose.widgets.progress.CustomProgressBar
+import kz.cicada.berkut.lib.core.ui.compose.widgets.toolbar.Toolbar
 
 @Composable
 fun ChildrenContent(
@@ -38,6 +39,10 @@ fun ChildrenContent(
             .fillMaxSize()
             .background(MaterialTheme.additionalColors.backgroundPrimary)
     ) {
+        Toolbar(
+            title = "Children",
+        )
+
         Column(
             modifier = Modifier
                 .weight(1F)
@@ -47,20 +52,31 @@ fun ChildrenContent(
         ) {
             when (uiState) {
                 is ChildrenUIState.Data -> {
-                    uiState.list.forEach {
-                        Item(
-                            name = it.username,
-                            userId = it.userID,
-                            controller = controller,
+                    if (uiState.list.isEmpty()) {
+                        Text(
+                            modifier = Modifier.padding(all = 16.dp),
+                            text = "Необходимо добавить ребенка",
+                            style = MaterialTheme.typography.body1,
+                            color = MaterialTheme.additionalColors.coreBlack,
                         )
-                        Divider()
-                        Spacer(modifier = Modifier.height(16.dp))
+                    } else {
+                        uiState.list.forEach {
+                            Item(
+                                name = it.username,
+                                userId = it.userID,
+                                controller = controller,
+                            )
+                            Divider()
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                     }
                 }
 
                 is ChildrenUIState.Loading -> {
                     Box(
-                        modifier = Modifier.fillMaxSize().weight(1F),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(1F),
                         contentAlignment = Alignment.Center,
                     ) {
                         CustomProgressBar(
@@ -138,23 +154,51 @@ fun SaveLocationListContentDataPreview() {
                         username = "Zhandos1",
                         role = "CHILD",
                         userID = 12,
+                        phoneNumber = "87071234567",
+                        coins = 21,
+                        imageLink = "https://www.google.com",
                     ),
                     ChildrenResponse(
                         username = "Zhandos2",
                         role = "CHILD",
                         userID = 13,
+                        phoneNumber = "87071234567",
+                        coins = 21,
+                        imageLink = "https://www.google.com",
                     ),
                     ChildrenResponse(
                         username = "Zhandos3",
                         role = "CHILD",
                         userID = 14,
+                        phoneNumber = "87071234567",
+                        coins = 21,
+                        imageLink = "https://www.google.com",
                     ),
                     ChildrenResponse(
                         username = "Zhandos4",
                         role = "CHILD",
                         userID = 15,
+                        phoneNumber = "87071234567",
+                        coins = 21,
+                        imageLink = "https://www.google.com",
                     ),
                 )
+            )
+        )
+    }
+}
+
+@Preview
+@Composable
+fun SaveLocationListContentEmptyDataPreview() {
+    AppTheme {
+        ChildrenContent(
+            controller = object : ChildrenController {
+                override fun navigateUp() = Unit
+                override fun onChildrenClick(id: Int) = Unit
+                override fun onAddChildClick() = Unit
+            }, uiState = ChildrenUIState.Data(
+                list = listOf()
             )
         )
     }

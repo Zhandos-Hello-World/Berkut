@@ -31,8 +31,8 @@ dependencies {
     //CHUCKER FOR LOG REQUESTS
     debugImplementation(Util.chuckerLibrary)
     releaseImplementation(Util.chuckerLibraryNoOp)
-
-    //HYPERION FOR DEBUG
+//
+//    HYPERION FOR DEBUG
     Util.Hyperion.all.forEach(::debugImplementation)
     Util.Hyperion.all.forEach(::releaseImplementation)
 }

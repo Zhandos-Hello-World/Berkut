@@ -55,4 +55,8 @@ internal class PhotoRepositoryImpl(
             body = requestBody,
         )
     }
+
+    private fun compressorImage() {
+
+    }
 }

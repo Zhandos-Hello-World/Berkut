@@ -18,6 +18,8 @@ dependencies {
 
     implementation(project(Modules.chooser))
     implementation(project(Modules.shareQR))
+    implementation(project(Modules.tasks))
+    implementation(project(Modules.sos))
 
     AndroidX.all.forEach(::implementation)
     Network.all.forEach(::implementation)
@@ -30,4 +32,5 @@ dependencies {
     implementation(Koin.koinCore)
     implementation(Koin.koinAndroid)
     implementation(Google.material)
+    implementation(Coil.coilCompose)
 }

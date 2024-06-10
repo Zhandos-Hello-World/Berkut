@@ -6,6 +6,7 @@ import kz.cicada.berkut.feature.sos.R
 import kz.cicada.berkut.feature.sos.data.network.HotlineNumbersApi
 import kz.cicada.berkut.lib.core.data.local.UserPreferences
 import kz.cicada.berkut.lib.core.ui.base.BaseViewModel
+import kz.cicada.berkut.lib.core.ui.event.ActionEvent
 import kz.cicada.berkut.lib.core.ui.event.CloseScreenEvent
 import kz.cicada.berkut.lib.core.ui.extensions.tryToUpdate
 
@@ -20,6 +21,10 @@ class HotlineListViewModel(
     }
 
     override fun navigateUp() = sendEvent(CloseScreenEvent)
+
+    override fun onHotlineClick(number: String) {
+        sendEvent(CallToNumberEvent(number))
+    }
 
 
     private fun getData() {
@@ -72,4 +77,6 @@ class HotlineListViewModel(
             ),
         )
     }
+
+    class CallToNumberEvent(val number: String) : ActionEvent()
 }

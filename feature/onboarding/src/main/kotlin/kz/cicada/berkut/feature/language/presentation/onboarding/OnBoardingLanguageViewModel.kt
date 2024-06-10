@@ -51,7 +51,7 @@ internal class OnBoardingLanguageViewModel(
                 }
             },
             onSuccess = {
-                routerFacade.navigateTo(AuthScreens.Login())
+                routerFacade.navigateTo(AuthScreens.ChooseRole())
             },
         )
     }
