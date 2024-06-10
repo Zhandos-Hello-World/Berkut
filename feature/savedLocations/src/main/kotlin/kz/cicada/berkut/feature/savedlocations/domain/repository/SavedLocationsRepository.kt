@@ -12,6 +12,7 @@ interface SavedLocationsRepository {
         name: String,
         radius: Double,
         notify: Boolean,
+        address: String
     )
 
     suspend fun getSaveLocations(

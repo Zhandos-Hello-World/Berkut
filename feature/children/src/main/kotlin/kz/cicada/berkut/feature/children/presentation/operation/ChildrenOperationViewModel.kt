@@ -16,7 +16,7 @@ class ChildrenOperationViewModel(
             name = launcher.username,
             imageUrl = launcher.imageUrl,
             phoneNumber = launcher.phoneNumber,
-            coins = "342"
+            coins = launcher.coins
         )
     )
 

@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -36,7 +37,6 @@ import kz.cicada.berkut.feature.socketconnection.presentation.SocketLauncher
 import kz.cicada.berkut.feature.socketconnection.presentation.SocketViewModel
 import kz.cicada.berkut.lib.core.data.network.UserType
 import kz.cicada.berkut.lib.core.ui.base.fragment.BindingBaseFragment
-import kz.cicada.berkut.lib.core.ui.navigation.FragmentTransition
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -44,7 +44,7 @@ import org.koin.core.parameter.parametersOf
 private const val REQUEST_LOCATION_PERMISSION = 1
 
 class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_maps),
-    OnMapReadyCallback, FragmentTransition.LeftRight {
+    OnMapReadyCallback {
     override val viewModel: MapsViewModel by viewModel()
     private var geoSecondLocation: LatLng? = null
     private var savedLocations: List<SavedLocationsMapLauncher.SafeLocation> = emptyList()
@@ -70,7 +70,6 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
         }
         observeSafeLocations()
         setListeners()
-
     }
 
     override fun onStart() {
@@ -170,11 +169,11 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
             val geoLocation = LatLng(it.latitude, it.longitude)
             mMap.addMarker(
                 MarkerOptions().position(geoLocation).title(it.name).icon(
-                        generateBitmapDescriptorFromRes(
-                            requireContext(),
-                            kz.cicada.berkut.lib.core.ui.compose.R.drawable.ic_eagle,
-                        )
-                    ),
+                    generateBitmapDescriptorFromRes(
+                        requireContext(),
+                        kz.cicada.berkut.core.presentation.R.drawable.ic_berkut,
+                    )
+                ),
             )
             val circleOptions = getCircleOptionsByDefault(geoLocation)
             circleOptions.radius(it.radius)
@@ -185,7 +184,7 @@ class MapsFragment : BindingBaseFragment<FragmentMapsBinding>(R.layout.fragment_
     @SuppressLint("MissingPermission")
     private fun enableMyLocation() {
         if (isPermissionGranted()) {
-            mMap.isMyLocationEnabled = false
+            mMap.isMyLocationEnabled = true
             LocationServices.getFusedLocationProviderClient(requireContext()).lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
                     geoSecondLocation = LatLng(

@@ -22,6 +22,7 @@ class AddTaskChildrenBehavior : ChildrenBehavior {
                         imageUrl = child.imageUrl,
                         phoneNumber = "+7" + child.phoneNumber,
                         username = child.name,
+                        coins = child.coins,
                     )
                 )
             )

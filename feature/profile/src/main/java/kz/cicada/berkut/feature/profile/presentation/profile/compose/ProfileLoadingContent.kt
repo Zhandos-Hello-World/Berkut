@@ -33,6 +33,7 @@ fun ProfileLoadingContent(
     ) {
         Toolbar(
             navigateUp = controller::onNavigateBack,
+            title = "My Profile",
         )
         Spacer(modifier = Modifier.weight(1F))
         CustomProgressBar(

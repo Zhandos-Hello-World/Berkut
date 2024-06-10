@@ -155,24 +155,32 @@ fun SaveLocationListContentDataPreview() {
                         role = "CHILD",
                         userID = 12,
                         phoneNumber = "87071234567",
+                        coins = 21,
+                        imageLink = "https://www.google.com",
                     ),
                     ChildrenResponse(
                         username = "Zhandos2",
                         role = "CHILD",
                         userID = 13,
                         phoneNumber = "87071234567",
+                        coins = 21,
+                        imageLink = "https://www.google.com",
                     ),
                     ChildrenResponse(
                         username = "Zhandos3",
                         role = "CHILD",
                         userID = 14,
                         phoneNumber = "87071234567",
+                        coins = 21,
+                        imageLink = "https://www.google.com",
                     ),
                     ChildrenResponse(
                         username = "Zhandos4",
                         role = "CHILD",
                         userID = 15,
                         phoneNumber = "87071234567",
+                        coins = 21,
+                        imageLink = "https://www.google.com",
                     ),
                 )
             )

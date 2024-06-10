@@ -50,6 +50,7 @@ fun ProfileContent(
     ) {
         Toolbar(
             navigateUp = controller::onNavigateBack,
+            title = "My Profile",
         )
         Column(
             modifier = Modifier

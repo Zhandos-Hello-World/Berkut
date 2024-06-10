@@ -19,6 +19,7 @@ class SavedLocationsRepositoryImpl(
         name: String,
         radius: Double,
         notify: Boolean,
+        address: String
     ) {
         withContext(ioDispatcher) {
             apiService.saveLocations(
@@ -29,6 +30,7 @@ class SavedLocationsRepositoryImpl(
                     name,
                     radius,
                     notify,
+                    address
                 ),
             )
         }

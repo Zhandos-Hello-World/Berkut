@@ -5,4 +5,5 @@ data class ChildrenOperationLauncher(
     val imageUrl: String,
     val phoneNumber: String,
     val username: String,
+    val coins: String,
 )

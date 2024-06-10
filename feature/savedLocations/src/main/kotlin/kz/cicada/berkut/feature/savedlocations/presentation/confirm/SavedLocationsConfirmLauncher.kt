@@ -8,4 +8,5 @@ class SavedLocationsConfirmLauncher(
     val latitude: Double,
     val longitude: Double,
     val radius: Double,
+    val address: String,
 ) : Parcelable

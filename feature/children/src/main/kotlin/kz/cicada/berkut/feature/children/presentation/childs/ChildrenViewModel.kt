@@ -41,14 +41,15 @@ class ChildrenViewModel(
 
                 else -> {
                     val childId = userPreferences.getId().first().toInt()
-                    val child = (uiState.value as? ChildrenUIState.Data)?.list?.find { it.userID == childId }
+                    val child =
+                        (uiState.value as? ChildrenUIState.Data)?.list?.find { it.userID == childId }
                     launcher.behavior.onClickNavigate(
                         Child(
                             id = child?.userID ?: 0,
                             name = child?.username ?: "",
-                            imageUrl = getRandomImageUrl(),
+                            imageUrl = child?.imageLink.orEmpty(),
                             phoneNumber = child?.phoneNumber.orEmpty(),
-                            coins = "3",
+                            coins = child?.coins.toString(),
                         )
                     ).forEach(::sendEvent)
                 }
@@ -66,9 +67,9 @@ class ChildrenViewModel(
             Child(
                 id = child?.userID ?: 0,
                 name = child?.username ?: "",
-                imageUrl = getRandomImageUrl(),
+                imageUrl = child?.imageLink.orEmpty(),
                 phoneNumber = child?.phoneNumber.orEmpty(),
-                coins = "3",
+                coins = child?.coins.toString(),
             )
         ).forEach(::sendEvent)
     }
@@ -79,10 +80,5 @@ class ChildrenViewModel(
                 QRScreens.scanQRScreen(),
             )
         )
-    }
-
-    private fun getRandomImageUrl(): String {
-        val randomId = (1..1000).random()
-        return "https://picsum.photos/id/$randomId/200/300"
     }
 }

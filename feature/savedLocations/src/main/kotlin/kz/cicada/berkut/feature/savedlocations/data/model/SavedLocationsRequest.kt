@@ -15,4 +15,6 @@ data class SavedLocationsRequest(
     val radius: Double,
     @SerialName("notify")
     val notify: Boolean,
+    @SerialName("address")
+    val address: String,
 )

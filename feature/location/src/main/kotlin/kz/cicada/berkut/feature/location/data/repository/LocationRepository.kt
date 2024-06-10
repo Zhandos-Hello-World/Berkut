@@ -5,11 +5,13 @@ import kotlinx.coroutines.flow.first
 import kz.cicada.berkut.feature.location.data.location.LocationApi
 import kz.cicada.berkut.feature.location.data.model.PushLocationRequest
 import kz.cicada.berkut.lib.core.data.local.UserPreferences
+import kz.cicada.berkut.lib.core.ui.compose.system.DeviceAppService
 
 class LocationRepository(
     private val api: LocationApi,
     private val defaultUserPreferences: UserPreferences,
     private val dispatcher: CoroutineDispatcher,
+    private val deviceAppService: DeviceAppService,
 ) {
 
     suspend fun pushCurrentLocation(
@@ -25,7 +27,7 @@ class LocationRepository(
                     timestamp = System.currentTimeMillis().toString(),
                     timeZone = "5",
                     username = defaultUserPreferences.getUserName().first(),
-                    battery = 30,
+                    battery = deviceAppService.getBatteryPercentage(),
                 ),
             )
         }
